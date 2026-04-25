@@ -30,69 +30,74 @@ namespace DAL_SupermarketManagement
             return dt;
         }
 
-        public int ThanhToan(int maKH, int maNV, double thanhToan)
+        // Bạn có thể tạo 1 class DTO_ChiTiet (Mã SP, Số Lượng, Đơn Giá) 
+        // Hoặc đơn giản là truyền thẳng cái DataGridView.Rows xuống (hơi vi phạm mô hình 3 lớp nhưng chạy được)
+        // Ở đây mình dùng List<Tuple> để truyền danh sách sản phẩm cho đúng chuẩn 3 lớp:
+        // Tuple<int, int, int> = <Mã SP, Số Lượng, Đơn Giá>
+
+        public bool ThanhToanToanBo(int maKH, int maNV, double tongTien, List<Tuple<int, int, int>> danhSachSanPham)
         {
+            // Mở kết nối thủ công
+            db.OpenConnect();
+            SqlConnection sqlConn = db.GetConnection();
+            SqlTransaction transaction = sqlConn.BeginTransaction();
 
-            // 1. Chuẩn bị dữ liệu Hóa Đơn
-            // Giả sử mã khách vãng lai trong DB của bạn là 1 (Nếu có nhập sđt thì tìm mã KH tương ứng)
-            int maKhachHang = maKH;
-
-            // Lấy mã nhân viên đang đăng nhập (Bạn cần lưu biến này khi Login thành công)
-            int maNhanVien = maNV; // Ví dụ: 1
-
-            // Lấy tổng tiền từ Label hoặc TextBox hiển thị tổng tiền trên form
-            double tongTien = thanhToan;
-
-            //Lấy mã hóa đơn khi thực hiện thanh toán
-            int maHoaDonMoi = 0;
             try
             {
-                // Sử dụng SqlTransaction để đảm bảo: Nếu lỗi ở ChiTietHoaDon thì sẽ hủy luôn HoaDon (Tránh rác DB)
-                // ==========================================
-                // BƯỚC 1: LƯU HÓA ĐƠN & LẤY MÃ HÓA ĐƠN VỪA TẠO
-                // ==========================================
-                string strSQL = "sp_ThemHoaDonVALuuMaHoaDonVuaTao";
+                // 1. LƯU HÓA ĐƠN & LẤY MÃ
+                SqlCommand cmdHD = new SqlCommand("sp_ThemHoaDonVALuuMaHoaDonVuaTao", sqlConn, transaction);
+                cmdHD.CommandType = CommandType.StoredProcedure;
+                cmdHD.Parameters.AddWithValue("@MaKH", maKH);
+                cmdHD.Parameters.AddWithValue("@MaNV", maNV);
+                cmdHD.Parameters.AddWithValue("@TongTien", tongTien);
 
-                SqlParameter[] parameters = new SqlParameter[] {
-                new SqlParameter("@MaKH", maKhachHang),
-                new SqlParameter("@MaNV", maNhanVien),
-                new SqlParameter("@TongTien", tongTien)
-                };
-
-                object result = db.ResultData(strSQL, parameters);
-
-                // ExecuteScalar trả về cột đầu tiên của dòng đầu tiên (chính là cái ID vừa sinh ra)
+                // ExecuteScalar lấy mã hóa đơn (Giống ResultData của bạn)
+                object result = cmdHD.ExecuteScalar();
+                int maHoaDonMoi = 0;
                 if (result != null && result != DBNull.Value)
                 {
                     maHoaDonMoi = Convert.ToInt32(result);
                 }
+
+                if (maHoaDonMoi <= 0)
+                {
+                    throw new Exception("Không thể lấy được Mã Hóa Đơn mới sinh ra!");
+                }
+
+                // 2. LƯU CHI TIẾT HÓA ĐƠN VÀO CÙNG TRANSACTION ĐÓ
+                foreach (var sp in danhSachSanPham)
+                {
+                    SqlCommand cmdCT = new SqlCommand("sp_ChiTietHoaDon_Insert", sqlConn, transaction);
+                    cmdCT.CommandType = CommandType.StoredProcedure;
+
+                    cmdCT.Parameters.AddWithValue("@MaHD", maHoaDonMoi);
+                    cmdCT.Parameters.AddWithValue("@MaSP", sp.Item1); // Mã SP
+                    cmdCT.Parameters.AddWithValue("@SoLuong", sp.Item2); // Số lượng
+                    cmdCT.Parameters.AddWithValue("@DonGia", sp.Item3); // Đơn giá
+
+                    cmdCT.ExecuteNonQuery();
+                }
+
+                // 3. NẾU MỌI THỨ TRÓT LỌT, MỚI COMMIT TOÀN BỘ VÀO DB
+                transaction.Commit();
+                db.CloseConnect();
+                return true;
             }
-            catch (Exception)
+            catch (SqlException ex)
             {
-                return 0;
-            }
-            return maHoaDonMoi;
-        }
+                // Nếu có bất kỳ lỗi nào (kể cả lỗi kho hàng từ Trigger), Rollback toàn bộ!
+                transaction.Rollback();
+                db.CloseConnect();
 
-        public bool ThemSanPhamVaoHoaDon(int maHoaDon, int maSanPham, int soLuong, int donGia)
-        {
-            try
+                // Bắn lỗi lên BLL/GUI để hiện MessageBox cho người dùng biết chính xác bị gì
+                throw new Exception("Lỗi Database: " + ex.Message);
+            }
+            catch (Exception ex)
             {
-                // ==========================================
-                // BƯỚC 2: LƯU CHI TIẾT HÓA ĐƠN
-                // ==========================================
-                string strSQL = "sp_ChiTietHoaDon_Insert";
-
-                SqlParameter[] parameters = new SqlParameter[] {
-                new SqlParameter("@MaHD", maHoaDon),
-                new SqlParameter("@MaSP", maSanPham),
-                new SqlParameter("@SoLuong", soLuong),
-                new SqlParameter("@DonGia", donGia)
-                };
-
-                return db.ChangeData(strSQL, parameters);
+                transaction.Rollback();
+                db.CloseConnect();
+                throw new Exception("Lỗi hệ thống: " + ex.Message);
             }
-            catch (Exception) { return false; }
         }
     }
 }

@@ -20,12 +20,18 @@ namespace DAL_SupermarketManagement.Connect
         // Khai báo biến SqlConnection dùng để làm cầu nối giữa C# và SQL Server
         SqlConnection sqlConn = null;
 
+        // THÊM HÀM NÀY: Để DAL có thể lấy được ống kết nối và tạo Transaction
+        public SqlConnection GetConnection()
+        {
+            return sqlConn;
+        }
+
         //B2: Tạo cổng kết nối
         /// <summary>
         /// Phương thức dùng để khởi tạo và mở cánh cửa kết nối tới cơ sở dữ liệu.
         /// Lệnh if giúp kiểm tra xem kết nối đã mở chưa, nếu chưa mở thì mới mở để tránh lỗi.
         /// </summary>
-        void OpenConnect()
+         public void OpenConnect()
         {
             sqlConn = new SqlConnection(strConnect);
             if (sqlConn.State != ConnectionState.Open)
@@ -39,7 +45,7 @@ namespace DAL_SupermarketManagement.Connect
         /// Phương thức dùng để ngắt kết nối với SQL Server sau khi dùng xong.
         /// Việc này cực kỳ quan trọng giúp giải phóng bộ nhớ (RAM) và tránh tình trạng treo Database.
         /// </summary>
-        void CloseConnect()
+        public void CloseConnect()
         {
             if (sqlConn.State != ConnectionState.Closed)
             {
@@ -94,13 +100,11 @@ namespace DAL_SupermarketManagement.Connect
         public bool ChangeData(string sql, SqlParameter[] parameters = null)
         {
             OpenConnect();
-            SqlTransaction transaction = sqlConn.BeginTransaction();
             try
             {
                 SqlCommand sqlCmd = new SqlCommand();
                 sqlCmd.CommandText = sql;
                 sqlCmd.CommandType = CommandType.StoredProcedure;
-                sqlCmd.Transaction = transaction;
                 sqlCmd.Connection = sqlConn;
 
                 if (parameters != null)
@@ -110,7 +114,6 @@ namespace DAL_SupermarketManagement.Connect
 
                 // ExecuteNonQuery chuyên dùng để chạy lệnh Thêm/Sửa/Xóa và trả về số dòng bị tác động
                 int rowsAffected = sqlCmd.ExecuteNonQuery();
-                transaction.Commit();
                 CloseConnect();
                 sqlCmd.Dispose();
 
@@ -119,7 +122,6 @@ namespace DAL_SupermarketManagement.Connect
             }
             catch (Exception)
             {
-                transaction.Rollback();
                 CloseConnect(); // Đảm bảo luôn đóng kết nối khi lỗi để chống rò rỉ bộ nhớ
                 return false;
             }
@@ -135,13 +137,11 @@ namespace DAL_SupermarketManagement.Connect
         public object ResultData(string sql, SqlParameter[] parameters = null)
         {
             OpenConnect();
-            SqlTransaction transaction = sqlConn.BeginTransaction();
             try
             {
                 SqlCommand sqlCmd = new SqlCommand();
                 sqlCmd.CommandText = sql;
                 sqlCmd.CommandType = CommandType.StoredProcedure;
-                sqlCmd.Transaction = transaction;
                 sqlCmd.Connection = sqlConn;
 
                 if (parameters != null)
@@ -152,14 +152,12 @@ namespace DAL_SupermarketManagement.Connect
                 // ExecuteScalar chuyên dùng để bốc lấy giá trị nằm ở [Dòng 1, Cột 1] của kết quả SQL
                 object result = sqlCmd.ExecuteScalar();
 
-                transaction.Commit();
                 CloseConnect();
                 sqlCmd.Dispose();
                 return result; // Trả con số tính toán được về
             }
             catch (Exception)
             {
-                transaction.Rollback();
                 CloseConnect(); // Giữ nguyên vị trí code cũ (Đoạn này không chạy tới được do bị chặn bởi return)
                 return null; // Nếu bị lỗi, trả về null báo hiệu thất bại
             }
