@@ -47,8 +47,8 @@ namespace DAL_SupermarketManagement
                 // 1. LƯU HÓA ĐƠN & LẤY MÃ
                 SqlCommand cmdHD = new SqlCommand("sp_ThemHoaDonVALuuMaHoaDonVuaTao", sqlConn, transaction);
                 cmdHD.CommandType = CommandType.StoredProcedure;
-                cmdHD.Parameters.AddWithValue("@MaKH", maKH);
-                cmdHD.Parameters.AddWithValue("@MaNV", maNV);
+                cmdHD.Parameters.AddWithValue("@MaKhachHang", maKH);
+                cmdHD.Parameters.AddWithValue("@MaNhanVien", maNV);
                 cmdHD.Parameters.AddWithValue("@TongTien", tongTien);
 
                 // ExecuteScalar lấy mã hóa đơn (Giống ResultData của bạn)
@@ -70,8 +70,8 @@ namespace DAL_SupermarketManagement
                     SqlCommand cmdCT = new SqlCommand("sp_ChiTietHoaDon_Insert", sqlConn, transaction);
                     cmdCT.CommandType = CommandType.StoredProcedure;
 
-                    cmdCT.Parameters.AddWithValue("@MaHD", maHoaDonMoi);
-                    cmdCT.Parameters.AddWithValue("@MaSP", sp.Item1); // Mã SP
+                    cmdCT.Parameters.AddWithValue("@MaHoaDon", maHoaDonMoi);
+                    cmdCT.Parameters.AddWithValue("@MaSanPham", sp.Item1); // Mã SP
                     cmdCT.Parameters.AddWithValue("@SoLuong", sp.Item2); // Số lượng
                     cmdCT.Parameters.AddWithValue("@DonGia", sp.Item3); // Đơn giá
 

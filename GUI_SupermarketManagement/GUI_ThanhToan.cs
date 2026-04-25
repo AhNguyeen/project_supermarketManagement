@@ -179,71 +179,73 @@ namespace GUI_SupermarketManagement
 
         private void btnThanhToan_Click(object sender, EventArgs e)
         {
-            // Kiểm tra xem có sản phẩm nào trong giỏ hàng không
+            // 1. Kiểm tra xem có sản phẩm nào trong giỏ hàng không
             if (dgvChiTietHoaDon.Rows.Count == 0 || (dgvChiTietHoaDon.Rows.Count == 1 && dgvChiTietHoaDon.Rows[0].IsNewRow))
             {
-                MessageBox.Show("Giỏ hàng đang trống!");
-                return;
+                MessageBox.Show("Giỏ hàng đang trống!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return; // Dừng lại luôn, không làm các bước dưới nữa
             }
-            else
+
+            // Không cần dùng else vì ở trên đã có return
+            try
             {
-                try
+                // 2. Lấy thông tin Hóa Đơn
+                int maNhanVien = UserSession.MaNhanVien;
+
+                // Xử lý chuỗi tổng tiền an toàn
+                string tienChuoi = lblTongTien.Text.Replace(" VNĐ", "").Replace(",", "").Replace(".", "").Trim();
+                double tongTien = 0;
+                double.TryParse(tienChuoi, out tongTien);
+
+                // Xử lý lấy mã khách hàng chuẩn xác
+                int maKH = 1; // Mặc định là 1 (Khách vãng lai)
+                //if (cboKhachHang.SelectedIndex >= 0 && cboKhachHang.SelectedValue != null)
+                //{
+                //    int.TryParse(cboKhachHang.SelectedValue.ToString(), out maKH);
+                //}
+
+                // 3. Gom dữ liệu Chi Tiết Hóa Đơn vào một List
+                // Tuple<int, int, int> tương ứng với <Mã SP, Số Lượng, Đơn Giá>
+                List<Tuple<int, int, int>> danhSachSanPham = new List<Tuple<int, int, int>>();
+
+                foreach (DataGridViewRow row in dgvChiTietHoaDon.Rows)
                 {
-                    int maNhanVien = UserSession.MaNhanVien;
+                    if (row.IsNewRow) continue; // Bỏ qua dòng trống
 
-                    // 1. Xử lý chuỗi tổng tiền an toàn (Bỏ chữ VNĐ và các dấu phẩy/chấm)
-                    string tienChuoi = lblTongTien.Text.Replace(" VNĐ", "").Replace(",", "").Replace(".", "").Trim();
-                    double tongTien = 0;
-                    double.TryParse(tienChuoi, out tongTien);
-
-                    // 2. Xử lý lấy mã khách hàng chuẩn xác
-                    int maKH = 1; // Mặc định là 1 (Khách vãng lai)
-                    if (cboKhachHang.SelectedIndex >= 0 && cboKhachHang.SelectedValue != null)
+                    if (row.Cells["colMaSP_CTHD"].Value != null)
                     {
-                        // Lấy Value thực sự của ComboBox (Cần đảm bảo lúc đổ dữ liệu vào cbo bạn đã set ValueMember = "MaKhachHang")
-                        int.TryParse(cboKhachHang.SelectedValue.ToString(), out maKH);
-                    }
+                        int maSanPham = Convert.ToInt32(row.Cells["colMaSP_CTHD"].Value);
+                        int soLuong = Convert.ToInt32(row.Cells["colSoLuong_CTHD"].Value);
+                        int donGia = Convert.ToInt32(row.Cells["colDonGia"].Value);
 
-                    // Thực hiện tạo hóa đơn (Giả sử hàm này trả về MaHoaDon vừa tạo, hoặc trả về 0 nếu thất bại)
-                    int maHoaDon = bus_ThanhToan.ThanhToan(maKH, maNhanVien, tongTien);
-
-                    if (maHoaDon > 0)
-                    {
-                        // 3. Vòng lặp lấy chi tiết an toàn
-                        foreach (DataGridViewRow row in dgvChiTietHoaDon.Rows)
-                        {
-                            // RẤT QUAN TRỌNG: Bỏ qua dòng trống cuối cùng để không bị lỗi Null
-                            if (row.IsNewRow) continue;
-
-                            // Kiểm tra thêm bước nữa xem cột có dữ liệu thật không
-                            if (row.Cells["colMaSP_CTHD"].Value != null)
-                            {
-                                int maSanPham = Convert.ToInt32(row.Cells["colMaSP_CTHD"].Value);
-                                int soLuong = Convert.ToInt32(row.Cells["colSoLuong_CTHD"].Value);
-                                int donGia = Convert.ToInt32(row.Cells["colDonGia"].Value);
-
-                                bool kq = bus_ThanhToan.ThemSanPhamVaoHoaDon(maHoaDon, maSanPham, soLuong, donGia);
-
-                                if (!kq)
-                                {
-                                    MessageBox.Show("Có lỗi khi thêm sản phẩm mã: " + maSanPham, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                    break;
-                                }
-                            }
-                        }
-
-                        MessageBox.Show("Thanh toán và lưu hóa đơn thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        // Có thể thêm hàm clear dgvChiTietHoaDon ở đây
-                    }
-                    else
-                    {
-                        MessageBox.Show("Không thể tạo Hóa Đơn mới. Vui lòng kiểm tra lại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        // Thêm sản phẩm vào danh sách
+                        danhSachSanPham.Add(new Tuple<int, int, int>(maSanPham, soLuong, donGia));
                     }
                 }
-                catch (Exception ex)
+
+                // 4. GỌI XUỐNG BUS ĐỂ THANH TOÁN 1 LẦN DUY NHẤT
+                // Lưu ý: Tầng BUS của bạn cũng phải cập nhật để gọi đúng hàm ThanhToanToanBo của DAL nhé
+                bool kq = bus_ThanhToan.ThanhToanToanBo(maKH, maNhanVien, tongTien, danhSachSanPham);
+
+                // 5. Xử lý kết quả
+                if (kq)
                 {
-                    MessageBox.Show("Đã xảy ra lỗi: " + ex.Message, "Ngoại lệ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Thanh toán và lưu hóa đơn thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    // Làm sạch DataGridView và Tổng tiền chuẩn bị cho đơn hàng tiếp theo
+                    dgvChiTietHoaDon.Rows.Clear();
+                    lblTongTien.Text = "0 VNĐ";
+                    cboKhachHang.SelectedIndex = -1; // Reset khách hàng (tùy chọn)
                 }
+                else
+                {
+                    MessageBox.Show("Không thể thanh toán. Vui lòng kiểm tra lại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Bất kỳ lỗi nào (kể cả lỗi SQL từ DAL ném lên) đều sẽ rơi vào đây để báo cho bạn biết
+                MessageBox.Show("Đã xảy ra lỗi: " + ex.Message, "Ngoại lệ", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
