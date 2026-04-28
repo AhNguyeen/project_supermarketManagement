@@ -24,7 +24,28 @@ namespace DAL_SupermarketManagement
             try
             {
                 string strSQL = "sp_HoaDon_Search";
+
                 dt = db.ReadData(strSQL);
+            }
+            catch (Exception)
+            {
+                // Trả về null nếu có lỗi để tầng trên dễ dàng xử lý
+                return null;
+            }
+            return dt;
+        }
+
+        public DataTable LayDanhSachHoaDonTheoHoaDon(string maHD = null)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                string strSQL = "sp_HoaDon_Search";
+                SqlParameter[] parameters = new SqlParameter[]
+                {
+                    new SqlParameter("@MaHoaDon", maHD)
+                };
+                dt = db.ReadData(strSQL, parameters);
             }
             catch (Exception)
             {

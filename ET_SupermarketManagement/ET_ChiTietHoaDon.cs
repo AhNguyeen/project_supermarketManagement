@@ -28,6 +28,10 @@ namespace ET_SupermarketManagement
         {
 
         }
+        public ET_ChiTietHoaDon(int maHD)
+        {
+            this.maHD = maHD;
+        }
 
         public int MaCTHD { get => maCTHD; set => maCTHD = value; }
         public int MaHD { get => maHD; set => maHD = value; }

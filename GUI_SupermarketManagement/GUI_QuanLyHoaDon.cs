@@ -261,5 +261,32 @@ namespace GUI_SupermarketManagement
                 }
             }
         }
+
+        private void btnChiTiet_Click(object sender, EventArgs e)
+        {
+            // Sửa lại điều kiện check 1 chút cho an toàn hơn (bỏ qua dòng trống IsNewRow)
+            if (dgvHoaDon.CurrentRow == null || dgvHoaDon.CurrentRow.IsNewRow)
+            {
+                MessageBox.Show("Vui lòng chọn dòng cần xem chi tiết!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                // Lấy mã HD (Bạn lấy từ txtMaHD cũng được, nhưng lấy thẳng từ dòng đang chọn trên DataGridView thì chuẩn hơn)
+                // int maHD = Convert.ToInt32(txtMaHD.Text); 
+                int maHD = Convert.ToInt32(dgvHoaDon.CurrentRow.Cells["colMaHoaDon"].Value); // Thay "colMaHD" bằng tên cột thực tế của bạn
+
+                // Khởi tạo Form Chi Tiết và TRUYỀN MÃ HÓA ĐƠN VÀO TRONG NGOẶC
+                GUI_ChiTietHoaDon chiTiet = new GUI_ChiTietHoaDon(maHD);
+
+                // Mở Form
+                chiTiet.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi: " + ex.Message, "Ngoại lệ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

@@ -18,6 +18,10 @@ namespace BUS_SupermarketManagement
         {
             return dal_hoaDon.LayDanhSachHoaDon();
         }
+        public DataTable LayDanhSachTheoHoaDon(string maHD = null)
+        {
+            return dal_hoaDon.LayDanhSachHoaDonTheoHoaDon(maHD);
+        }
 
         public bool ThemHoaDon(ET_HoaDon hoaDon)
         {

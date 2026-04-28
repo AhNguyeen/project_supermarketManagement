@@ -170,6 +170,7 @@
             this.btnChiTiet.TabIndex = 1;
             this.btnChiTiet.Text = "Chi Tiết Hóa Đơn";
             this.btnChiTiet.UseVisualStyleBackColor = true;
+            this.btnChiTiet.Click += new System.EventHandler(this.btnChiTiet_Click);
             // 
             // btnReport
             // 

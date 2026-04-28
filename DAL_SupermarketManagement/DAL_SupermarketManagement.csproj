@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Connect\ConnectData.cs" />
+    <Compile Include="DAL_ChiTietHoaDon.cs" />
     <Compile Include="DAL_ChiTietKho.cs" />
     <Compile Include="DAL_DanhMuc.cs" />
     <Compile Include="DAL_HoaDon.cs" />
