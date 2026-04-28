@@ -285,6 +285,7 @@
             // 
             // pnContainer
             // 
+            this.pnContainer.AutoScroll = true;
             this.pnContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnContainer.Location = new System.Drawing.Point(196, 0);
             this.pnContainer.Name = "pnContainer";

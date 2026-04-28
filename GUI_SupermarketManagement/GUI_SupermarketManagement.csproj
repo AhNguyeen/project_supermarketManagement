@@ -266,6 +266,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\money_bag.png" />
+    <None Include="Resources\warehouse.png" />
+    <None Include="Resources\shopping-cart.png" />
+    <None Include="Resources\profit.png" />
+    <None Include="Resources\money_bag.png" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
