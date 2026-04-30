@@ -17,7 +17,7 @@ namespace BUS_SupermarketManagement
             return dal_ThanhToan.HienThiDanhSachSanPham(tenSP);
         }
         // Nằm ở class BUS_ThanhToan
-        public bool ThanhToanToanBo(int maKH, int maNV, double tongTien, List<Tuple<int, int, int>> danhSachSanPham)
+        public int ThanhToanToanBo(int maKH, int maNV, double tongTien, List<Tuple<int, int, int>> danhSachSanPham)
         {
             // dal_ThanhToan là đối tượng gọi từ tầng DAL
             return dal_ThanhToan.ThanhToanToanBo(maKH, maNV, tongTien, danhSachSanPham);

@@ -430,6 +430,7 @@
             this.ControlBox = false;
             this.Controls.Add(this.guna2Panel1);
             this.Name = "GUI_ChiTietHoaDon";
+            this.Text = "Chi Tiết Hóa Đơn";
             this.Load += new System.EventHandler(this.GUI_ChiTietHoaDon_Load);
             this.guna2Panel1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);

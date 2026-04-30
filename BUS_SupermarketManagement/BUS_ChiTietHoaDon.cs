@@ -18,5 +18,9 @@ namespace BUS_SupermarketManagement
             return dal_ChiTietHoaDon.LayDachSachHoaDon(chiTietHoaDon);
 
         }
+        public bool CapNhatHoaDon(int maHD, double tongTienMoi, List<Tuple<int, int, int>> danhSachSanPhamMoi)
+        {
+            return dal_ChiTietHoaDon.CapNhatHoaDon(maHD, tongTienMoi, danhSachSanPhamMoi);
+        }
     }
 }

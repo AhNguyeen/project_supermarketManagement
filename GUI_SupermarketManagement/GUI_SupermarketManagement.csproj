@@ -89,6 +89,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GUI_ChinhSuaHoaDon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI_ChinhSuaHoaDon.Designer.cs">
+      <DependentUpon>GUI_ChinhSuaHoaDon.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI_ChiTietHoaDon.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -169,6 +175,9 @@
       <DependentUpon>QuanLySieuThiDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="UserSession.cs" />
+    <EmbeddedResource Include="GUI_ChinhSuaHoaDon.resx">
+      <DependentUpon>GUI_ChinhSuaHoaDon.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI_ChiTietHoaDon.resx">
       <DependentUpon>GUI_ChiTietHoaDon.cs</DependentUpon>
     </EmbeddedResource>

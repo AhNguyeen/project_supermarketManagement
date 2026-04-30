@@ -225,10 +225,10 @@ namespace GUI_SupermarketManagement
 
                 // 4. GỌI XUỐNG BUS ĐỂ THANH TOÁN 1 LẦN DUY NHẤT
                 // Lưu ý: Tầng BUS của bạn cũng phải cập nhật để gọi đúng hàm ThanhToanToanBo của DAL nhé
-                bool kq = bus_ThanhToan.ThanhToanToanBo(maKH, maNhanVien, tongTien, danhSachSanPham);
+                int kq = bus_ThanhToan.ThanhToanToanBo(maKH, maNhanVien, tongTien, danhSachSanPham);
 
                 // 5. Xử lý kết quả
-                if (kq)
+                if (kq > 0)
                 {
                     MessageBox.Show("Thanh toán và lưu hóa đơn thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -236,6 +236,11 @@ namespace GUI_SupermarketManagement
                     dgvChiTietHoaDon.Rows.Clear();
                     lblTongTien.Text = "0 VNĐ";
                     cboKhachHang.SelectedIndex = -1; // Reset khách hàng (tùy chọn)
+
+                    // HIỂN THỊ FORM CHI TIẾT HÓA ĐƠN TRỰC TIẾP
+                    // Chuyển mã hóa đơn vừa tạo vào form chi tiết
+                    GUI_ChiTietHoaDon frmChiTiet = new GUI_ChiTietHoaDon(kq);
+                    frmChiTiet.ShowDialog();
                 }
                 else
                 {

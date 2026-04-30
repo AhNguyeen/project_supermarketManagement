@@ -39,7 +39,7 @@
             this.colTrangThai = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnChiTiet = new System.Windows.Forms.Button();
-            this.btnReport = new System.Windows.Forms.Button();
+            this.btnChinhSua = new System.Windows.Forms.Button();
             this.btnSua = new System.Windows.Forms.Button();
             this.btnXoa = new System.Windows.Forms.Button();
             this.btnThem = new System.Windows.Forms.Button();
@@ -151,7 +151,7 @@
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.btnChiTiet);
-            this.panel2.Controls.Add(this.btnReport);
+            this.panel2.Controls.Add(this.btnChinhSua);
             this.panel2.Controls.Add(this.btnSua);
             this.panel2.Controls.Add(this.btnXoa);
             this.panel2.Controls.Add(this.btnThem);
@@ -172,14 +172,15 @@
             this.btnChiTiet.UseVisualStyleBackColor = true;
             this.btnChiTiet.Click += new System.EventHandler(this.btnChiTiet_Click);
             // 
-            // btnReport
+            // btnChinhSua
             // 
-            this.btnReport.Location = new System.Drawing.Point(6, 282);
-            this.btnReport.Name = "btnReport";
-            this.btnReport.Size = new System.Drawing.Size(208, 38);
-            this.btnReport.TabIndex = 1;
-            this.btnReport.Text = "In Báo Cáo";
-            this.btnReport.UseVisualStyleBackColor = true;
+            this.btnChinhSua.Location = new System.Drawing.Point(6, 282);
+            this.btnChinhSua.Name = "btnChinhSua";
+            this.btnChinhSua.Size = new System.Drawing.Size(208, 38);
+            this.btnChinhSua.TabIndex = 1;
+            this.btnChinhSua.Text = "Chỉnh Sửa Hóa Đơn";
+            this.btnChinhSua.UseVisualStyleBackColor = true;
+            this.btnChinhSua.Click += new System.EventHandler(this.btnChinhSua_Click);
             // 
             // btnSua
             // 
@@ -396,7 +397,7 @@
         private System.Windows.Forms.TextBox txtTongTien;
         private System.Windows.Forms.TextBox txtMaHD;
         private System.Windows.Forms.Button btnChiTiet;
-        private System.Windows.Forms.Button btnReport;
+        private System.Windows.Forms.Button btnChinhSua;
         private System.Windows.Forms.Button btnSua;
         private System.Windows.Forms.Button btnXoa;
         private System.Windows.Forms.Button btnThem;

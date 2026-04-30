@@ -35,7 +35,7 @@ namespace DAL_SupermarketManagement
         // Ở đây mình dùng List<Tuple> để truyền danh sách sản phẩm cho đúng chuẩn 3 lớp:
         // Tuple<int, int, int> = <Mã SP, Số Lượng, Đơn Giá>
 
-        public bool ThanhToanToanBo(int maKH, int maNV, double tongTien, List<Tuple<int, int, int>> danhSachSanPham)
+        public int ThanhToanToanBo(int maKH, int maNV, double tongTien, List<Tuple<int, int, int>> danhSachSanPham)
         {
             // Mở kết nối thủ công
             db.OpenConnect();
@@ -81,7 +81,7 @@ namespace DAL_SupermarketManagement
                 // 3. NẾU MỌI THỨ TRÓT LỌT, MỚI COMMIT TOÀN BỘ VÀO DB
                 transaction.Commit();
                 db.CloseConnect();
-                return true;
+                return maHoaDonMoi;
             }
             catch (SqlException ex)
             {
