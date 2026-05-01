@@ -17,6 +17,7 @@ namespace GUI_SupermarketManagement
         BUS_ThanhToan bus_ThanhToan = new BUS_ThanhToan();
         BUS_KhachHang bus_KhachHang = new BUS_KhachHang();
         BUS_ChiTietHoaDon bus_ChiTietHoaDon = new BUS_ChiTietHoaDon();
+        BUS_HoaDon bus_HoaDon = new BUS_HoaDon();
 
         private int _maHoaDon;
 
@@ -177,6 +178,76 @@ namespace GUI_SupermarketManagement
             else
             {
                 LoadDanhSachDGV(txtTimSP.Text);
+            }
+        }
+
+        private void btnCapNhat_Click(object sender, EventArgs e)
+        {
+            // 1. Kiểm tra giỏ hàng có rỗng không
+            if (dgvChiTietHoaDon.Rows.Count == 0 || (dgvChiTietHoaDon.Rows.Count == 1 && dgvChiTietHoaDon.Rows[0].IsNewRow))
+            {
+                MessageBox.Show("Hóa đơn phải có ít nhất 1 sản phẩm. Nếu khách trả lại toàn bộ, vui lòng dùng chức năng Hủy Hóa Đơn!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // 2. HIỆN THÔNG BÁO XÁC NHẬN TRƯỚC KHI CẬP NHẬT
+            DialogResult dialogResult = MessageBox.Show(
+                "Bạn có chắc chắn muốn lưu các thay đổi cho hóa đơn này không?\nThao tác này sẽ ghi đè lên dữ liệu cũ.",
+                "Xác nhận cập nhật",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            // Nếu người dùng chọn No thì dừng lại luôn
+            if (dialogResult != DialogResult.Yes)
+            {
+                return;
+            }
+
+            try
+            {
+                // 3. Xử lý lấy tổng tiền mới
+                string tienChuoi = lblTongTien.Text.Replace(" VNĐ", "").Replace(",", "").Replace(".", "").Trim();
+                double tongTienMoi = 0;
+                double.TryParse(tienChuoi, out tongTienMoi);
+
+                // 4. Gom danh sách sản phẩm trên DataGridView hiện tại
+                List<Tuple<int, int, int>> danhSachSanPhamMoi = new List<Tuple<int, int, int>>();
+
+                foreach (DataGridViewRow row in dgvChiTietHoaDon.Rows)
+                {
+                    if (row.IsNewRow) continue;
+
+                    // LƯU Ý: Đổi tên cột trong ngoặc kép cho đúng với Name của cột trong dgvChiTietHoaDon của Form này nhé!
+                    if (row.Cells["colMaSP_CTHD"].Value != null)
+                    {
+                        int maSanPham = Convert.ToInt32(row.Cells["colMaSP_CTHD"].Value);
+                        int soLuong = Convert.ToInt32(row.Cells["colSoLuong_CTHD"].Value);
+                        int donGia = Convert.ToInt32(row.Cells["colDonGia"].Value);
+
+                        danhSachSanPhamMoi.Add(new Tuple<int, int, int>(maSanPham, soLuong, donGia));
+                    }
+                }
+
+                // 5. Gọi hàm cập nhật dưới BUS (hàm sử dụng thuật toán Xóa Cũ -> Thêm Mới mà mình đã gợi ý)
+                bool kq = bus_HoaDon.CapNhatHoaDon(_maHoaDon, tongTienMoi, danhSachSanPhamMoi);
+
+                // 6. Xử lý kết quả
+                if (kq)
+                {
+                    MessageBox.Show("Cập nhật hóa đơn thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    // Đóng form chỉnh sửa sau khi thành công (trả về DialogResult.OK để Form Quản lý biết đường load lại dữ liệu)
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Không thể cập nhật hóa đơn. Vui lòng thử lại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Đã xảy ra lỗi: " + ex.Message, "Ngoại lệ", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

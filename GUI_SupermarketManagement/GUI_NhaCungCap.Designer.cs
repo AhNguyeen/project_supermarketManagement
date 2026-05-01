@@ -66,7 +66,7 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1099, 138);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1099, 190);
             this.tableLayoutPanel1.TabIndex = 26;
             // 
             // groupBox1
@@ -83,7 +83,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(545, 134);
+            this.groupBox1.Size = new System.Drawing.Size(545, 186);
             this.groupBox1.TabIndex = 14;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Thông tin chi tiết";
@@ -91,7 +91,7 @@
             // txtDiaChi
             // 
             this.txtDiaChi.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtDiaChi.Location = new System.Drawing.Point(147, 76);
+            this.txtDiaChi.Location = new System.Drawing.Point(147, 102);
             this.txtDiaChi.Margin = new System.Windows.Forms.Padding(2);
             this.txtDiaChi.Name = "txtDiaChi";
             this.txtDiaChi.Size = new System.Drawing.Size(316, 24);
@@ -102,7 +102,7 @@
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(95, 80);
+            this.label3.Location = new System.Drawing.Point(95, 106);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(48, 15);
@@ -112,7 +112,7 @@
             // txtTenNCC
             // 
             this.txtTenNCC.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtTenNCC.Location = new System.Drawing.Point(147, 44);
+            this.txtTenNCC.Location = new System.Drawing.Point(147, 70);
             this.txtTenNCC.Margin = new System.Windows.Forms.Padding(2);
             this.txtTenNCC.Name = "txtTenNCC";
             this.txtTenNCC.Size = new System.Drawing.Size(316, 24);
@@ -123,7 +123,7 @@
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(35, 48);
+            this.label2.Location = new System.Drawing.Point(35, 74);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(108, 15);
@@ -133,7 +133,7 @@
             // txtMaNCC
             // 
             this.txtMaNCC.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtMaNCC.Location = new System.Drawing.Point(147, 11);
+            this.txtMaNCC.Location = new System.Drawing.Point(147, 37);
             this.txtMaNCC.Margin = new System.Windows.Forms.Padding(2);
             this.txtMaNCC.Name = "txtMaNCC";
             this.txtMaNCC.ReadOnly = true;
@@ -145,7 +145,7 @@
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(38, 15);
+            this.label1.Location = new System.Drawing.Point(38, 41);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(105, 15);
@@ -164,7 +164,7 @@
             this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox2.Size = new System.Drawing.Size(546, 134);
+            this.groupBox2.Size = new System.Drawing.Size(546, 186);
             this.groupBox2.TabIndex = 16;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Thông tin liên hệ";
@@ -172,7 +172,7 @@
             // txtEmail
             // 
             this.txtEmail.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtEmail.Location = new System.Drawing.Point(161, 44);
+            this.txtEmail.Location = new System.Drawing.Point(161, 70);
             this.txtEmail.Margin = new System.Windows.Forms.Padding(2);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(316, 24);
@@ -181,7 +181,7 @@
             // txtSoDT
             // 
             this.txtSoDT.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtSoDT.Location = new System.Drawing.Point(161, 12);
+            this.txtSoDT.Location = new System.Drawing.Point(161, 38);
             this.txtSoDT.Margin = new System.Windows.Forms.Padding(2);
             this.txtSoDT.Name = "txtSoDT";
             this.txtSoDT.Size = new System.Drawing.Size(316, 24);
@@ -192,7 +192,7 @@
             this.label6.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(110, 48);
+            this.label6.Location = new System.Drawing.Point(110, 74);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(42, 15);
@@ -204,7 +204,7 @@
             this.label5.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(70, 16);
+            this.label5.Location = new System.Drawing.Point(70, 42);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(82, 15);
@@ -218,7 +218,7 @@
             this.panel1.Controls.Add(this.btnThem);
             this.panel1.Controls.Add(this.btnSua);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 138);
+            this.panel1.Location = new System.Drawing.Point(0, 190);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1099, 61);
             this.panel1.TabIndex = 25;
@@ -276,13 +276,14 @@
             this.dgvNCC.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvNCC.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvNCC.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.dgvNCC.Location = new System.Drawing.Point(0, 199);
+            this.dgvNCC.Location = new System.Drawing.Point(0, 251);
             this.dgvNCC.Margin = new System.Windows.Forms.Padding(2);
             this.dgvNCC.Name = "dgvNCC";
+            this.dgvNCC.ReadOnly = true;
             this.dgvNCC.RowHeadersWidth = 51;
             this.dgvNCC.RowTemplate.Height = 24;
             this.dgvNCC.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvNCC.Size = new System.Drawing.Size(1099, 486);
+            this.dgvNCC.Size = new System.Drawing.Size(1099, 434);
             this.dgvNCC.TabIndex = 24;
             this.dgvNCC.Click += new System.EventHandler(this.dgvNCC_Click);
             // 

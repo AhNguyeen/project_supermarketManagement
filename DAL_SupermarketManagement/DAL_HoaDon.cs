@@ -165,5 +165,48 @@ namespace DAL_SupermarketManagement
                 return false;
             }
         }
+
+        public bool CapNhatHoaDon(int maHD, double tongTienMoi, List<Tuple<int, int, int>> danhSachSanPhamMoi)
+        {
+            db.OpenConnect();
+            SqlConnection sqlConn = db.GetConnection();
+            // Vẫn dùng Transaction để đảm bảo an toàn: Xóa cũ xong phải thêm mới thành công thì mới lưu
+            SqlTransaction transaction = sqlConn.BeginTransaction();
+
+            try
+            {
+                // 1. GỌI STORE: CẬP NHẬT TỔNG TIỀN VÀ XÓA CHI TIẾT CŨ
+                SqlCommand cmdCapNhat = new SqlCommand("sp_CapNhatHoaDon", sqlConn, transaction);
+                cmdCapNhat.CommandType = CommandType.StoredProcedure;
+                cmdCapNhat.Parameters.AddWithValue("@MaHoaDon", maHD);
+                cmdCapNhat.Parameters.AddWithValue("@TongTienMoi", tongTienMoi);
+                cmdCapNhat.ExecuteNonQuery();
+
+                // 2. GỌI LẠI STORE INSERT ĐỂ THÊM CHI TIẾT MỚI VÀO
+                foreach (var sp in danhSachSanPhamMoi)
+                {
+                    // Tận dụng lại Store Proc Insert Chi Tiết mà bạn dùng bên màn hình Thanh Toán
+                    SqlCommand cmdCT = new SqlCommand("sp_ChiTietHoaDon_Insert", sqlConn, transaction);
+                    cmdCT.CommandType = CommandType.StoredProcedure;
+                    cmdCT.Parameters.AddWithValue("@MaHoaDon", maHD);
+                    cmdCT.Parameters.AddWithValue("@MaSanPham", sp.Item1); 
+                    cmdCT.Parameters.AddWithValue("@SoLuong", sp.Item2);
+                    cmdCT.Parameters.AddWithValue("@DonGia", sp.Item3);
+                    cmdCT.ExecuteNonQuery();
+                }
+
+                // 3. THÀNH CÔNG: LƯU TẤT CẢ
+                transaction.Commit();
+                db.CloseConnect();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                // THẤT BẠI: HOÀN TÁC TOÀN BỘ (Undo cả lệnh xóa và update)
+                transaction.Rollback();
+                db.CloseConnect();
+                throw new Exception("Lỗi cập nhật hóa đơn: " + ex.Message);
+            }
+        }
     }
 }

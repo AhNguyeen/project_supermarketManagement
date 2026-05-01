@@ -203,6 +203,7 @@
             this.dgvDanhMuc.Location = new System.Drawing.Point(0, 347);
             this.dgvDanhMuc.Margin = new System.Windows.Forms.Padding(2);
             this.dgvDanhMuc.Name = "dgvDanhMuc";
+            this.dgvDanhMuc.ReadOnly = true;
             this.dgvDanhMuc.RowHeadersWidth = 51;
             this.dgvDanhMuc.RowTemplate.Height = 24;
             this.dgvDanhMuc.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;

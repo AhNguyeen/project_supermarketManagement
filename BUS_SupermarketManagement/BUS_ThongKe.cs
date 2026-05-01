@@ -79,5 +79,10 @@ namespace BUS_SupermarketManagement
         {
             return thongKe_DAL.ThongKeTonKho();
         }
+
+        public DataTable LayDoanhThuTheoDanhMuc()
+        {
+            return thongKe_DAL.LayDoanhThuTheoDanhMuc();
+        }
     }
 }

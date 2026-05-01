@@ -100,7 +100,7 @@ namespace DAL_SupermarketManagement
             int tonKho = 0;
             try
             {
-                string strSQL = "sp_DemTongTonKho";
+                string strSQL = "sp_TongHopTonKho";
                 object result = connect.ResultData(strSQL);
 
                 if (result != null && result != DBNull.Value)
@@ -187,6 +187,29 @@ namespace DAL_SupermarketManagement
             catch (Exception)
             {
                 dt = null;
+            }
+            return dt;
+        }
+
+        public DataTable LayDoanhThuTheoDanhMuc()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                connect.OpenConnect();
+                SqlCommand cmd = new SqlCommand("sp_ThongKeDoanhThuTheoDanhMuc", connect.GetConnection());
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(dt);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Lỗi DAL Thống kê doanh thu theo danh mục: " + ex.Message);
+            }
+            finally
+            {
+                connect.CloseConnect();
             }
             return dt;
         }

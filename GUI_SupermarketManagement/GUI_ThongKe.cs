@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using Guna.Charts.WinForms;
+
 
 namespace GUI_SupermarketManagement
 {
@@ -98,7 +100,7 @@ namespace GUI_SupermarketManagement
         {
             dgvCacSanPhamBanChay.DataSource = thongKe_BUS.LaySanPhamBanChay();
             FormatDataGridView(dgvCacSanPhamBanChay);
-            LoadCanhBaoTonKho_HienDai();
+            LoadBieuDoDoanhThuDanhMuc();
         }
 
         private void FormatDataGridView(DataGridView dgv)
@@ -145,79 +147,48 @@ namespace GUI_SupermarketManagement
             }
         }
 
-        private void LoadCanhBaoTonKho_HienDai()
+        // Nhớ using System.Windows.Forms.DataVisualization.Charting; ở trên đầu file nhé!
+
+        private void LoadBieuDoDoanhThuDanhMuc()
         {
-
-            // 1. Xóa sạch các thẻ cũ (nếu có) để load lại từ đầu
-            flpCuaToi.Controls.Clear();
-
-            // 2. Lấy dữ liệu tồn kho (Giả sử bạn dùng Store sp_ThongKeTonKho)
-            // Ở đây mình ví dụ dùng DataTable dt, bạn tự gọi lớp BUS của bạn vào nhé:
-            DataTable dtTonKho = thongKe_BUS.ThongKeTonKho();
-
-            // ---- THÊM LÁ CHẮN BẢO VỆ Ở ĐÂY ----
-            if (dtTonKho == null || dtTonKho.Rows.Count == 0)
+            try
             {
-                MessageBox.Show("Không thể kết nối đến Database hoặc không có dữ liệu tồn kho!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return; // Dừng lại ngay, không chạy xuống vòng lặp foreach nữa
+                // 1. Lấy dữ liệu từ BUS
+                DataTable dt = thongKe_BUS.LayDoanhThuTheoDanhMuc();
+
+                // 2. Làm sạch dữ liệu cũ trên GunaChart (nếu có)
+                chartDanhThuDanhMuc.Datasets.Clear();
+
+                // Setup tiêu đề (Tùy chọn, bạn có thể chỉnh trực tiếp trong Properties của GunaChart cho khỏe)
+                chartDanhThuDanhMuc.Title.Text = "Cơ cấu doanh thu theo Danh mục";
+
+                // 3. Tạo một Dataset định dạng Doughnut (Biểu đồ tròn khuyết)
+                GunaDoughnutDataset dataset = new GunaDoughnutDataset();
+                dataset.Label = "Doanh thu (VNĐ)"; // Tên hiển thị khi hover chuột
+
+                // 4. Lặp qua từng dòng trong DataTable để nạp dữ liệu vào Dataset
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        string tenDanhMuc = dr["TenDanhMuc"].ToString();
+                        double doanhThu = Convert.ToDouble(dr["TongDoanhThu"]);
+
+                        // Thêm từng điểm dữ liệu: DataPoints.Add("Tên Nhãn", GiáTrị)
+                        dataset.DataPoints.Add(tenDanhMuc, doanhThu);
+                    }
+                }
+
+                // 5. Thêm Dataset đã có dữ liệu vào biểu đồ
+                chartDanhThuDanhMuc.Datasets.Add(dataset);
+
+                // 6. Cập nhật lại biểu đồ để hiển thị
+                chartDanhThuDanhMuc.Update();
             }
-
-            foreach (DataRow row in dtTonKho.Rows)
+            catch (Exception ex)
             {
-                int soLuongTon = Convert.ToInt32(row["Số Lượng Tồn"]);
-
-                // Chỉ hiện những cảnh báo cho sản phẩm có tồn kho dưới 50
-                if (soLuongTon > 50) continue;
-
-                // --- BẮT ĐẦU VẼ 1 CÁI CARD (THẺ) ---
-
-                // 1. Tạo Khung Thẻ (Panel bo góc)
-                Guna.UI2.WinForms.Guna2Panel pnlCard = new Guna.UI2.WinForms.Guna2Panel();
-                pnlCard.Size = new Size(flpCuaToi.Width - 30, 80); // Rộng vừa bằng khay chứa, cao 80
-                pnlCard.BorderRadius = 10;
-                pnlCard.FillColor = Color.FromArgb(255, 245, 235); // Màu nền cam cực nhạt (giống ảnh)
-                pnlCard.BorderColor = Color.FromArgb(255, 150, 50); // Viền cam
-                pnlCard.BorderThickness = 1;
-                pnlCard.Margin = new Padding(5, 5, 5, 10); // Cách đều nhau ra
-
-                // 2. Tạo Tên Sản Phẩm (Label)
-                Label lblTen = new Label();
-                lblTen.Text = row["Tên Sản Phẩm"].ToString();
-                lblTen.Font = new Font("Segoe UI", 11, FontStyle.Bold);
-                lblTen.ForeColor = Color.Black;
-                lblTen.Location = new Point(15, 10);
-                lblTen.AutoSize = true;
-                lblTen.BackColor = Color.Transparent;
-
-                // 3. Tạo chữ hiển thị Số Lượng Tồn
-                Label lblTon = new Label();
-                lblTon.Text = "Tồn: " + soLuongTon.ToString();
-                lblTon.Font = new Font("Segoe UI", 9, FontStyle.Regular);
-                lblTon.ForeColor = Color.DimGray;
-                lblTon.Location = new Point(15, 35);
-                lblTon.AutoSize = true;
-                lblTon.BackColor = Color.Transparent;
-
-                // 4. Tạo thanh Progress Bar màu cam
-                Guna.UI2.WinForms.Guna2ProgressBar pBar = new Guna.UI2.WinForms.Guna2ProgressBar();
-                pBar.Location = new Point(15, 58);
-                pBar.Size = new Size(pnlCard.Width - 70, 8); // Chiều dài thanh bar
-                pBar.BorderRadius = 4;
-                pBar.Maximum = 50; // Đặt mốc 50 là đầy thanh
-                pBar.Value = soLuongTon; // Lượng màu cam hiển thị
-                pBar.ProgressColor = Color.FromArgb(255, 100, 0); // Màu cam đậm
-                pBar.ProgressColor2 = Color.FromArgb(255, 100, 0);
-                pBar.FillColor = Color.FromArgb(255, 220, 190); // Màu nền thanh bar
-
-                // 5. Gắn các chữ và thanh bar vào Khung Thẻ
-                pnlCard.Controls.Add(lblTen);
-                pnlCard.Controls.Add(lblTon);
-                pnlCard.Controls.Add(pBar);
-
-                // 6. Ném Khung Thẻ hoàn thiện vào FlowLayoutPanel để hiển thị lên màn hình
-                flpCuaToi.Controls.Add(pnlCard);
+                MessageBox.Show("Lỗi load biểu đồ: " + ex.Message);
             }
         }
-
     }
 }

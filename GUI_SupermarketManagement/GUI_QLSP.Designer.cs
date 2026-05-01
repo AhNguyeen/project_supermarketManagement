@@ -368,6 +368,7 @@
             this.dgvsanpham.Location = new System.Drawing.Point(0, 427);
             this.dgvsanpham.Margin = new System.Windows.Forms.Padding(2);
             this.dgvsanpham.Name = "dgvsanpham";
+            this.dgvsanpham.ReadOnly = true;
             this.dgvsanpham.RowHeadersWidth = 51;
             this.dgvsanpham.RowTemplate.Height = 24;
             this.dgvsanpham.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;

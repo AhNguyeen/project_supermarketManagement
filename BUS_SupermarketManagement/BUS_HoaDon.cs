@@ -40,5 +40,10 @@ namespace BUS_SupermarketManagement
         {
             return dal_hoaDon.KiemTraTrungThongTinHoaDon(maKhachHang, maNhanVien, ngayLap);
         }
+
+        public bool CapNhatHoaDon(int maHD, double tongTienMoi, List<Tuple<int, int, int>> danhSachSanPhamMoi)
+        {
+            return dal_hoaDon.CapNhatHoaDon(maHD, tongTienMoi, danhSachSanPhamMoi);
+        }
     }
 }
