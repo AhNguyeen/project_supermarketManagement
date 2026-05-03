@@ -154,6 +154,11 @@ namespace GUI_SupermarketManagement
         /// </summary>
         private void btnThem_Click(object sender, EventArgs e)
         {
+            if(KiemTraDuLieuDauVao() == false)
+            {
+                return;
+            }
+
             // 1. Thu thập dữ liệu từ giao diện
             int maKH = Convert.ToInt32(cboMaKH.SelectedValue);
             int maNV = Convert.ToInt32(cboMaNV.SelectedValue);
@@ -314,6 +319,26 @@ namespace GUI_SupermarketManagement
             {
                 MessageBox.Show("Lỗi: " + ex.Message, "Ngoại lệ", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private bool KiemTraDuLieuDauVao()
+        {
+            // 1. Kiểm tra dữ liệu bắt buộc (Ví dụ: Mã khách hàng, Mã nhân viên, Ngày lập)
+            if (cboMaKH.SelectedValue == null || cboMaNV.SelectedValue == null)
+            {
+                MessageBox.Show("Vui lòng chọn đầy đủ thông tin khách hàng và nhân viên!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            // 2. Kiểm tra ngày nhập không được lớn hơn 2050 và bé hơn 2020 (ví dụ về kiểm tra ngày hợp lệ)
+            DateTime ngayLap = dtpNgayLap.Value;
+            if (ngayLap > new DateTime(2050, 1, 1) || ngayLap < new DateTime(2020, 1, 1))
+            {
+                MessageBox.Show("Ngày lập hóa đơn phải từ năm 2020 đến năm 2050!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            return true;
         }
     }
 }
