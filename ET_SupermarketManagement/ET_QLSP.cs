@@ -13,7 +13,9 @@ namespace ET_SupermarketManagement
         public string ChiTiet { get; set; }
         public string HinhAnh { get; set; }
         public int MaDanhMuc { get; set; }
+        public string TenDanhMuc { get; set; }
         public int MaNCC { get; set; }
+        public string TenNCC { get; set; }
         public decimal GiaNhap { get; set; }
         public decimal GiaBan { get; set; }
         public int SoLuongTon { get; set; }
@@ -29,6 +31,18 @@ namespace ET_SupermarketManagement
             this.HinhAnh = hinh;
             this.MaDanhMuc = maDM;
             this.MaNCC = maNCC;
+            this.GiaNhap = giaN;
+            this.GiaBan = giaB;
+            this.SoLuongTon = ton;
+        }
+        public ET_QLSP(int ma, string ten, string chiTiet, string hinh, string tenDM, string tenNCC, decimal giaN, decimal giaB, int ton)
+        {
+            this.MaSanPham = ma;
+            this.TenSanPham = ten;
+            this.ChiTiet = chiTiet;
+            this.HinhAnh = hinh;
+            this.TenDanhMuc = tenDM;
+            this.TenNCC = tenNCC;
             this.GiaNhap = giaN;
             this.GiaBan = giaB;
             this.SoLuongTon = ton;

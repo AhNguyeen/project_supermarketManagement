@@ -215,9 +215,10 @@ namespace GUI_SupermarketManagement
                     GiaBan = decimal.Parse(row.Cells["colGiaBan"].Value.ToString()),
                     HinhAnh = row.Cells["colHinhAnh"].Value.ToString(),
                     ChiTiet = row.Cells["colChiTiet"].Value?.ToString() ?? "",
-                    MaDanhMuc = int.Parse(row.Cells["colMaDanhMuc"].Value.ToString()),
-                    MaNCC = int.Parse(row.Cells["colMaNCC"].Value.ToString()),
-                    GiaNhap = decimal.Parse(row.Cells["colGiaNhap"].Value.ToString())
+                    TenDanhMuc = row.Cells["colTenDanhMuc"].Value.ToString(),
+                    TenNCC = row.Cells["colTenNCC"].Value.ToString(),
+                    GiaNhap = decimal.Parse(row.Cells["colGiaNhap"].Value.ToString()),
+                    SoLuongTon = int.Parse(row.Cells["colSoLuongTon"].Value.ToString())
                 };
 
                 // Gọi Form chi tiết và truyền dữ liệu sang

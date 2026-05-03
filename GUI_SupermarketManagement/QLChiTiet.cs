@@ -25,15 +25,15 @@ namespace GUI_SupermarketManagement
         {
             spHienTai = sp;
             // Thay label bằng txt (TextBox) để người dùng có thể xóa/sửa chữ
-            txtTenSanPham.Text = sp.TenSanPham;
-            txtMaSanPham.Text = sp.MaSanPham.ToString();
-            txtGiaBan.Text = sp.GiaBan.ToString();
+            lblTenSanPham.Text = sp.TenSanPham;
+            lblMaSanPham.Text = sp.MaSanPham.ToString();
+            lblGiaBan.Text = string.Format("{0:N0} VNĐ", sp.GiaBan);
             rtxtMoTa.Text = sp.ChiTiet;
             HienThiAnh(sp.HinhAnh);
             rtxtThongSoKiThuat.Clear();
             rtxtThongSoKiThuat.Text =
-                $"Mã Nhà Cung Cấp: {sp.MaNCC}\n" +
-                $"Mã Danh Mục: {sp.MaDanhMuc}\n" +
+                $"Tên Nhà Cung Cấp: {sp.TenNCC}\n" +
+                $"Tên Danh Mục: {sp.TenDanhMuc}\n" +
                 $"Số Lượng Tồn Kho: {sp.SoLuongTon} sản phẩm\n" +
                 $"Giá Nhập: {string.Format("{0:N0}", sp.GiaNhap)}đ\n" +
                 $"----------------------------\n" +
@@ -79,95 +79,7 @@ namespace GUI_SupermarketManagement
                 Console.WriteLine("Lỗi nạp gợi ý: " + ex.Message);
             }
         }
-        private void picHinhAnh_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog open = new OpenFileDialog();
-            open.Filter = "Image Files(*.jpg; *.jpeg; *.png)|*.jpg; *.jpeg; *.png";
 
-            if (open.ShowDialog() == DialogResult.OK)
-            {
-                // Hiển thị ảnh lên PictureBox
-                picHinhAnh.Image = Image.FromFile(open.FileName);
-                // Lưu đường dẫn file vào Tag để nút "Sửa" có thể sử dụng
-                picHinhAnh.Tag = open.FileName;
-                picHinhAnh.SizeMode = PictureBoxSizeMode.Zoom;
-            }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                // 1. Kiểm tra dữ liệu số tránh lỗi văng chương trình (Validation)
-                if (!decimal.TryParse(txtGiaBan.Text, out decimal giaBan))
-                {
-                    MessageBox.Show("Giá bán phải là số!");
-                    return;
-                }
-
-                // 2. Cập nhật dữ liệu từ các ô nhập vào đối tượng sản phẩm hiện tại
-                spHienTai.TenSanPham = txtTenSanPham.Text;
-                spHienTai.GiaBan = giaBan;
-                spHienTai.ChiTiet = rtxtMoTa.Text;
-
-                // Bổ sung thêm các thông số khác nếu bạn cho phép sửa ở màn hình này
-                // spHienTai.GiaNhap = decimal.Parse(txtGiaNhap.Text);
-
-                // 3. Xử lý Ảnh: Chỉ thực hiện nếu người dùng chọn ảnh mới (Tag chứa đường dẫn file)
-                if (picHinhAnh.Tag != null && File.Exists(picHinhAnh.Tag.ToString()))
-                {
-                    string nguon = picHinhAnh.Tag.ToString(); // Đường dẫn file bên ngoài
-                    string tenFile = Path.GetFileName(nguon); // Lấy tên file
-                    string thuMucAnh = Path.Combine(Application.StartupPath, "Images");
-
-                    // Tạo thư mục Images nếu chưa có
-                    if (!Directory.Exists(thuMucAnh)) Directory.CreateDirectory(thuMucAnh);
-
-                    string dich = Path.Combine(thuMucAnh, tenFile);
-
-                    // Nếu ảnh mới khác ảnh cũ thì mới copy vào thư mục dự án
-                    if (nguon != dich)
-                    {
-                        File.Copy(nguon, dich, true); // true để ghi đè nếu trùng tên
-                    }
-
-                    spHienTai.HinhAnh = tenFile; // Lưu tên file vào đối tượng
-                }
-
-                // 4. Gọi tầng BUS để thực hiện cập nhật xuống SQL Server
-                if (busSP.Sua(spHienTai))
-                {
-                    MessageBox.Show("Cập nhật sản phẩm thành công!");
-                    // Đóng form sau khi sửa xong
-                }
-                else
-                {
-                    MessageBox.Show("Cập nhật thất bại! Vui lòng kiểm tra lại Store Procedure trong SQL.");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi khi lưu: " + ex.Message);
-            }
-
-        }
-
-        //Nút xóa sản phẩm
-        private void button2_Click(object sender, EventArgs e)
-        {
-            //Thông báo cho người dùng thật sự có muốn xóa hay không
-            DialogResult r = MessageBox.Show("Bạn có chắc muốn xóa sản phẩm này?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-            if (r == DialogResult.Yes)
-            {
-                //Nếu người dùng xác nhận YES thì xóa sản phẩm
-                if (busSP.Xoa(spHienTai.MaSanPham))
-                {
-                    //Xóa thành công sẽ thông báo
-                    MessageBox.Show("Đã xóa sản phẩm thành công!");
-                    this.Close();
-                }
-            }
-        }
         //Nút đóng form chi tiết sản phẩm để quay lại giao diện quản lý sản phẩm
         private void btntrolai_Click(object sender, EventArgs e)
         {
@@ -198,7 +110,10 @@ namespace GUI_SupermarketManagement
                     GiaBan = decimal.Parse(row["GiaBan"].ToString()),
                     ChiTiet = row["ChiTiet"].ToString(),
                     HinhAnh = row["HinhAnh"].ToString(),
-                    MaDanhMuc = int.Parse(row["MaDanhMuc"].ToString())
+                    TenDanhMuc = row["TenDanhMuc"].ToString(),
+                    TenNCC = row["TenNCC"].ToString(),
+                    GiaNhap = decimal.Parse(row["GiaNhap"].ToString()),
+                    SoLuongTon = int.Parse(row["SoLuongTon"].ToString())
                 };
                 LoadSanPham(spTimThay);
                 HienThiAnh(spTimThay.HinhAnh);
@@ -207,16 +122,6 @@ namespace GUI_SupermarketManagement
             {
                 MessageBox.Show("Không tìm thấy sản phẩm này!");
             }
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
         }
         // Đặt tên PictureBox của bạn thay cho "picHinhAnh" nếu bạn đặt tên khác
         private void HienThiAnh(string imageUrl)
