@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace GUI_SupermarketManagement
 {
@@ -82,6 +83,12 @@ namespace GUI_SupermarketManagement
         /// </summary>
         private void btnThem_Click(object sender, EventArgs e)
         {
+            // Nếu kiểm tra thất bại thì dừng lại luôn, không chạy code thêm vào Database nữa
+            if (!KiemTraTenKhoHopLe())
+            {
+                return;
+            }
+
             // Bước 1: Kiểm tra tính hợp lệ của dữ liệu đầu vào (Validation)
             if (string.IsNullOrWhiteSpace(txtTenKho.Text) ||
                 cboMaNhanVien.SelectedIndex == 0 ||
@@ -231,6 +238,61 @@ namespace GUI_SupermarketManagement
                 // Hiển thị Form Chi tiết lên dưới dạng Dialog (phải tắt form con mới thao tác được form cha)
                 chiTiet.ShowDialog();
             }
+        }
+
+        private bool KiemTraTenKhoHopLe()
+        {
+            // Cắt bỏ khoảng trắng ở 2 đầu (nếu người dùng lỡ bấm phím cách)
+            string tenKho = txtTenKho.Text.Trim();
+
+            // 1. Kiểm tra không được để trống
+            if (string.IsNullOrWhiteSpace(tenKho))
+            {
+                MessageBox.Show("Vui lòng nhập tên kho!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtTenKho.Focus();
+                return false;
+            }
+
+            // 2. Kiểm tra giới hạn ký tự (Từ 3 đến 255)
+            if (tenKho.Length < 3 || tenKho.Length > 255)
+            {
+                MessageBox.Show("Tên kho phải có độ dài từ 3 đến 255 ký tự!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtTenKho.Focus();
+                return false;
+            }
+
+            // 3. Kiểm tra không có ký tự đặc biệt
+            // \p{L}: Chữ cái (bao gồm tiếng Việt có dấu)
+            // \d: Chữ số
+            // \s: Khoảng trắng
+            Regex regex = new Regex(@"^[\p{L}\d\s]+$");
+            if (!regex.IsMatch(tenKho))
+            {
+                MessageBox.Show("Tên kho không được chứa ký tự đặc biệt (chỉ cho phép chữ, số và khoảng trắng)!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtTenKho.Focus();
+                return false;
+            }
+
+            // 4. Kiểm tra xem tên kho này đã tồn tại trong ngày hôm nay chưa (Chống trùng lặp)
+            DateTime ngayNhap = dtpNgayNhap.Value;
+            int maNV = Convert.ToInt32(cboMaNhanVien.SelectedValue);
+            int maNCC = Convert.ToInt32(cboNCC.SelectedValue);
+            if (bus_Kho.KiemTraTrung(tenKho, maNV, maNCC, ngayNhap) == true)
+            {
+                MessageBox.Show("Tên kho này đã tồn tại trong ngày hôm nay với cùng nhân viên phụ trách và nhà cung cấp! Vui lòng chọn tên khác hoặc thay đổi thông tin liên quan.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtTenKho.Focus();
+                return false;
+            }
+
+            // 5. Kiểm tra ngày nhập không được lớn 2100-01-01 hoặc nhỏ hơn 2000-01-01 (Giới hạn khoảng thời gian hợp lý)
+            if (ngayNhap > new DateTime(2100, 1, 1) || ngayNhap < new DateTime(2000, 1, 1))
+            {
+                MessageBox.Show("Ngày nhập phải nằm trong khoảng từ 01/01/2000 đến 01/01/2100!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                dtpNgayNhap.Focus();
+                return false;
+            }
+
+            return true; // Dữ liệu hoàn toàn hợp lệ
         }
     }
 }

@@ -431,7 +431,15 @@ namespace GUI_SupermarketManagement
             if (giaBan <= giaNhap)
             {
                 MessageBox.Show("Cảnh báo: Giá bán đang nhỏ hơn hoặc bằng giá nhập!", "Lưu ý", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                // Có thể return false nếu bạn bắt buộc giá bán phải cao hơn giá nhập
+                return false;
+            }
+
+            // 6. Tên sản phẩm phải có độ dài từ 3 đến 255 ký tự
+            if (txtTenSanPham.Text.Length < 3 || txtTenSanPham.Text.Length > 255)
+            {
+                MessageBox.Show("Tên sản phẩm phải có độ dài từ 3 đến 255 ký tự!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtTenSanPham.Focus();
+                return false;
             }
 
             return true; // Mọi thứ đều chuẩn xác
