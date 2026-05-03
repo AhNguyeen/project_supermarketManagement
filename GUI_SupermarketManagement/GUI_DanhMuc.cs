@@ -56,6 +56,13 @@ namespace GUI_SupermarketManagement
         /// </summary>
         private void btnThem_Click(object sender, EventArgs e)
         {
+            // Kiểm tra trước khi thêm 
+            if (KiemTraTextBox() == false)
+            {
+                // Nếu có TextBox nào bị bỏ trống hoặc chứa ký tự đặc biệt thì sẽ không thực hiện thêm
+                return;
+            }
+
             // Bắt lỗi: Không cho phép thêm nếu bỏ trống Tên Danh Mục
             if (string.IsNullOrWhiteSpace(txtTenDanhMuc.Text))
             {
@@ -185,6 +192,38 @@ namespace GUI_SupermarketManagement
                     return;
                 }
             }
+        }
+
+        //private bool KiemTraTrungTenDanhMuc(string tenDanhMuc)
+        //{
+        //    // Gọi BUS để kiểm tra xem tên danh mục đã tồn tại chưa
+        //    return bus_DanhMuc.KiemTraTrungTenDanhMuc(tenDanhMuc);
+        //}
+
+        private bool KiemTraTextBox()
+        {
+            // Kiểm tra xem có TextBox nào đang bị bỏ trống hay không
+            if (string.IsNullOrWhiteSpace(txtTenDanhMuc.Text))
+            {
+                MessageBox.Show("Vui lòng điền đầy đủ thông tin trước khi thực hiện thao tác!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false; // Có TextBox bị bỏ trống
+            }
+
+            // Kiểm tra kí tự đặc biệt (Chỉ cho phép chữ, số và khoảng trắng)
+            if (System.Text.RegularExpressions.Regex.IsMatch(txtTenDanhMuc.Text, @"[^a-zA-Z0-9\s]"))
+            {
+                MessageBox.Show("Tên danh mục không được chứa ký tự đặc biệt!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false; // Có TextBox chứa ký tự đặc biệt
+            }
+
+            // Bắt giới hạn độ dài kí tự từ 3 đến 255 ký tự
+            if (txtTenDanhMuc.Text.Length < 3 || txtTenDanhMuc.Text.Length > 255)
+            {
+                MessageBox.Show("Tên danh mục phải có độ dài từ 3 đến 255 ký tự!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false; // Độ dài không hợp lệ
+            }
+
+            return true; // Tất cả TextBox đều đã được điền
         }
     }
 }

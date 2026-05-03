@@ -58,17 +58,14 @@ namespace GUI_SupermarketManagement
         /// </summary>
         private void btnThem_Click(object sender, EventArgs e)
         {
-            // Kiểm tra tính hợp lệ: Không được để trống bất kỳ ô nào
-            if (string.IsNullOrWhiteSpace(txtTenNCC.Text) ||
-                string.IsNullOrWhiteSpace(txtDiaChi.Text) ||
-                string.IsNullOrWhiteSpace(txtSoDT.Text) ||
-                string.IsNullOrWhiteSpace(txtEmail.Text))
+            // Bước 1: Kiểm tra tính hợp lệ của dữ liệu nhập vào
+            if (KiemTraTinhHopLe() == false)
             {
-                MessageBox.Show("Vui lòng nhập đầy đủ các thông tin để thêm nhà cung cấp mới!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                return; // Nếu dữ liệu không hợp lệ, dừng lại và không thực hiện thêm
             }
             else
             {
+                // Bước 2: Đóng gói dữ liệu vào đối tượng ET
                 // Đóng gói dữ liệu từ giao diện vào đối tượng Thực thể (ET)
                 // Lưu ý: Thêm mới nên không cần truyền Mã NCC (SQL tự tăng)
                 ET_NhaCungCap nhaCungCap = new ET_NhaCungCap(txtTenNCC.Text, txtDiaChi.Text, txtSoDT.Text, txtEmail.Text);
@@ -92,11 +89,9 @@ namespace GUI_SupermarketManagement
         /// </summary>
         private void btnSua_Click(object sender, EventArgs e)
         {
-            // Kiểm tra xem đã chọn Nhà cung cấp nào chưa (Dựa vào ô Mã NCC)
-            if (string.IsNullOrWhiteSpace(txtMaNCC.Text))
+            if(KiemTraTinhHopLe() == false)
             {
-                MessageBox.Show("Vui lòng chọn nhà cung cấp từ danh sách bên dưới để sửa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                return; // Nếu dữ liệu không hợp lệ, dừng lại và không thực hiện sửa
             }
 
             // Đóng gói dữ liệu mới vào đối tượng
@@ -183,6 +178,72 @@ namespace GUI_SupermarketManagement
         private void btnLamMoi_Click(object sender, EventArgs e)
         {
             ClearForm();
+        }
+
+        private void txtSoDT_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Chỉ cho phép nhập số (IsDigit) và các phím điều khiển như Backspace, Delete (IsControl)
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true; // Hủy bỏ ký tự vừa gõ nếu không phải là số
+            }
+        }
+
+        private bool KiemTraTinhHopLe()
+        {
+            // Kiểm tra tính hợp lệ của dữ liệu trước khi Thêm/Sửa
+            if (string.IsNullOrWhiteSpace(txtTenNCC.Text) ||
+                string.IsNullOrWhiteSpace(txtDiaChi.Text) ||
+                string.IsNullOrWhiteSpace(txtSoDT.Text) ||
+                string.IsNullOrWhiteSpace(txtEmail.Text))
+            {
+                MessageBox.Show("Vui lòng nhập đầy đủ các thông tin!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+            // Kiểm tra định dạng email đơn giản (có chứa '@' và '.')
+            if (!txtEmail.Text.Contains("@") || !txtEmail.Text.Contains("."))
+            {
+                MessageBox.Show("Vui lòng nhập địa chỉ email hợp lệ!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+            //Kiểm tra số điện thoại chỉ chứa hơn 9 kí tự và ít hơn 11 kí tự
+            if (txtSoDT.Text.Length < 9 || txtSoDT.Text.Length > 11)
+            {
+                MessageBox.Show("Số điện thoại phải có độ dài 10 chữ số!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+            // Kiểm tra giới hạn kí tự cho tên nhà cung cấp (từ 3 đến 255 ký tự)
+            if (txtTenNCC.Text.Length < 3 || txtTenNCC.Text.Length > 255)
+            {
+                MessageBox.Show("Tên nhà cung cấp phải có độ dài từ 3 đến 255 ký tự!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+            // Kiểm tra giới hạn kí tự cho địa chỉ (từ 5 đến 255 ký tự)
+            if (txtDiaChi.Text.Length < 5 || txtDiaChi.Text.Length > 255)
+            {
+                MessageBox.Show("Địa chỉ phải có độ dài từ 5 đến 255 ký tự!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+            // Kiểm tra giới hạn kí tự cho email (từ 5 đến 255 ký tự)
+            if (txtEmail.Text.Length < 5 || txtEmail.Text.Length > 50)
+            {
+                MessageBox.Show("Email phải có độ dài từ 5 đến 50 ký tự!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+            // Kiểm tra kí tự đặc biệt trong tên nhà cung cấp (chỉ cho phép chữ, số và khoảng trắng)
+            if (System.Text.RegularExpressions.Regex.IsMatch(txtTenNCC.Text, @"[^a-zA-Z0-9\s]"))
+            {
+                MessageBox.Show("Tên nhà cung cấp không được chứa ký tự đặc biệt!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+            // Kiểm tra kí tự đặc biệt trong địa chỉ (chỉ cho phép chữ, số, dấu chấm, dấu phẩy và khoảng trắng)
+            if (System.Text.RegularExpressions.Regex.IsMatch(txtDiaChi.Text, @"[^a-zA-Z0-9\s.,]"))
+            {
+                MessageBox.Show("Địa chỉ không được chứa ký tự đặc biệt!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            return true; // Dữ liệu hợp lệ
         }
     }
 }
