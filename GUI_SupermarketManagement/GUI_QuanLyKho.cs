@@ -91,37 +91,23 @@ namespace GUI_SupermarketManagement
 
             // Bước 1: Kiểm tra tính hợp lệ của dữ liệu đầu vào (Validation)
             if (string.IsNullOrWhiteSpace(txtTenKho.Text) ||
-                cboMaNhanVien.SelectedIndex == 0 ||
-                cboNCC.SelectedIndex == 0)
+                cboMaNhanVien.SelectedIndex == -1 ||
+                cboNCC.SelectedIndex == -1)
             {
-                MessageBox.Show("Vui lòng không để trống TÊN KHO, chọn NHÂN VIÊN PHỤ TRÁCH và chọn NHÀ CUNG CẤP!!");
+                MessageBox.Show("Vui lòng không để trống tên kho, chọn nhân viên và chọn nhà cung cấp!!");
                 return; // Dừng lại, không chạy code phía dưới nữa
             }
             else
             {
-                // Bước 2: Thu thập thông tin từ giao diện để chuẩn bị thêm vào CSDL
-                DateTime ngayNhap = dtpNgayNhap.Value;
-                int maNV = Convert.ToInt32(cboMaNhanVien.SelectedValue);
-                int maNCC = Convert.ToInt32(cboNCC.SelectedValue);
-                int maKho = Convert.ToInt32(txtMaKho.Text);
+                // Bước 4: Đóng gói dữ liệu vào thực thể (Entity)
+                ET_Kho kho = new ET_Kho(txtTenKho.Text, Convert.ToInt32(cboMaNhanVien.SelectedValue), Convert.ToInt32(cboNCC.SelectedValue), dtpNgayNhap.Value, rtxtGhiChu.Text);
 
-                // Bước 3: Kiểm tra xem kho này đã tồn tại trong ngày hôm nay chưa (Chống trùng lặp)
-                if (bus_Kho.KiemTraTrung(txtTenKho.Text, maNV, maNCC, ngayNhap) == true)
-                {
-                    MessageBox.Show("Dữ liệu trùng lặp!");
-                    return;
-                }
-                else
-                {
-                    // Bước 4: Đóng gói dữ liệu vào thực thể (Entity)
-                    ET_Kho kho = new ET_Kho(maKho, txtTenKho.Text, maNV, maNCC, ngayNhap, rtxtGhiChu.Text);
+                // Bước 5: Gọi lớp BUS để thực hiện lệnh INSERT xuống SQL
+                bus_Kho.ThemKho(kho);
+                
+                // Bước 6: Làm mới lại bảng để hiển thị kho vừa thêm
+                LoadDanhSach();
 
-                    // Bước 5: Gọi lớp BUS để thực hiện lệnh INSERT xuống SQL
-                    bus_Kho.ThemKho(kho);
-
-                    // Bước 6: Làm mới lại bảng để hiển thị kho vừa thêm
-                    LoadDanhSach();
-                }
             }
         }
 
@@ -138,20 +124,22 @@ namespace GUI_SupermarketManagement
             }
             else
             {
+                // Kiểm tra các trường dữ liệu có dữ liệu hợp lệ hay không trước khi gửi lệnh UPDATE xuống Database
+                if (string.IsNullOrWhiteSpace(txtMaKho.Text))
+                {
+                    MessageBox.Show("Vui lòng chọn kho cần sửa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
                 // Xác nhận lại với người dùng trước khi sửa để tránh bấm nhầm
                 DialogResult r;
                 r = MessageBox.Show("Bạn có chắc muốn sửa " + txtTenKho.Text + " hay không ?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
 
                 if (r == DialogResult.Yes)
                 {
-                    // Lấy dữ liệu mới từ các ô nhập liệu
-                    DateTime ngayNhap = dtpNgayNhap.Value;
-                    int maNV = Convert.ToInt32(cboMaNhanVien.SelectedValue);
-                    int maNCC = Convert.ToInt32(cboNCC.SelectedValue);
-                    int maKho = Convert.ToInt32(txtMaKho.Text);
-
                     // Đóng gói và gửi lệnh UPDATE
-                    ET_Kho kho = new ET_Kho(maKho, txtTenKho.Text, maNV, maNCC, ngayNhap, rtxtGhiChu.Text);
+                    ET_Kho kho = new ET_Kho(Convert.ToInt32(txtMaKho.Text), txtTenKho.Text, Convert.ToInt32(cboMaNhanVien.SelectedValue), Convert.ToInt32(cboNCC.SelectedValue), dtpNgayNhap.Value, rtxtGhiChu.Text);
+
                     bus_Kho.SuaKho(kho);
 
                     LoadDanhSach();
@@ -177,10 +165,10 @@ namespace GUI_SupermarketManagement
 
                 // Gán giá trị cho ComboBox (chọn theo ValueMember là ID)
                 cboMaNhanVien.SelectedValue = dgvKho.Rows[index].Cells[2].Value.ToString();
-                cboNCC.SelectedValue = dgvKho.Rows[index].Cells[3].Value.ToString();
+                cboNCC.SelectedValue = dgvKho.Rows[index].Cells[4].Value.ToString();
 
-                dtpNgayNhap.Text = dgvKho.Rows[index].Cells[4].Value.ToString();
-                rtxtGhiChu.Text = dgvKho.Rows[index].Cells[5].Value.ToString();
+                dtpNgayNhap.Text = dgvKho.Rows[index].Cells[6].Value.ToString();
+                rtxtGhiChu.Text = dgvKho.Rows[index].Cells[7].Value.ToString();
             }
             catch (Exception ex)
             {

@@ -19,6 +19,14 @@ namespace ET_SupermarketManagement
         {
         }
 
+        public ET_Kho(string tenKho, int maNV, int maNCC, DateTime ngayNhap, string ghiChu)
+        {
+            this.tenKho = tenKho;
+            this.maNV = maNV;
+            this.maNCC = maNCC;
+            this.ngayNhap = ngayNhap;
+            this.ghiChu = ghiChu;
+        }
         public ET_Kho(int maKho, string tenKho, int maNV, int maNCC, DateTime ngayNhap, string ghiChu)
         {
             this.maKho = maKho;
