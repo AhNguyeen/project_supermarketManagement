@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace GUI_SupermarketManagement
 {
@@ -66,6 +67,12 @@ namespace GUI_SupermarketManagement
         {
             try
             {
+                // BƯỚC 1: Gọi hàm bắt lỗi
+                if (KiemTraHopLe() == false)
+                {
+                    return; // Dừng lại ngay lập tức nếu có lỗi nhập liệu
+                }
+
                 // 1. Kiểm tra tính hợp lệ: Bắt buộc phải chọn Danh mục và Nhà cung cấp
                 if (cbDanhMuc.SelectedValue == null || cbNhaCungCap.SelectedValue == null)
                 {
@@ -73,6 +80,7 @@ namespace GUI_SupermarketManagement
                     return;
                 }
 
+                // BƯỚC 2: Nếu qua được ải trên, thì tiến hành gom dữ liệu và gọi xuống BUS / DAL
                 // 2. Thu thập dữ liệu từ các ô nhập liệu
                 sp.TenSanPham = txtTenSanPham.Text;
                 sp.ChiTiet = rtxtMoTa.Text;
@@ -202,14 +210,14 @@ namespace GUI_SupermarketManagement
                 // Khởi tạo một đối tượng sản phẩm và nhét toàn bộ dữ liệu của dòng đó vào
                 ET_QLSP spChon = new ET_QLSP
                 {
-                    MaSanPham = int.Parse(row.Cells["MaSanPham"].Value.ToString()),
-                    TenSanPham = row.Cells["TenSanPham"].Value.ToString(),
-                    GiaBan = decimal.Parse(row.Cells["GiaBan"].Value.ToString()),
-                    HinhAnh = row.Cells["HinhAnh"].Value.ToString(),
-                    ChiTiet = row.Cells["ChiTiet"].Value?.ToString() ?? "",
-                    MaDanhMuc = int.Parse(row.Cells["MaDanhMuc"].Value.ToString()),
-                    MaNCC = int.Parse(row.Cells["MaNCC"].Value.ToString()),
-                    GiaNhap = decimal.Parse(row.Cells["GiaNhap"].Value.ToString())
+                    MaSanPham = int.Parse(row.Cells["colMaSanPham"].Value.ToString()),
+                    TenSanPham = row.Cells["colTenSanPham"].Value.ToString(),
+                    GiaBan = decimal.Parse(row.Cells["colGiaBan"].Value.ToString()),
+                    HinhAnh = row.Cells["colHinhAnh"].Value.ToString(),
+                    ChiTiet = row.Cells["colChiTiet"].Value?.ToString() ?? "",
+                    MaDanhMuc = int.Parse(row.Cells["colMaDanhMuc"].Value.ToString()),
+                    MaNCC = int.Parse(row.Cells["colMaNCC"].Value.ToString()),
+                    GiaNhap = decimal.Parse(row.Cells["colGiaNhap"].Value.ToString())
                 };
 
                 // Gọi Form chi tiết và truyền dữ liệu sang
@@ -308,38 +316,124 @@ namespace GUI_SupermarketManagement
             }
         }
 
-        /// <summary>
-        /// Bắt sự kiện click vào bảng - DÙNG ĐỂ LOAD ẢNH ONLINE TỪ LINK WEB (LoadAsync)
-        /// </summary>
         private void dgvsanpham_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            // Đảm bảo người dùng click vào một dòng hợp lệ
+            // Đảm bảo người dùng click vào một dòng hợp lệ (không click vào header)
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow row = dgvsanpham.Rows[e.RowIndex];
 
-                // Lấy đường dẫn (URL) ảnh từ cột "HinhAnh"
-                string imageUrl = row.Cells["HinhAnh"].Value?.ToString();
-
-                if (!string.IsNullOrEmpty(imageUrl))
+                try
                 {
-                    try
+                    // =================================================================
+                    // 1. ĐỔ DỮ LIỆU LÊN CÁC TEXTBOX THÔNG TIN CHUNG & GIÁ
+                    // (Lưu ý: Thay đổi tên control txt..., cbo... cho đúng với tên bạn đặt)
+                    // =================================================================
+
+                    // Tên trong ngoặc kép vuông ["..."] phải TRÙNG với thuộc tính Name của cột trong DataGridView
+                    txtMaSanPham.Text = row.Cells["colMaSanPham"].Value?.ToString();
+                    txtTenSanPham.Text = row.Cells["colTenSanPham"].Value?.ToString();
+                    rtxtMoTa.Text = row.Cells["colChiTiet"].Value?.ToString();
+                    txtGiaNhap.Text = row.Cells["colGiaNhap"].Value?.ToString();
+                    txtGiaBan.Text = row.Cells["colGiaBan"].Value?.ToString();
+                    // =================================================================
+                    // 2. ĐỔ DỮ LIỆU LÊN COMBOBOX TỪ CỘT MÃ (Cột đã bị ẩn)
+                    // =================================================================
+                    // Chúng ta lấy giá trị Mã Danh Mục và Mã NCC ẩn để gán vào SelectedValue
+                    if (row.Cells["colMaDanhMuc"].Value != null)
                     {
-                        // Bắt buộc URL phải bắt đầu bằng http hoặc https thì mới chạy LoadAsync
-                        if (imageUrl.StartsWith("http"))
+                        cbDanhMuc.SelectedValue = row.Cells["colMaDanhMuc"].Value;
+                    }
+
+                    if (row.Cells["colMaNCC"].Value != null)
+                    {
+                        cbNhaCungCap.SelectedValue = row.Cells["colMaNCC"].Value;
+                    }
+
+                    // =================================================================
+                    // 3. XỬ LÝ LOAD ẢNH SẢN PHẨM (Đã an toàn hơn)
+                    // =================================================================
+                    string imageUrl = row.Cells["colHinhAnh"].Value?.ToString();
+
+                    if (!string.IsNullOrEmpty(imageUrl) && (imageUrl.StartsWith("http") || imageUrl.StartsWith("https")))
+                    {
+                        try
                         {
-                            // LoadAsync giúp ứng dụng không bị đơ/treo trong lúc chờ tải ảnh từ mạng về
+                            // LoadAsync giúp ứng dụng không bị đơ/treo
                             pbAnhSanPham.LoadAsync(imageUrl);
                             pbAnhSanPham.SizeMode = PictureBoxSizeMode.Zoom;
                         }
+                        catch
+                        {
+                            // Lỗi mạng hoặc link chết
+                            pbAnhSanPham.Image = null;
+                        }
                     }
-                    catch (Exception)
+                    else
                     {
-                        // Nếu mạng lỗi hoặc link chết thì xóa hình
+                        // Nếu URL rỗng hoặc không hợp lệ thì xóa hình cũ trên PictureBox
                         pbAnhSanPham.Image = null;
                     }
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi khi chọn sản phẩm: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
+        }
+
+        private void txtGiaNhap_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Chỉ cho phép nhập số (IsDigit) và các phím điều khiển như Backspace, Delete (IsControl)
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true; // Hủy bỏ ký tự vừa gõ nếu không phải là số
+            }
+        }
+
+        private bool KiemTraHopLe()
+        {
+            // 1. Kiểm tra không được để trống Tên Sản Phẩm
+            if (string.IsNullOrWhiteSpace(txtTenSanPham.Text))
+            {
+                MessageBox.Show("Vui lòng nhập tên sản phẩm!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtTenSanPham.Focus();
+                return false;
+            }
+
+            // 2. Kiểm tra Tên Sản Phẩm không có ký tự đặc biệt (!@#$%^&...)
+            // Giải thích Regex: \p{L} là chữ cái (gồm cả tiếng Việt có dấu), \d là số, \s là khoảng trắng.
+            Regex regexTen = new Regex(@"^[\p{L}\d\s]+$");
+            if (!regexTen.IsMatch(txtTenSanPham.Text))
+            {
+                MessageBox.Show("Tên sản phẩm không được chứa ký tự đặc biệt!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtTenSanPham.Focus();
+                return false;
+            }
+
+            // 3. Kiểm tra không được để trống Giá
+            if (string.IsNullOrWhiteSpace(txtGiaNhap.Text) || string.IsNullOrWhiteSpace(txtGiaBan.Text))
+            {
+                MessageBox.Show("Vui lòng nhập đầy đủ giá nhập và giá bán!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            // 4. Kiểm tra trường hợp copy-paste chữ vào ô Giá (Phòng hờ)
+            double giaNhap, giaBan;
+            if (!double.TryParse(txtGiaNhap.Text, out giaNhap) || !double.TryParse(txtGiaBan.Text, out giaBan))
+            {
+                MessageBox.Show("Giá tiền nhập vào không hợp lệ!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            // 5. Ràng buộc logic kinh doanh (Tùy chọn thêm)
+            if (giaBan <= giaNhap)
+            {
+                MessageBox.Show("Cảnh báo: Giá bán đang nhỏ hơn hoặc bằng giá nhập!", "Lưu ý", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                // Có thể return false nếu bạn bắt buộc giá bán phải cao hơn giá nhập
+            }
+
+            return true; // Mọi thứ đều chuẩn xác
         }
     }
 }
