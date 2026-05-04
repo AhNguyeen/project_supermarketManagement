@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ET_ChiTietHoaDon.cs" />
+    <Content Include="ET_ChiTietHoaDon.cs" />
     <Compile Include="ET_ChiTietKho.cs" />
     <Compile Include="ET_DanhMuc.cs" />
     <Compile Include="ET_HoaDon.cs" />
