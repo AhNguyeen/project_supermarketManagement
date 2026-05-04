@@ -15,7 +15,7 @@ namespace DAL_SupermarketManagement.Connect
     {
         //B1: Khai báo chuỗi kết nối
         // Lấy đường dẫn kết nối có tên "connectServer" được lưu trong file cấu hình App.config
-        string strConnect = System.Configuration.ConfigurationManager.ConnectionStrings["serverConnect"].ConnectionString;
+        string strConnect = System.Configuration.ConfigurationManager.ConnectionStrings["myConnection"].ConnectionString;
 
         // Khai báo biến SqlConnection dùng để làm cầu nối giữa C# và SQL Server
         SqlConnection sqlConn = null;
