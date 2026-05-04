@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL_SupermarketManagement",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ET_SupermarketManagement", "ET_SupermarketManagement\ET_SupermarketManagement.csproj", "{0BAD77AC-046C-44BD-9EA2-1909C0D3B675}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "setup_supermarket", "setup_supermarket\setup_supermarket.vdproj", "{BD8169A9-4A83-1F55-223D-CB4FEEF09FEF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,8 @@ Global
 		{0BAD77AC-046C-44BD-9EA2-1909C0D3B675}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0BAD77AC-046C-44BD-9EA2-1909C0D3B675}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0BAD77AC-046C-44BD-9EA2-1909C0D3B675}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD8169A9-4A83-1F55-223D-CB4FEEF09FEF}.Debug|Any CPU.ActiveCfg = Debug
+		{BD8169A9-4A83-1F55-223D-CB4FEEF09FEF}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
