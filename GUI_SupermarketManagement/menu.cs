@@ -46,71 +46,80 @@ namespace GUI_SupermarketManagement
         /// <param name="formType">Kiểu (Type) của Form cần mở. Ví dụ: typeof(GUI_SanPham)</param>
         private void OpenChildForm(Type formType)
         {
-            // Bước 1: Đóng tất cả các form con MDI đang mở để giải phóng bộ nhớ
-            // (Đảm bảo tại một thời điểm chỉ có 1 form duy nhất được hiển thị trên màn hình Menu)
-            foreach (Form childForm in this.MdiChildren)
-            {
-                childForm.Close();
-            }
-
-            // Bước 2: Khởi tạo instance của Form mới từ Type được truyền vào
+            // BƯỚC 1: KHỞI TẠO VÀ CÀI ĐẶT FORM MỚI TRƯỚC
             Form newForm = (Form)Activator.CreateInstance(formType);
-
-            // Bước 3: THIẾT LẬP MDI PARENT QUAN TRỌNG
-            // Chỉ định Form Menu hiện tại (this) chính là Form Cha của newForm
             newForm.MdiParent = this;
-
-            newForm.ControlBox = false;     // Ẩn 3 nút Thu nhỏ/Phóng to/Đóng
-            newForm.ShowIcon = false;       // Ẩn icon ở góc trái
-            newForm.Text = "";              // Xóa tên Form để nó không bị ghép chữ lên thanh Menu của Form cha
-
-            // Bước 4: Tối ưu UX giao diện (Tùy chọn)
-            // Nếu bạn muốn Form con lấp đầy toàn bộ không gian MDI và ẩn đi thanh tiêu đề (giống như dùng Panel trước đây)
+            newForm.ControlBox = false;
+            newForm.ShowIcon = false;
+            newForm.Text = "";
             newForm.FormBorderStyle = FormBorderStyle.None;
             newForm.Dock = DockStyle.Fill;
 
-            // Bước 5: Hiển thị Form con lên màn hình
+            // Tạm thời tắt vẽ giao diện để load nhanh hơn
+            newForm.SuspendLayout();
+
+            // BƯỚC 2: HIỂN THỊ FORM MỚI ĐỂ CHE ĐI FORM CŨ
             newForm.Show();
+            newForm.ResumeLayout();
+
+            // BƯỚC 3: SAU KHI FORM MỚI ĐÃ LÊN HÌNH, MỚI ĐÓNG CÁC FORM CŨ ĐI
+            foreach (Form childForm in this.MdiChildren)
+            {
+                // Kiểm tra: Nếu không phải là cái form vừa tạo thì mới Close
+                if (childForm != newForm)
+                {
+                    childForm.Close();
+                    childForm.Dispose(); // Ép dọn rác RAM ngay lập tức
+                }
+            }
         }
 
         private void btnThongKe_Click(object sender, EventArgs e)
         {
             OpenChildForm(typeof(GUI_ThongKe));
+            lblGUI.Text = "Thống Kê";
         }
 
         private void FrmMenu_Load(object sender, EventArgs e)
         {
             OpenChildForm(typeof(GUI_ThongKe));
+            lblGUI.Text = "Thống Kê";
         }
 
         private void btnDanhMuc_Click(object sender, EventArgs e)
         {
             OpenChildForm(typeof(GUI_DanhMuc));
+            lblGUI.Text = "Danh Mục";
         }
 
         private void btnNCC_Click(object sender, EventArgs e)
         {
             OpenChildForm(typeof(GUI_NhaCungCap));
+            lblGUI.Text = "Nhà Cung Cấp";
         }
 
         private void btnQuanLySanPham_Click(object sender, EventArgs e)
         {
             OpenChildForm(typeof(GUI_QLSP));
+            lblGUI.Text = "Quản Lý Sản Phẩm";
         }
 
         private void btnQuanLyKho_Click(object sender, EventArgs e)
         {
             OpenChildForm(typeof(GUI_QuanLyKho));
+            lblGUI.Text = "Quản Lý Kho";
         }
 
         private void btnQuanLyHoaDon_Click(object sender, EventArgs e)
         {
             OpenChildForm(typeof(GUI_QuanLyHoaDon));
+            lblGUI.Text = "Quản Lý Hóa Đơn";
         }
 
         private void btnThanhToan_Click(object sender, EventArgs e)
         {
             OpenChildForm(typeof(GUI_ThanhToan));
+            lblGUI.Text = "Thanh Toán";
         }
     }
 }

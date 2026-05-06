@@ -40,8 +40,11 @@
             this.btnQuanLySanPham = new Guna.UI2.WinForms.Guna2Button();
             this.btnThanhToan = new Guna.UI2.WinForms.Guna2Button();
             this.QuanLyKho = new Guna.UI2.WinForms.Guna2Button();
+            this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
+            this.lblGUI = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.guna2Panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnThongKe
@@ -282,6 +285,26 @@
             this.QuanLyKho.Text = "Quản Lý Kho";
             this.QuanLyKho.Click += new System.EventHandler(this.btnQuanLyKho_Click);
             // 
+            // guna2Panel1
+            // 
+            this.guna2Panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.guna2Panel1.Controls.Add(this.lblGUI);
+            this.guna2Panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.guna2Panel1.Location = new System.Drawing.Point(196, 0);
+            this.guna2Panel1.Name = "guna2Panel1";
+            this.guna2Panel1.Size = new System.Drawing.Size(988, 57);
+            this.guna2Panel1.TabIndex = 4;
+            // 
+            // lblGUI
+            // 
+            this.lblGUI.AutoSize = true;
+            this.lblGUI.Font = new System.Drawing.Font("Bahnschrift", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblGUI.Location = new System.Drawing.Point(25, 18);
+            this.lblGUI.Name = "lblGUI";
+            this.lblGUI.Size = new System.Drawing.Size(95, 23);
+            this.lblGUI.TabIndex = 0;
+            this.lblGUI.Text = "[ Ten GUI ]";
+            // 
             // FrmMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -290,6 +313,7 @@
             this.CancelButton = this.btnThoat;
             this.ClientSize = new System.Drawing.Size(1184, 714);
             this.ControlBox = false;
+            this.Controls.Add(this.guna2Panel1);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.IsMdiContainer = true;
@@ -299,6 +323,8 @@
             this.Load += new System.EventHandler(this.FrmMenu_Load);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.guna2Panel1.ResumeLayout(false);
+            this.guna2Panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -315,6 +341,8 @@
         private Guna.UI2.WinForms.Guna2Button btnKhachHang;
         private Guna.UI2.WinForms.Guna2Button btnThoat;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
+        private System.Windows.Forms.Label lblGUI;
     }
 }
 
