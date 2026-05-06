@@ -84,10 +84,10 @@
             this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.chartDanhThuDanhMuc = new Guna.Charts.WinForms.GunaChart();
             this.guna2Panel3 = new Guna.UI2.WinForms.Guna2Panel();
-            this.chartDoanhThu = new Guna.Charts.WinForms.GunaChart();
+            this.chartDanhThuDanhMuc = new Guna.Charts.WinForms.GunaChart();
             this.guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
+            this.chartDoanhThu = new Guna.Charts.WinForms.GunaChart();
             this.tableLayoutPanel4.SuspendLayout();
             this.guna2Panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCacSanPhamBanChay)).BeginInit();
@@ -118,7 +118,7 @@
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(1442, 347);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(1125, 427);
             this.tableLayoutPanel4.TabIndex = 7;
             // 
             // guna2Panel4
@@ -131,7 +131,7 @@
             this.guna2Panel4.FillColor = System.Drawing.Color.White;
             this.guna2Panel4.Location = new System.Drawing.Point(3, 3);
             this.guna2Panel4.Name = "guna2Panel4";
-            this.guna2Panel4.Size = new System.Drawing.Size(715, 341);
+            this.guna2Panel4.Size = new System.Drawing.Size(556, 421);
             this.guna2Panel4.TabIndex = 1;
             // 
             // guna2HtmlLabel2
@@ -158,7 +158,7 @@
             this.dgvCacSanPhamBanChay.ReadOnly = true;
             this.dgvCacSanPhamBanChay.RowHeadersVisible = false;
             this.dgvCacSanPhamBanChay.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvCacSanPhamBanChay.Size = new System.Drawing.Size(695, 277);
+            this.dgvCacSanPhamBanChay.Size = new System.Drawing.Size(536, 357);
             this.dgvCacSanPhamBanChay.TabIndex = 0;
             // 
             // guna2Panel1
@@ -174,7 +174,7 @@
             this.guna2Panel1.Location = new System.Drawing.Point(10, 10);
             this.guna2Panel1.Margin = new System.Windows.Forms.Padding(10);
             this.guna2Panel1.Name = "guna2Panel1";
-            this.guna2Panel1.Size = new System.Drawing.Size(1428, 67);
+            this.guna2Panel1.Size = new System.Drawing.Size(1111, 67);
             this.guna2Panel1.TabIndex = 1;
             // 
             // label6
@@ -204,7 +204,7 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1442, 144);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1125, 144);
             this.tableLayoutPanel1.TabIndex = 2;
             // 
             // guna2ShadowPanel4
@@ -215,12 +215,12 @@
             this.guna2ShadowPanel4.Controls.Add(this.guna2PictureBox4);
             this.guna2ShadowPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.guna2ShadowPanel4.FillColor = System.Drawing.Color.White;
-            this.guna2ShadowPanel4.Location = new System.Drawing.Point(1083, 3);
+            this.guna2ShadowPanel4.Location = new System.Drawing.Point(846, 3);
             this.guna2ShadowPanel4.Name = "guna2ShadowPanel4";
             this.guna2ShadowPanel4.Radius = 10;
             this.guna2ShadowPanel4.ShadowColor = System.Drawing.Color.Black;
             this.guna2ShadowPanel4.ShadowStyle = Guna.UI2.WinForms.Guna2ShadowPanel.ShadowMode.ForwardDiagonal;
-            this.guna2ShadowPanel4.Size = new System.Drawing.Size(356, 138);
+            this.guna2ShadowPanel4.Size = new System.Drawing.Size(276, 138);
             this.guna2ShadowPanel4.TabIndex = 3;
             // 
             // labelSanPhamTonKho
@@ -263,12 +263,12 @@
             this.guna2ShadowPanel3.Controls.Add(this.guna2PictureBox3);
             this.guna2ShadowPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.guna2ShadowPanel3.FillColor = System.Drawing.Color.White;
-            this.guna2ShadowPanel3.Location = new System.Drawing.Point(723, 3);
+            this.guna2ShadowPanel3.Location = new System.Drawing.Point(565, 3);
             this.guna2ShadowPanel3.Name = "guna2ShadowPanel3";
             this.guna2ShadowPanel3.Radius = 10;
             this.guna2ShadowPanel3.ShadowColor = System.Drawing.Color.Black;
             this.guna2ShadowPanel3.ShadowStyle = Guna.UI2.WinForms.Guna2ShadowPanel.ShadowMode.ForwardDiagonal;
-            this.guna2ShadowPanel3.Size = new System.Drawing.Size(354, 138);
+            this.guna2ShadowPanel3.Size = new System.Drawing.Size(275, 138);
             this.guna2ShadowPanel3.TabIndex = 2;
             // 
             // labelSoDonHang
@@ -310,12 +310,12 @@
             this.guna2ShadowPanel2.Controls.Add(this.guna2PictureBox2);
             this.guna2ShadowPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.guna2ShadowPanel2.FillColor = System.Drawing.Color.White;
-            this.guna2ShadowPanel2.Location = new System.Drawing.Point(363, 3);
+            this.guna2ShadowPanel2.Location = new System.Drawing.Point(284, 3);
             this.guna2ShadowPanel2.Name = "guna2ShadowPanel2";
             this.guna2ShadowPanel2.Radius = 10;
             this.guna2ShadowPanel2.ShadowColor = System.Drawing.Color.Black;
             this.guna2ShadowPanel2.ShadowStyle = Guna.UI2.WinForms.Guna2ShadowPanel.ShadowMode.ForwardDiagonal;
-            this.guna2ShadowPanel2.Size = new System.Drawing.Size(354, 138);
+            this.guna2ShadowPanel2.Size = new System.Drawing.Size(275, 138);
             this.guna2ShadowPanel2.TabIndex = 1;
             // 
             // labelTongLoiNhuan
@@ -363,7 +363,7 @@
             this.guna2ShadowPanel1.Radius = 10;
             this.guna2ShadowPanel1.ShadowColor = System.Drawing.Color.Black;
             this.guna2ShadowPanel1.ShadowStyle = Guna.UI2.WinForms.Guna2ShadowPanel.ShadowMode.ForwardDiagonal;
-            this.guna2ShadowPanel1.Size = new System.Drawing.Size(354, 138);
+            this.guna2ShadowPanel1.Size = new System.Drawing.Size(275, 138);
             this.guna2ShadowPanel1.TabIndex = 0;
             // 
             // labelTongDoanhThu
@@ -418,7 +418,7 @@
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(1448, 904);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(1131, 984);
             this.tableLayoutPanel3.TabIndex = 7;
             // 
             // tableLayoutPanel2
@@ -433,8 +433,20 @@
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(1442, 308);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(1125, 308);
             this.tableLayoutPanel2.TabIndex = 6;
+            // 
+            // guna2Panel3
+            // 
+            this.guna2Panel3.BackColor = System.Drawing.Color.Transparent;
+            this.guna2Panel3.BorderRadius = 15;
+            this.guna2Panel3.Controls.Add(this.chartDanhThuDanhMuc);
+            this.guna2Panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.guna2Panel3.FillColor = System.Drawing.Color.White;
+            this.guna2Panel3.Location = new System.Drawing.Point(3, 3);
+            this.guna2Panel3.Name = "guna2Panel3";
+            this.guna2Panel3.Size = new System.Drawing.Size(556, 302);
+            this.guna2Panel3.TabIndex = 5;
             // 
             // chartDanhThuDanhMuc
             // 
@@ -448,7 +460,7 @@
             this.chartDanhThuDanhMuc.Location = new System.Drawing.Point(10, 10);
             this.chartDanhThuDanhMuc.Margin = new System.Windows.Forms.Padding(10);
             this.chartDanhThuDanhMuc.Name = "chartDanhThuDanhMuc";
-            this.chartDanhThuDanhMuc.Size = new System.Drawing.Size(696, 282);
+            this.chartDanhThuDanhMuc.Size = new System.Drawing.Size(538, 282);
             this.chartDanhThuDanhMuc.TabIndex = 3;
             chartFont18.FontName = "Arial";
             chartFont18.Size = 12;
@@ -485,17 +497,18 @@
             tick9.Font = chartFont24;
             this.chartDanhThuDanhMuc.ZAxes.Ticks = tick9;
             // 
-            // guna2Panel3
+            // guna2Panel2
             // 
-            this.guna2Panel3.BackColor = System.Drawing.Color.Transparent;
-            this.guna2Panel3.BorderRadius = 15;
-            this.guna2Panel3.Controls.Add(this.chartDanhThuDanhMuc);
-            this.guna2Panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.guna2Panel3.FillColor = System.Drawing.Color.White;
-            this.guna2Panel3.Location = new System.Drawing.Point(3, 3);
-            this.guna2Panel3.Name = "guna2Panel3";
-            this.guna2Panel3.Size = new System.Drawing.Size(714, 302);
-            this.guna2Panel3.TabIndex = 5;
+            this.guna2Panel2.BackColor = System.Drawing.Color.Transparent;
+            this.guna2Panel2.BorderRadius = 15;
+            this.guna2Panel2.Controls.Add(this.chartDoanhThu);
+            this.guna2Panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.guna2Panel2.FillColor = System.Drawing.Color.White;
+            this.guna2Panel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2Panel2.Location = new System.Drawing.Point(565, 3);
+            this.guna2Panel2.Name = "guna2Panel2";
+            this.guna2Panel2.Size = new System.Drawing.Size(557, 302);
+            this.guna2Panel2.TabIndex = 4;
             // 
             // chartDoanhThu
             // 
@@ -508,7 +521,7 @@
             this.chartDoanhThu.Location = new System.Drawing.Point(10, 10);
             this.chartDoanhThu.Margin = new System.Windows.Forms.Padding(10);
             this.chartDoanhThu.Name = "chartDoanhThu";
-            this.chartDoanhThu.Size = new System.Drawing.Size(698, 282);
+            this.chartDoanhThu.Size = new System.Drawing.Size(539, 282);
             this.chartDoanhThu.TabIndex = 3;
             chartFont26.FontName = "Arial";
             chartFont26.Size = 12;
@@ -546,30 +559,19 @@
             tick12.Font = chartFont32;
             this.chartDoanhThu.ZAxes.Ticks = tick12;
             // 
-            // guna2Panel2
-            // 
-            this.guna2Panel2.BackColor = System.Drawing.Color.Transparent;
-            this.guna2Panel2.BorderRadius = 15;
-            this.guna2Panel2.Controls.Add(this.chartDoanhThu);
-            this.guna2Panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.guna2Panel2.FillColor = System.Drawing.Color.White;
-            this.guna2Panel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2Panel2.Location = new System.Drawing.Point(723, 3);
-            this.guna2Panel2.Name = "guna2Panel2";
-            this.guna2Panel2.Size = new System.Drawing.Size(716, 302);
-            this.guna2Panel2.TabIndex = 4;
-            // 
             // GUI_ThongKe
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(246)))), ((int)(((byte)(250)))));
-            this.ClientSize = new System.Drawing.Size(1448, 904);
+            this.ClientSize = new System.Drawing.Size(1131, 984);
             this.ControlBox = false;
             this.Controls.Add(this.tableLayoutPanel3);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "GUI_ThongKe";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.Load += new System.EventHandler(this.GUI_ThongKe_Load);
             this.tableLayoutPanel4.ResumeLayout(false);
             this.guna2Panel4.ResumeLayout(false);

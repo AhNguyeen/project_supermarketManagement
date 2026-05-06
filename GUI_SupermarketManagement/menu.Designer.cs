@@ -40,7 +40,6 @@
             this.btnQuanLySanPham = new Guna.UI2.WinForms.Guna2Button();
             this.btnThanhToan = new Guna.UI2.WinForms.Guna2Button();
             this.QuanLyKho = new Guna.UI2.WinForms.Guna2Button();
-            this.pnContainer = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -58,7 +57,7 @@
             this.btnThongKe.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btnThongKe.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.btnThongKe.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.btnThongKe.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnThongKe.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.btnThongKe.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(42)))), ((int)(((byte)(70)))));
             this.btnThongKe.Location = new System.Drawing.Point(10, 142);
             this.btnThongKe.Margin = new System.Windows.Forms.Padding(10);
@@ -112,7 +111,7 @@
             this.btnThoat.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btnThoat.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.btnThoat.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.btnThoat.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnThoat.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.btnThoat.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(42)))), ((int)(((byte)(70)))));
             this.btnThoat.Location = new System.Drawing.Point(10, 661);
             this.btnThoat.Margin = new System.Windows.Forms.Padding(10);
@@ -135,7 +134,7 @@
             this.btnKhachHang.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btnKhachHang.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.btnKhachHang.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.btnKhachHang.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnKhachHang.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.btnKhachHang.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(42)))), ((int)(((byte)(70)))));
             this.btnKhachHang.Location = new System.Drawing.Point(10, 492);
             this.btnKhachHang.Margin = new System.Windows.Forms.Padding(10);
@@ -158,7 +157,7 @@
             this.btnNhaCungCap.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btnNhaCungCap.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.btnNhaCungCap.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.btnNhaCungCap.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnNhaCungCap.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.btnNhaCungCap.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(42)))), ((int)(((byte)(70)))));
             this.btnNhaCungCap.Location = new System.Drawing.Point(10, 442);
             this.btnNhaCungCap.Margin = new System.Windows.Forms.Padding(10);
@@ -181,7 +180,7 @@
             this.btnDoanhMuc.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btnDoanhMuc.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.btnDoanhMuc.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.btnDoanhMuc.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnDoanhMuc.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.btnDoanhMuc.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(42)))), ((int)(((byte)(70)))));
             this.btnDoanhMuc.Location = new System.Drawing.Point(10, 392);
             this.btnDoanhMuc.Margin = new System.Windows.Forms.Padding(10);
@@ -204,7 +203,7 @@
             this.btnQuanLyHoaDon.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btnQuanLyHoaDon.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.btnQuanLyHoaDon.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.btnQuanLyHoaDon.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnQuanLyHoaDon.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.btnQuanLyHoaDon.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(42)))), ((int)(((byte)(70)))));
             this.btnQuanLyHoaDon.Location = new System.Drawing.Point(10, 342);
             this.btnQuanLyHoaDon.Margin = new System.Windows.Forms.Padding(10);
@@ -227,7 +226,7 @@
             this.btnQuanLySanPham.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btnQuanLySanPham.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.btnQuanLySanPham.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.btnQuanLySanPham.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnQuanLySanPham.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.btnQuanLySanPham.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(42)))), ((int)(((byte)(70)))));
             this.btnQuanLySanPham.Location = new System.Drawing.Point(10, 192);
             this.btnQuanLySanPham.Margin = new System.Windows.Forms.Padding(10);
@@ -250,7 +249,7 @@
             this.btnThanhToan.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btnThanhToan.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.btnThanhToan.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.btnThanhToan.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnThanhToan.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.btnThanhToan.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(42)))), ((int)(((byte)(70)))));
             this.btnThanhToan.Location = new System.Drawing.Point(10, 292);
             this.btnThanhToan.Margin = new System.Windows.Forms.Padding(10);
@@ -273,7 +272,7 @@
             this.QuanLyKho.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.QuanLyKho.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.QuanLyKho.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.QuanLyKho.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.QuanLyKho.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.QuanLyKho.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(42)))), ((int)(((byte)(70)))));
             this.QuanLyKho.Location = new System.Drawing.Point(10, 242);
             this.QuanLyKho.Margin = new System.Windows.Forms.Padding(10);
@@ -283,26 +282,18 @@
             this.QuanLyKho.Text = "Quản Lý Kho";
             this.QuanLyKho.Click += new System.EventHandler(this.btnQuanLyKho_Click);
             // 
-            // pnContainer
-            // 
-            this.pnContainer.AutoScroll = true;
-            this.pnContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnContainer.Location = new System.Drawing.Point(196, 0);
-            this.pnContainer.Name = "pnContainer";
-            this.pnContainer.Size = new System.Drawing.Size(988, 714);
-            this.pnContainer.TabIndex = 3;
-            // 
             // FrmMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.CancelButton = this.btnThoat;
             this.ClientSize = new System.Drawing.Size(1184, 714);
             this.ControlBox = false;
-            this.Controls.Add(this.pnContainer);
             this.Controls.Add(this.panel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.IsMdiContainer = true;
             this.Name = "FrmMenu";
-            this.Text = "Menu";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmMenu_FormClosing);
             this.Load += new System.EventHandler(this.FrmMenu_Load);
@@ -324,7 +315,6 @@
         private Guna.UI2.WinForms.Guna2Button btnKhachHang;
         private Guna.UI2.WinForms.Guna2Button btnThoat;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Panel pnContainer;
     }
 }
 

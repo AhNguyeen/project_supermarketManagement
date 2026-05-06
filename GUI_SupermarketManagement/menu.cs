@@ -40,26 +40,36 @@ namespace GUI_SupermarketManagement
         // Biến toàn cục lưu trữ vết của Form con đang được mở hiện tại trên màn hình
         private Form activeForm = null;
 
+        /// <summary>
+        /// Mở một Form con bên trong không gian của Form cha (MDI Parent).
+        /// </summary>
+        /// <param name="formType">Kiểu (Type) của Form cần mở. Ví dụ: typeof(GUI_SanPham)</param>
         private void OpenChildForm(Type formType)
         {
-            // Đóng form cũ trước khi mở form mới để giải phóng bộ nhớ
-            if (activeForm != null)
+            // Bước 1: Đóng tất cả các form con MDI đang mở để giải phóng bộ nhớ
+            // (Đảm bảo tại một thời điểm chỉ có 1 form duy nhất được hiển thị trên màn hình Menu)
+            foreach (Form childForm in this.MdiChildren)
             {
-                activeForm.Close();
+                childForm.Close();
             }
 
+            // Bước 2: Khởi tạo instance của Form mới từ Type được truyền vào
             Form newForm = (Form)Activator.CreateInstance(formType);
-            activeForm = newForm;
 
-            // THỦ THUẬT ÉP FORM THÀNH CONTROL BÌNH THƯỜNG
-            newForm.TopLevel = false;
+            // Bước 3: THIẾT LẬP MDI PARENT QUAN TRỌNG
+            // Chỉ định Form Menu hiện tại (this) chính là Form Cha của newForm
+            newForm.MdiParent = this;
+
+            newForm.ControlBox = false;     // Ẩn 3 nút Thu nhỏ/Phóng to/Đóng
+            newForm.ShowIcon = false;       // Ẩn icon ở góc trái
+            newForm.Text = "";              // Xóa tên Form để nó không bị ghép chữ lên thanh Menu của Form cha
+
+            // Bước 4: Tối ưu UX giao diện (Tùy chọn)
+            // Nếu bạn muốn Form con lấp đầy toàn bộ không gian MDI và ẩn đi thanh tiêu đề (giống như dùng Panel trước đây)
             newForm.FormBorderStyle = FormBorderStyle.None;
             newForm.Dock = DockStyle.Fill;
 
-            // Nhét Form con vào trong Panel
-            pnContainer.Controls.Add(newForm);
-            pnContainer.Tag = newForm;
-            newForm.BringToFront();
+            // Bước 5: Hiển thị Form con lên màn hình
             newForm.Show();
         }
 
