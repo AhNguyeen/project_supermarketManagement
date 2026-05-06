@@ -275,6 +275,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\money_bag.png" />
+    <None Include="Resources\employee.png" />
+    <None Include="Resources\customer.png" />
+    <None Include="Resources\wholesale.png" />
+    <None Include="Resources\inventory-management.png" />
+    <None Include="Resources\category.png" />
+    <None Include="Resources\product-management.png" />
+    <None Include="Resources\invoce-management.png" />
+    <None Include="Resources\bill.png" />
+    <None Include="Resources\dashboard.png" />
     <None Include="Resources\warehouse.png" />
     <None Include="Resources\shopping-cart.png" />
     <None Include="Resources\profit.png" />
