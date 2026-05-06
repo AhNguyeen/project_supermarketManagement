@@ -1,4 +1,4 @@
-﻿USE QuanLySieuThi;
+USE QuanLySieuThi;
 GO
 
 /* ================================================================
@@ -109,10 +109,33 @@ GO
 CREATE PROC sp_SanPham_Search
     @MaSanPham INT = NULL,
     @TenSanPham NVARCHAR(255) = NULL
-AS BEGIN
-    SELECT * FROM SanPham
-    WHERE (@MaSanPham IS NULL OR MaSanPham = @MaSanPham)
-      AND (@TenSanPham IS NULL OR TenSanPham LIKE N'%' + @TenSanPham + '%')
+AS 
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
+        -- Các thông tin cơ bản của sản phẩm
+        SP.MaSanPham,
+        SP.TenSanPham,
+        SP.ChiTiet,
+        SP.HinhAnh,
+        SP.GiaNhap,
+        SP.GiaBan,
+        SP.SoLuongTon,
+        
+        -- Thông tin Danh Mục (Lấy cả Mã và Tên)
+        SP.MaDanhMuc,       
+        DM.TenDanhMuc,      
+        
+        -- Thông tin Nhà Cung Cấp (Lấy cả Mã và Tên)
+        SP.MaNCC,           
+        NCC.TenNCC          
+        
+    FROM SanPham SP
+    JOIN DanhMuc DM ON SP.MaDanhMuc = DM.MaDanhMuc
+    JOIN NhaCungCap NCC ON SP.MaNCC = NCC.MaNCC
+    WHERE (@MaSanPham IS NULL OR SP.MaSanPham = @MaSanPham)
+      AND (@TenSanPham IS NULL OR SP.TenSanPham LIKE N'%' + @TenSanPham + '%')
 END
 GO
 
@@ -262,6 +285,7 @@ END
 GO
 
 CREATE PROC sp_HoaDon_Search
+@MaHoaDon INT = NULL
 AS
 BEGIN
     SELECT 
@@ -269,6 +293,7 @@ BEGIN
         HD.MaKhachHang,           
         HD.MaNhanVien,
         KH.HoTen AS TenKhachHang, -- Lấy tên khách hàng và đổi tên cột thành TenKhachHang
+        KH.SoDienThoai,
         NV.HoTen AS TenNhanVien,  -- Lấy tên nhân viên
         HD.NgayLap,
         HD.TongTien,
@@ -276,6 +301,7 @@ BEGIN
     FROM HoaDon HD
     JOIN KhachHang KH ON HD.MaKhachHang = KH.MaKhachHang
     JOIN NhanVien NV ON HD.MaNhanVien = NV.MaNhanVien
+    WHERE (@MaHoaDon IS NULL OR MaHoaDon = @MaHoaDon)
 END
 GO
 
@@ -298,6 +324,25 @@ BEGIN
                 -- Lệnh này cực kỳ quan trọng: Lấy ra cái ID (MaHoaDon) vừa tự động sinh ra
                 SELECT SCOPE_IDENTITY();
 END 
+GO
+
+CREATE PROCEDURE sp_CapNhatHoaDon
+    @MaHoaDon INT,
+    @TongTienMoi DECIMAL(18,2) -- Lưu ý: Đổi kiểu dữ liệu này cho khớp với cột TongTien trong bảng HoaDon của bạn
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- 1. Cập nhật lại tổng tiền mới cho Hóa Đơn
+    UPDATE HoaDon
+    SET TongTien = @TongTienMoi
+    WHERE MaHoaDon = @MaHoaDon;
+
+    -- 2. Xóa toàn bộ chi tiết hóa đơn cũ thuộc MaHD này
+    -- (Để dọn chỗ cho C# insert lại danh sách các sản phẩm sau khi đã chỉnh sửa)
+    DELETE FROM ChiTietHoaDon
+    WHERE MaHoaDon = @MaHoaDon;
+END
 GO
 /* ================================================================
    7. BẢNG CHI TIẾT HÓA ĐƠN (ChiTietHoaDon) 
@@ -335,6 +380,44 @@ AS BEGIN
       AND (@MaHoaDon IS NULL OR MaHoaDon = @MaHoaDon)
 END
 GO
+
+--Tiếp nhận mã hóa đơn và hiển thị các thông tin cần thiết
+CREATE PROCEDURE sp_HienThiChiTietHoaDon
+    @MaHoaDon INT = NULL
+AS
+BEGIN
+    -- SET NOCOUNT ON giúp tăng hiệu suất bằng cách chặn thông báo số dòng bị ảnh hưởng
+    SET NOCOUNT ON;
+
+    SELECT 
+        CT.MaSanPham, 
+        SP.TenSanPham, 
+        CT.SoLuong, 
+        CT.DonGia, 
+        CT.ThanhTien
+    FROM 
+        ChiTietHoaDon CT
+    INNER JOIN 
+        SanPham SP ON CT.MaSanPham = SP.MaSanPham
+    WHERE 
+        CT.MaHoaDon = @MaHoaDon;
+END
+GO
+
+CREATE PROC sp_CapNhatTongTienHoaDon @TongTien DECIMAL(18,2), @MaHoaDon INT
+AS
+BEGIN
+    UPDATE HoaDon SET TongTien = @TongTien WHERE MaHoaDon = @MaHoaDon
+END
+GO
+
+CREATE PROC sp_XoaChiTietHoaDon @MaHoaDon INT
+AS
+BEGIN
+    DELETE FROM ChiTietHoaDon WHERE MaHoaDon = @MaHoaDon
+END
+GO
+
 /*================================================================ */
 CREATE PROC sp_TongDoanhThu
 AS
@@ -374,20 +457,23 @@ CREATE PROC sp_ThongKeTonKho
     @NguongTonKho INT = 15 -- Số lượng dưới mức này sẽ bị cảnh báo "Sắp hết"
 AS
 BEGIN
+    SET NOCOUNT ON;
+
     SELECT 
-        -- ROW_NUMBER để tạo cột số thứ tự nếu bạn cần
-        ROW_NUMBER() OVER(ORDER BY SP.SoLuongTon ASC) AS [STT],
+        -- Đánh số STT
+        ROW_NUMBER() OVER(ORDER BY SP.SoLuongTon ASC) AS STT,
         
-        SP.TenSanPham AS [Tên Sản Phẩm],
-        DM.TenDanhMuc AS [Danh Mục],
-        SP.SoLuongTon AS [Số Lượng Tồn],
+        SP.MaSanPham, -- Nên có mã SP để xử lý ngầm trong C#
+        SP.TenSanPham, 
+        DM.TenDanhMuc, 
+        SP.SoLuongTon, 
         
         -- Cột trạng thái tự động đánh giá
         CASE 
             WHEN SP.SoLuongTon <= 0 THEN N'Hết hàng'
             WHEN SP.SoLuongTon <= @NguongTonKho THEN N'Sắp hết'
             ELSE N'Còn hàng'
-        END AS [Trạng Thái]
+        END AS TrangThai
         
     FROM SanPham SP
     JOIN DanhMuc DM ON SP.MaDanhMuc = DM.MaDanhMuc
@@ -411,7 +497,7 @@ END
 GO
 
 CREATE PROC sp_TopSanPhamBanChay
-    @Top INT = 5 -- Mặc định sẽ lấy Top 5, bạn có thể truyền số khác vào (ví dụ 10) từ C#
+    @Top INT = 10 -- Mặc định sẽ lấy Top 5, bạn có thể truyền số khác vào (ví dụ 10) từ C#
 AS
 BEGIN
     SELECT TOP (@Top)
@@ -472,7 +558,35 @@ BEGIN
 END
 GO
 
+CREATE PROC sp_TongHopTonKho
+AS
+BEGIN
+    SET NOCOUNT ON;
 
+    SELECT 
+        SUM(SoLuongTon) AS TongSoLuongTonTatCa
+    FROM SanPham
+END
+GO
+
+CREATE PROC sp_ThongKeDoanhThuTheoDanhMuc
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
+        DM.TenDanhMuc,
+        ISNULL(SUM(CT.ThanhTien), 0) AS TongDoanhThu
+    FROM DanhMuc DM
+    JOIN SanPham SP ON DM.MaDanhMuc = SP.MaDanhMuc
+    JOIN ChiTietHoaDon CT ON SP.MaSanPham = CT.MaSanPham
+    JOIN HoaDon HD ON CT.MaHoaDon = HD.MaHoaDon
+    -- (Tùy chọn) Có thể thêm điều kiện WHERE HD.NgayLap >= ... để lọc theo tháng hiện tại
+    GROUP BY DM.TenDanhMuc
+    -- Sắp xếp giảm dần để danh mục kiếm nhiều tiền nhất hiện lên đầu
+    ORDER BY TongDoanhThu DESC 
+END
+GO
 /* ================================================================
    8. BẢNG KHO (Kho) 
 ================================================================ */
@@ -501,7 +615,9 @@ GO
 
 CREATE PROC sp_Kho_Search
 AS BEGIN
-    SELECT * FROM Kho
+    SELECT KH.MaKho, KH.TenKho, KH.MaNCC, NCC.TenNCC, KH.MaNhanVien, NV.HoTen, KH.NgayNhap, KH.GhiChu FROM Kho KH
+    JOIN NhanVien NV ON NV.MaNhanVien = KH.MaNhanVien
+    JOIN NhaCungCap NCC ON NCC.MaNCC = KH.MaNCC
 END
 GO
 /* ================================================================
