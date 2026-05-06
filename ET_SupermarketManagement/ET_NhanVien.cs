@@ -15,10 +15,10 @@ namespace ET_SupermarketManagement
         private string soDT;
         private string eMail;
         private string diaChi;
-        private string chucVu;
+        private int maChucVu;
         private double luong;
 
-        public ET_NhanVien(int maNV, string tenNV, DateTime ngaySinh, string gioiTinh, string soDT, string eMail, string diaChi, string chucVu, double luong)
+        public ET_NhanVien(int maNV, string tenNV, DateTime ngaySinh, string gioiTinh, string soDT, string eMail, string diaChi, int maChucVu, double luong)
         {
             this.maNV = maNV;
             this.tenNV = tenNV;
@@ -27,7 +27,7 @@ namespace ET_SupermarketManagement
             this.soDT = soDT;
             this.eMail = eMail;
             this.diaChi = diaChi;
-            this.chucVu = chucVu;
+            this.maChucVu = maChucVu;
             this.luong = luong;
         }
 
@@ -42,7 +42,7 @@ namespace ET_SupermarketManagement
         public string SoDT { get => soDT; set => soDT = value; }
         public string EMail { get => eMail; set => eMail = value; }
         public string DiaChi { get => diaChi; set => diaChi = value; }
-        public string ChucVu { get => chucVu; set => chucVu = value; }
+        public int MaChucVu { get => maChucVu; set => maChucVu = value; }
         public double Luong { get => luong; set => luong = value; }
     }
 }

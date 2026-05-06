@@ -30,26 +30,26 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMenu));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnThoat = new Guna.UI2.WinForms.Guna2Button();
-            this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
-            this.lblGUI = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.btnThanhToan = new Guna.UI2.WinForms.Guna2Button();
+            this.label2 = new System.Windows.Forms.Label();
             this.btnQuanLyHoaDon = new Guna.UI2.WinForms.Guna2Button();
             this.btnNhanVien = new Guna.UI2.WinForms.Guna2Button();
             this.QuanLyKho = new Guna.UI2.WinForms.Guna2Button();
             this.btnNhaCungCap = new Guna.UI2.WinForms.Guna2Button();
             this.btnQuanLySanPham = new Guna.UI2.WinForms.Guna2Button();
             this.btnDoanhMuc = new Guna.UI2.WinForms.Guna2Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btnThoat = new Guna.UI2.WinForms.Guna2Button();
             this.btnKhachHang = new Guna.UI2.WinForms.Guna2Button();
             this.btnThongKe = new Guna.UI2.WinForms.Guna2Button();
+            this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
+            this.lblGUI = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
-            this.guna2Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.guna2Panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -76,69 +76,15 @@
             this.panel1.Size = new System.Drawing.Size(196, 766);
             this.panel1.TabIndex = 2;
             // 
-            // btnThoat
+            // label4
             // 
-            this.btnThoat.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnThoat.BorderRadius = 10;
-            this.btnThoat.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
-            this.btnThoat.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
-            this.btnThoat.CheckedState.ForeColor = System.Drawing.Color.White;
-            this.btnThoat.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnThoat.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnThoat.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnThoat.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnThoat.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnThoat.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.btnThoat.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.btnThoat.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(42)))), ((int)(((byte)(70)))));
-            this.btnThoat.Location = new System.Drawing.Point(10, 713);
-            this.btnThoat.Margin = new System.Windows.Forms.Padding(10);
-            this.btnThoat.Name = "btnThoat";
-            this.btnThoat.Size = new System.Drawing.Size(180, 43);
-            this.btnThoat.TabIndex = 6;
-            this.btnThoat.Text = "Thoát";
-            this.btnThoat.Click += new System.EventHandler(this.btnThoat_Click);
-            // 
-            // guna2Panel1
-            // 
-            this.guna2Panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.guna2Panel1.Controls.Add(this.lblGUI);
-            this.guna2Panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.guna2Panel1.Location = new System.Drawing.Point(196, 0);
-            this.guna2Panel1.Name = "guna2Panel1";
-            this.guna2Panel1.Size = new System.Drawing.Size(988, 57);
-            this.guna2Panel1.TabIndex = 4;
-            // 
-            // lblGUI
-            // 
-            this.lblGUI.AutoSize = true;
-            this.lblGUI.Font = new System.Drawing.Font("Bahnschrift", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblGUI.Location = new System.Drawing.Point(25, 18);
-            this.lblGUI.Name = "lblGUI";
-            this.lblGUI.Size = new System.Drawing.Size(95, 23);
-            this.lblGUI.TabIndex = 0;
-            this.lblGUI.Text = "[ Ten GUI ]";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Bahnschrift", 8F, System.Drawing.FontStyle.Bold);
-            this.label1.Location = new System.Drawing.Point(12, 145);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(56, 13);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "Tổng quan";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Bahnschrift", 8F, System.Drawing.FontStyle.Bold);
-            this.label2.Location = new System.Drawing.Point(12, 221);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(106, 13);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "Nghiệp vụ Bán hàng";
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Bahnschrift", 8F, System.Drawing.FontStyle.Bold);
+            this.label4.Location = new System.Drawing.Point(3, 573);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(98, 13);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "Quản trị Đối tượng";
             // 
             // label3
             // 
@@ -149,16 +95,6 @@
             this.label3.Size = new System.Drawing.Size(131, 13);
             this.label3.TabIndex = 8;
             this.label3.Text = "Nghiệp vụ Hàng hóa & Kho";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Bahnschrift", 8F, System.Drawing.FontStyle.Bold);
-            this.label4.Location = new System.Drawing.Point(3, 573);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(98, 13);
-            this.label4.TabIndex = 8;
-            this.label4.Text = "Quản trị Đối tượng";
             // 
             // btnThanhToan
             // 
@@ -187,6 +123,16 @@
             this.btnThanhToan.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnThanhToan.TextOffset = new System.Drawing.Point(10, 0);
             this.btnThanhToan.Click += new System.EventHandler(this.btnThanhToan_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Bahnschrift", 8F, System.Drawing.FontStyle.Bold);
+            this.label2.Location = new System.Drawing.Point(12, 221);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(106, 13);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "Nghiệp vụ Bán hàng";
             // 
             // btnQuanLyHoaDon
             // 
@@ -242,7 +188,7 @@
             this.btnNhanVien.Text = "Nhân Viên";
             this.btnNhanVien.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnNhanVien.TextOffset = new System.Drawing.Point(10, 0);
-            this.btnNhanVien.Click += new System.EventHandler(this.btnThongKe_Click);
+            this.btnNhanVien.Click += new System.EventHandler(this.btnNhanVien_Click);
             // 
             // QuanLyKho
             // 
@@ -356,6 +302,16 @@
             this.btnDoanhMuc.TextOffset = new System.Drawing.Point(10, 0);
             this.btnDoanhMuc.Click += new System.EventHandler(this.btnDanhMuc_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Bahnschrift", 8F, System.Drawing.FontStyle.Bold);
+            this.label1.Location = new System.Drawing.Point(12, 145);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(56, 13);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Tổng quan";
+            // 
             // pictureBox1
             // 
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -366,6 +322,30 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 7;
             this.pictureBox1.TabStop = false;
+            // 
+            // btnThoat
+            // 
+            this.btnThoat.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnThoat.BorderRadius = 10;
+            this.btnThoat.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
+            this.btnThoat.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
+            this.btnThoat.CheckedState.ForeColor = System.Drawing.Color.White;
+            this.btnThoat.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnThoat.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnThoat.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnThoat.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnThoat.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnThoat.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.btnThoat.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnThoat.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(42)))), ((int)(((byte)(70)))));
+            this.btnThoat.Location = new System.Drawing.Point(10, 713);
+            this.btnThoat.Margin = new System.Windows.Forms.Padding(10);
+            this.btnThoat.Name = "btnThoat";
+            this.btnThoat.Size = new System.Drawing.Size(180, 43);
+            this.btnThoat.TabIndex = 6;
+            this.btnThoat.Text = "Thoát";
+            this.btnThoat.Click += new System.EventHandler(this.btnThoat_Click);
             // 
             // btnKhachHang
             // 
@@ -423,6 +403,26 @@
             this.btnThongKe.TextOffset = new System.Drawing.Point(10, 0);
             this.btnThongKe.Click += new System.EventHandler(this.btnThongKe_Click);
             // 
+            // guna2Panel1
+            // 
+            this.guna2Panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.guna2Panel1.Controls.Add(this.lblGUI);
+            this.guna2Panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.guna2Panel1.Location = new System.Drawing.Point(196, 0);
+            this.guna2Panel1.Name = "guna2Panel1";
+            this.guna2Panel1.Size = new System.Drawing.Size(988, 57);
+            this.guna2Panel1.TabIndex = 4;
+            // 
+            // lblGUI
+            // 
+            this.lblGUI.AutoSize = true;
+            this.lblGUI.Font = new System.Drawing.Font("Bahnschrift", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblGUI.Location = new System.Drawing.Point(25, 18);
+            this.lblGUI.Name = "lblGUI";
+            this.lblGUI.Size = new System.Drawing.Size(95, 23);
+            this.lblGUI.TabIndex = 0;
+            this.lblGUI.Text = "[ Ten GUI ]";
+            // 
             // FrmMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -441,9 +441,9 @@
             this.Load += new System.EventHandler(this.FrmMenu_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.guna2Panel1.ResumeLayout(false);
             this.guna2Panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }

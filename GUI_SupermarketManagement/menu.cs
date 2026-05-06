@@ -121,5 +121,11 @@ namespace GUI_SupermarketManagement
             OpenChildForm(typeof(GUI_ThanhToan));
             lblGUI.Text = "Thanh Toán";
         }
+
+        private void btnNhanVien_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(typeof(GUI_NhanVien));
+            lblGUI.Text = "Quản Lý Nhân Viên";
+        }
     }
 }
