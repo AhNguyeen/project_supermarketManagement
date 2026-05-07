@@ -1,44 +1,74 @@
-USE QuanLySieuThi;
-GO
-
 -- ================================================================
 -- PHẦN 1: DỮ LIỆU NỀN TẢNG (MASTER DATA)
 -- (Nhân viên, Danh mục, Nhà cung cấp, Khách hàng)
 -- ================================================================
-
--- 1.1 Thêm dữ liệu bảng NhanVien
-INSERT INTO NhanVien (HoTen, NgaySinh, GioiTinh, SoDienThoai, Email, DiaChi, ChucVu, Luong)
-VALUES
-(N'Nguyễn Văn An', '1995-05-10', N'Nam', '0901234567', 'an.nguyen@example.com', N'Quận 1, TP.HCM', N'Thu ngân', 8500000),
-(N'Trần Thị Bình', '1998-11-20', N'Nữ', '0912345678', 'binh.tran@example.com', N'Quận 3, TP.HCM', N'Nhân viên kho', 7500000),
-(N'Lê Hoàng Cường', '1988-02-15', N'Nam', '0923456789', 'cuong.le@example.com', N'Quận Gò Vấp, TP.HCM', N'Quản lý', 15000000),
-(N'Phạm Mai Dung', '1999-08-05', N'Nữ', '0934567890', 'dung.pham@example.com', N'Quận Tân Bình, TP.HCM', N'Chăm sóc khách hàng', 8000000),
-(N'Hoàng Văn Em', '1992-12-25', N'Nam', '0945678901', 'em.hoang@example.com', N'Quận 7, TP.HCM', N'Bảo vệ', 7000000),
-(N'Lý Tấn Phát', '1990-01-12', N'Nam', '0901000001', 'phat.ly@example.com', N'Quận 1, TP.HCM', N'Thu ngân', 8500000),
-(N'Đào Thu Hà', '1996-03-24', N'Nữ', '0901000002', 'ha.dao@example.com', N'Quận 2, TP.HCM', N'Thu ngân', 8500000),
-(N'Vương Đình Huệ', '1985-05-15', N'Nam', '0901000003', 'hue.vuong@example.com', N'Quận 3, TP.HCM', N'Quản lý', 15000000),
-(N'Tô Ngọc Vân', '1998-07-07', N'Nữ', '0901000004', 'van.to@example.com', N'Quận 4, TP.HCM', N'Chăm sóc khách hàng', 8000000),
-(N'Phan Đình Phùng', '1992-09-09', N'Nam', '0901000005', 'phung.phan@example.com', N'Quận 5, TP.HCM', N'Bảo vệ', 7000000),
-(N'Mạc Văn Khoa', '1994-11-11', N'Nam', '0901000006', 'khoa.mac@example.com', N'Quận 6, TP.HCM', N'Nhân viên kho', 7500000),
-(N'Lương Bích Hữu', '1989-12-12', N'Nữ', '0901000007', 'huu.luong@example.com', N'Quận 7, TP.HCM', N'Chăm sóc khách hàng', 8000000),
-(N'Ngô Tất Tố', '1991-02-20', N'Nam', '0901000008', 'to.ngo@example.com', N'Quận 8, TP.HCM', N'Nhân viên kho', 7500000),
-(N'Hồ Xuân Hương', '1995-04-14', N'Nữ', '0901000009', 'huong.ho@example.com', N'Quận 9, TP.HCM', N'Thu ngân', 8500000),
-(N'Đặng Lệ Quân', '1997-06-16', N'Nữ', '0901000010', 'quan.dang@example.com', N'Quận 10, TP.HCM', N'Thu ngân', 8500000),
-(N'Bùi Anh Tuấn', '1993-08-18', N'Nam', '0901000011', 'tuan.bui@example.com', N'Quận 11, TP.HCM', N'Bảo vệ', 7000000),
-(N'Chu Văn An', '1987-10-20', N'Nam', '0901000012', 'an.chu@example.com', N'Quận 12, TP.HCM', N'Quản lý', 15000000),
-(N'Lâm Tâm Như', '1999-12-22', N'Nữ', '0901000013', 'nhu.lam@example.com', N'Bình Thạnh, TP.HCM', N'Chăm sóc khách hàng', 8000000),
-(N'Trương Vô Kỵ', '1990-01-25', N'Nam', '0901000014', 'ky.truong@example.com', N'Gò Vấp, TP.HCM', N'Nhân viên kho', 7500000),
-(N'Triệu Mẫn', '1998-03-30', N'Nữ', '0901000015', 'man.trieu@example.com', N'Tân Bình, TP.HCM', N'Thu ngân', 8500000);
+USE QuanLySieuThi;
 GO
 
--- 1.2 Thêm tài khoản Admin và User (Phụ thuộc NhanVien)
-INSERT INTO NhanVien (HoTen, NgaySinh, GioiTinh, SoDienThoai, Email, DiaChi, ChucVu, Luong)
-VALUES (N'Đặng Anh Nguyên', '2000-01-01', N'Nam', '0999999999', 'anhnguyen@example.com', N'Bình Dương', N'Quản lý hệ thống', 25000000);
+-- ================================================================
+-- 1.1 Thêm dữ liệu bảng ChucVu (CHẠY TRƯỚC TIÊN)
+-- ================================================================
+INSERT INTO ChucVu (TenChucVu)
+VALUES
+(N'Thu ngân'),              -- MaChucVu = 1
+(N'Nhân viên kho'),         -- MaChucVu = 2
+(N'Quản lý'),               -- MaChucVu = 3
+(N'Chăm sóc khách hàng'),   -- MaChucVu = 4
+(N'Bảo vệ'),                -- MaChucVu = 5
+(N'Quản lý hệ thống');      -- MaChucVu = 6
+GO
 
-DECLARE @MaNV_Nguyen INT = SCOPE_IDENTITY();
-INSERT INTO TaiKhoan (MaNhanVien, Username, Password, PhanQuyen) VALUES (@MaNV_Nguyen, 'anhnguyen', 'admin123', 'Admin');
-INSERT INTO TaiKhoan (MaNhanVien, Username, Password, PhanQuyen) VALUES (2, 'annguyen1', 'user123', 'User');
-INSERT INTO TaiKhoan (MaNhanVien, Username, Password, PhanQuyen) VALUES (3, 'binhtran', 'user123', 'User');
+-- ================================================================
+-- 1.2 Thêm dữ liệu bảng NhanVien (Đã thay Cột ChucVu thành MaChucVu)
+-- ================================================================
+INSERT INTO NhanVien (HoTen, NgaySinh, GioiTinh, SoDienThoai, Email, DiaChi, MaChucVu, Luong)
+VALUES
+(N'Nguyễn Văn An', '1995-05-10', N'Nam', '0901234567', 'an.nguyen@example.com', N'Quận 1, TP.HCM', 1, 8500000),
+(N'Trần Thị Bình', '1998-11-20', N'Nữ', '0912345678', 'binh.tran@example.com', N'Quận 3, TP.HCM', 2, 7500000),
+(N'Lê Hoàng Cường', '1988-02-15', N'Nam', '0923456789', 'cuong.le@example.com', N'Quận Gò Vấp, TP.HCM', 3, 15000000),
+(N'Phạm Mai Dung', '1999-08-05', N'Nữ', '0934567890', 'dung.pham@example.com', N'Quận Tân Bình, TP.HCM', 4, 8000000),
+(N'Hoàng Văn Em', '1992-12-25', N'Nam', '0945678901', 'em.hoang@example.com', N'Quận 7, TP.HCM', 5, 7000000),
+(N'Lý Tấn Phát', '1990-01-12', N'Nam', '0901000001', 'phat.ly@example.com', N'Quận 1, TP.HCM', 1, 8500000),
+(N'Đào Thu Hà', '1996-03-24', N'Nữ', '0901000002', 'ha.dao@example.com', N'Quận 2, TP.HCM', 1, 8500000),
+(N'Vương Đình Huệ', '1985-05-15', N'Nam', '0901000003', 'hue.vuong@example.com', N'Quận 3, TP.HCM', 3, 15000000),
+(N'Tô Ngọc Vân', '1998-07-07', N'Nữ', '0901000004', 'van.to@example.com', N'Quận 4, TP.HCM', 4, 8000000),
+(N'Phan Đình Phùng', '1992-09-09', N'Nam', '0901000005', 'phung.phan@example.com', N'Quận 5, TP.HCM', 5, 7000000),
+(N'Mạc Văn Khoa', '1994-11-11', N'Nam', '0901000006', 'khoa.mac@example.com', N'Quận 6, TP.HCM', 2, 7500000),
+(N'Lương Bích Hữu', '1989-12-12', N'Nữ', '0901000007', 'huu.luong@example.com', N'Quận 7, TP.HCM', 4, 8000000),
+(N'Ngô Tất Tố', '1991-02-20', N'Nam', '0901000008', 'to.ngo@example.com', N'Quận 8, TP.HCM', 2, 7500000),
+(N'Hồ Xuân Hương', '1995-04-14', N'Nữ', '0901000009', 'huong.ho@example.com', N'Quận 9, TP.HCM', 1, 8500000),
+(N'Đặng Lệ Quân', '1997-06-16', N'Nữ', '0901000010', 'quan.dang@example.com', N'Quận 10, TP.HCM', 1, 8500000),
+(N'Bùi Anh Tuấn', '1993-08-18', N'Nam', '0901000011', 'tuan.bui@example.com', N'Quận 11, TP.HCM', 5, 7000000),
+(N'Chu Văn An', '1987-10-20', N'Nam', '0901000012', 'an.chu@example.com', N'Quận 12, TP.HCM', 3, 15000000),
+(N'Lâm Tâm Như', '1999-12-22', N'Nữ', '0901000013', 'nhu.lam@example.com', N'Bình Thạnh, TP.HCM', 4, 8000000),
+(N'Trương Vô Kỵ', '1990-01-25', N'Nam', '0901000014', 'ky.truong@example.com', N'Gò Vấp, TP.HCM', 2, 7500000),
+(N'Triệu Mẫn', '1998-03-30', N'Nữ', '0901000015', 'man.trieu@example.com', N'Tân Bình, TP.HCM', 1, 8500000);
+GO
+
+-- 1.3 Thêm tài khoản Admin và User (Đã đổi chức vụ thành MaChucVu = 6)
+INSERT INTO NhanVien (HoTen, NgaySinh, GioiTinh, SoDienThoai, Email, DiaChi, MaChucVu, Luong)
+VALUES (N'Đặng Anh Nguyên', '2000-01-01', N'Nam', '0999999999', 'anhnguyen@example.com', N'Bình Dương', 6, 25000000);
+
+-- ================================================================
+-- 1.2 Thêm tài khoản dựa trên chức vụ (Username viết liền không dấu)
+-- ================================================================
+
+-- Tài khoản Quản lý hệ thống (Admin)
+DECLARE @MaNV_Nguyen INT = (SELECT MaNhanVien FROM NhanVien WHERE HoTen = N'Đặng Anh Nguyên');
+INSERT INTO TaiKhoan (MaNhanVien, Username, Password, PhanQuyen) 
+VALUES (@MaNV_Nguyen, 'admin', 'admin123', 'Admin');
+
+-- Tài khoản Thu ngân (User) - Lấy nhân viên Nguyễn Văn An (MaNV 1)
+INSERT INTO TaiKhoan (MaNhanVien, Username, Password, PhanQuyen) 
+VALUES (1, 'thungan', 'user123', 'User');
+
+-- Tài khoản Nhân viên kho (User) - Lấy nhân viên Trần Thị Bình (MaNV 2)
+INSERT INTO TaiKhoan (MaNhanVien, Username, Password, PhanQuyen) 
+VALUES (2, 'nhanvienkho', 'user123', 'User');
+
+-- Tài khoản Quản lý (User nhưng quyền cao hơn staff thường) - Lấy Lê Hoàng Cường (MaNV 3)
+INSERT INTO TaiKhoan (MaNhanVien, Username, Password, PhanQuyen) 
+VALUES (3, 'quanly', 'user123', 'User');
 GO
 
 -- 1.3 Thêm dữ liệu bảng DanhMuc

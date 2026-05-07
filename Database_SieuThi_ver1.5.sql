@@ -7,6 +7,11 @@ GO
 -- ================================================================
 -- 1. TẠO CÁC BẢNG DANH MỤC CƠ BẢN (Không chứa khóa ngoại)
 -- ================================================================
+CREATE TABLE ChucVu (
+    MaChucVu INT IDENTITY(1,1) PRIMARY KEY,
+    TenChucVu NVARCHAR(100)
+);
+
 CREATE TABLE NhanVien (
     MaNhanVien INT IDENTITY(1,1) PRIMARY KEY,
     HoTen NVARCHAR(255) NOT NULL,
@@ -15,8 +20,9 @@ CREATE TABLE NhanVien (
     SoDienThoai VARCHAR(20),
     Email VARCHAR(100) UNIQUE,
     DiaChi NVARCHAR(255),
-    ChucVu NVARCHAR(100),
+    MaChucVu INT,
     Luong DECIMAL(18,2) CHECK (Luong >= 0)
+    FOREIGN KEY (MaChucVu) REFERENCES ChucVu(MaChucVu)
 );
 GO
 
@@ -163,20 +169,5 @@ BEGIN
         ROLLBACK TRANSACTION;
         THROW 50000, N'Lỗi: Số lượng tồn kho không đủ để bán!', 1;
     END
-END;
-GO
-
--- ================================================================
--- 6. STORED PROCEDURE ĐĂNG NHẬP
--- ================================================================
-CREATE PROC sp_TaiKhoan_Login
-    @Username VARCHAR(50),
-    @Password VARCHAR(50)
-AS 
-BEGIN
-    SELECT TK.MaNhanVien, TK.Username, TK.PhanQuyen, NV.HoTen, NV.ChucVu
-    FROM TaiKhoan TK
-    JOIN NhanVien NV ON TK.MaNhanVien = NV.MaNhanVien
-    WHERE TK.Username = @Username AND TK.Password = @Password
 END;
 GO
