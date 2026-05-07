@@ -29,21 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GUI_ThongKe));
-            Guna.Charts.WinForms.ChartFont chartFont9 = new Guna.Charts.WinForms.ChartFont();
-            Guna.Charts.WinForms.ChartFont chartFont10 = new Guna.Charts.WinForms.ChartFont();
-            Guna.Charts.WinForms.ChartFont chartFont11 = new Guna.Charts.WinForms.ChartFont();
-            Guna.Charts.WinForms.ChartFont chartFont12 = new Guna.Charts.WinForms.ChartFont();
-            Guna.Charts.WinForms.Grid grid4 = new Guna.Charts.WinForms.Grid();
-            Guna.Charts.WinForms.Tick tick4 = new Guna.Charts.WinForms.Tick();
-            Guna.Charts.WinForms.ChartFont chartFont13 = new Guna.Charts.WinForms.ChartFont();
-            Guna.Charts.WinForms.Grid grid5 = new Guna.Charts.WinForms.Grid();
-            Guna.Charts.WinForms.Tick tick5 = new Guna.Charts.WinForms.Tick();
-            Guna.Charts.WinForms.ChartFont chartFont14 = new Guna.Charts.WinForms.ChartFont();
-            Guna.Charts.WinForms.Grid grid6 = new Guna.Charts.WinForms.Grid();
-            Guna.Charts.WinForms.PointLabel pointLabel2 = new Guna.Charts.WinForms.PointLabel();
-            Guna.Charts.WinForms.ChartFont chartFont15 = new Guna.Charts.WinForms.ChartFont();
-            Guna.Charts.WinForms.Tick tick6 = new Guna.Charts.WinForms.Tick();
-            Guna.Charts.WinForms.ChartFont chartFont16 = new Guna.Charts.WinForms.ChartFont();
             Guna.Charts.WinForms.ChartFont chartFont1 = new Guna.Charts.WinForms.ChartFont();
             Guna.Charts.WinForms.ChartFont chartFont2 = new Guna.Charts.WinForms.ChartFont();
             Guna.Charts.WinForms.ChartFont chartFont3 = new Guna.Charts.WinForms.ChartFont();
@@ -59,6 +44,21 @@
             Guna.Charts.WinForms.ChartFont chartFont7 = new Guna.Charts.WinForms.ChartFont();
             Guna.Charts.WinForms.Tick tick3 = new Guna.Charts.WinForms.Tick();
             Guna.Charts.WinForms.ChartFont chartFont8 = new Guna.Charts.WinForms.ChartFont();
+            Guna.Charts.WinForms.ChartFont chartFont9 = new Guna.Charts.WinForms.ChartFont();
+            Guna.Charts.WinForms.ChartFont chartFont10 = new Guna.Charts.WinForms.ChartFont();
+            Guna.Charts.WinForms.ChartFont chartFont11 = new Guna.Charts.WinForms.ChartFont();
+            Guna.Charts.WinForms.ChartFont chartFont12 = new Guna.Charts.WinForms.ChartFont();
+            Guna.Charts.WinForms.Grid grid4 = new Guna.Charts.WinForms.Grid();
+            Guna.Charts.WinForms.Tick tick4 = new Guna.Charts.WinForms.Tick();
+            Guna.Charts.WinForms.ChartFont chartFont13 = new Guna.Charts.WinForms.ChartFont();
+            Guna.Charts.WinForms.Grid grid5 = new Guna.Charts.WinForms.Grid();
+            Guna.Charts.WinForms.Tick tick5 = new Guna.Charts.WinForms.Tick();
+            Guna.Charts.WinForms.ChartFont chartFont14 = new Guna.Charts.WinForms.ChartFont();
+            Guna.Charts.WinForms.Grid grid6 = new Guna.Charts.WinForms.Grid();
+            Guna.Charts.WinForms.PointLabel pointLabel2 = new Guna.Charts.WinForms.PointLabel();
+            Guna.Charts.WinForms.ChartFont chartFont15 = new Guna.Charts.WinForms.ChartFont();
+            Guna.Charts.WinForms.Tick tick6 = new Guna.Charts.WinForms.Tick();
+            Guna.Charts.WinForms.ChartFont chartFont16 = new Guna.Charts.WinForms.ChartFont();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.guna2ShadowPanel4 = new Guna.UI2.WinForms.Guna2ShadowPanel();
             this.labelSanPhamTonKho = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -73,19 +73,19 @@
             this.guna2HtmlLabel4 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2PictureBox2 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.guna2ShadowPanel1 = new Guna.UI2.WinForms.Guna2ShadowPanel();
+            this.labelTongDoanhThu = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.guna2Panel3 = new Guna.UI2.WinForms.Guna2Panel();
-            this.chartDanhThuDanhMuc = new Guna.Charts.WinForms.GunaChart();
-            this.guna2Panel4 = new Guna.UI2.WinForms.Guna2Panel();
-            this.dgvCacSanPhamBanChay = new System.Windows.Forms.DataGridView();
-            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.labelTongDoanhThu = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
             this.chartDoanhThu = new Guna.Charts.WinForms.GunaChart();
+            this.guna2Panel3 = new Guna.UI2.WinForms.Guna2Panel();
+            this.chartDanhThuDanhMuc = new Guna.Charts.WinForms.GunaChart();
+            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.guna2Panel4 = new Guna.UI2.WinForms.Guna2Panel();
+            this.guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.dgvCacSanPhamBanChay = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel1.SuspendLayout();
             this.guna2ShadowPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox4)).BeginInit();
@@ -97,11 +97,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
+            this.guna2Panel2.SuspendLayout();
             this.guna2Panel3.SuspendLayout();
+            this.tableLayoutPanel4.SuspendLayout();
             this.guna2Panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCacSanPhamBanChay)).BeginInit();
-            this.tableLayoutPanel4.SuspendLayout();
-            this.guna2Panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -297,6 +297,20 @@
             this.guna2ShadowPanel1.Size = new System.Drawing.Size(275, 115);
             this.guna2ShadowPanel1.TabIndex = 0;
             // 
+            // labelTongDoanhThu
+            // 
+            this.labelTongDoanhThu.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelTongDoanhThu.AutoSize = false;
+            this.labelTongDoanhThu.BackColor = System.Drawing.Color.Transparent;
+            this.labelTongDoanhThu.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTongDoanhThu.ForeColor = System.Drawing.Color.Green;
+            this.labelTongDoanhThu.Location = new System.Drawing.Point(90, 29);
+            this.labelTongDoanhThu.Name = "labelTongDoanhThu";
+            this.labelTongDoanhThu.Size = new System.Drawing.Size(165, 34);
+            this.labelTongDoanhThu.TabIndex = 2;
+            this.labelTongDoanhThu.Text = "0";
+            this.labelTongDoanhThu.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // guna2HtmlLabel1
             // 
             this.guna2HtmlLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -352,134 +366,6 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(1125, 311);
             this.tableLayoutPanel2.TabIndex = 6;
             // 
-            // guna2Panel3
-            // 
-            this.guna2Panel3.BackColor = System.Drawing.Color.Transparent;
-            this.guna2Panel3.BorderRadius = 15;
-            this.guna2Panel3.Controls.Add(this.chartDanhThuDanhMuc);
-            this.guna2Panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.guna2Panel3.FillColor = System.Drawing.Color.White;
-            this.guna2Panel3.Location = new System.Drawing.Point(847, 3);
-            this.guna2Panel3.Name = "guna2Panel3";
-            this.guna2Panel3.Size = new System.Drawing.Size(275, 305);
-            this.guna2Panel3.TabIndex = 5;
-            // 
-            // chartDanhThuDanhMuc
-            // 
-            this.chartDanhThuDanhMuc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.chartDanhThuDanhMuc.BackColor = System.Drawing.Color.Transparent;
-            this.chartDanhThuDanhMuc.Legend.Display = false;
-            chartFont9.FontName = "Arial";
-            this.chartDanhThuDanhMuc.Legend.LabelFont = chartFont9;
-            this.chartDanhThuDanhMuc.Location = new System.Drawing.Point(10, 10);
-            this.chartDanhThuDanhMuc.Margin = new System.Windows.Forms.Padding(10);
-            this.chartDanhThuDanhMuc.Name = "chartDanhThuDanhMuc";
-            this.chartDanhThuDanhMuc.Size = new System.Drawing.Size(257, 285);
-            this.chartDanhThuDanhMuc.TabIndex = 3;
-            chartFont10.FontName = "Arial";
-            chartFont10.Size = 12;
-            chartFont10.Style = Guna.Charts.WinForms.ChartFontStyle.Bold;
-            this.chartDanhThuDanhMuc.Title.Font = chartFont10;
-            this.chartDanhThuDanhMuc.Tooltips.BackgroundColor = System.Drawing.Color.White;
-            chartFont11.FontName = "Arial";
-            this.chartDanhThuDanhMuc.Tooltips.BodyFont = chartFont11;
-            this.chartDanhThuDanhMuc.Tooltips.BodyForeColor = System.Drawing.Color.DimGray;
-            this.chartDanhThuDanhMuc.Tooltips.BorderColor = System.Drawing.Color.LightGray;
-            this.chartDanhThuDanhMuc.Tooltips.BorderWidth = 1;
-            this.chartDanhThuDanhMuc.Tooltips.CornerRadius = 5;
-            chartFont12.FontName = "Arial";
-            chartFont12.Size = 9;
-            chartFont12.Style = Guna.Charts.WinForms.ChartFontStyle.Bold;
-            this.chartDanhThuDanhMuc.Tooltips.TitleFont = chartFont12;
-            this.chartDanhThuDanhMuc.Tooltips.TitleForeColor = System.Drawing.Color.Black;
-            grid4.Display = false;
-            this.chartDanhThuDanhMuc.XAxes.GridLines = grid4;
-            chartFont13.FontName = "Arial";
-            tick4.Font = chartFont13;
-            this.chartDanhThuDanhMuc.XAxes.Ticks = tick4;
-            grid5.Color = System.Drawing.Color.WhiteSmoke;
-            grid5.DrawTicks = false;
-            this.chartDanhThuDanhMuc.YAxes.GridLines = grid5;
-            chartFont14.FontName = "Arial";
-            tick5.Font = chartFont14;
-            this.chartDanhThuDanhMuc.YAxes.Ticks = tick5;
-            this.chartDanhThuDanhMuc.ZAxes.GridLines = grid6;
-            chartFont15.FontName = "Arial";
-            pointLabel2.Font = chartFont15;
-            this.chartDanhThuDanhMuc.ZAxes.PointLabels = pointLabel2;
-            chartFont16.FontName = "Arial";
-            tick6.Font = chartFont16;
-            this.chartDanhThuDanhMuc.ZAxes.Ticks = tick6;
-            // 
-            // guna2Panel4
-            // 
-            this.guna2Panel4.BackColor = System.Drawing.Color.Transparent;
-            this.guna2Panel4.BorderRadius = 20;
-            this.guna2Panel4.Controls.Add(this.guna2HtmlLabel2);
-            this.guna2Panel4.Controls.Add(this.dgvCacSanPhamBanChay);
-            this.guna2Panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.guna2Panel4.FillColor = System.Drawing.Color.White;
-            this.guna2Panel4.Location = new System.Drawing.Point(3, 3);
-            this.guna2Panel4.Name = "guna2Panel4";
-            this.guna2Panel4.Size = new System.Drawing.Size(1119, 269);
-            this.guna2Panel4.TabIndex = 1;
-            // 
-            // dgvCacSanPhamBanChay
-            // 
-            this.dgvCacSanPhamBanChay.AllowUserToAddRows = false;
-            this.dgvCacSanPhamBanChay.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvCacSanPhamBanChay.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvCacSanPhamBanChay.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvCacSanPhamBanChay.Location = new System.Drawing.Point(10, 54);
-            this.dgvCacSanPhamBanChay.Margin = new System.Windows.Forms.Padding(10);
-            this.dgvCacSanPhamBanChay.Name = "dgvCacSanPhamBanChay";
-            this.dgvCacSanPhamBanChay.ReadOnly = true;
-            this.dgvCacSanPhamBanChay.RowHeadersVisible = false;
-            this.dgvCacSanPhamBanChay.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvCacSanPhamBanChay.Size = new System.Drawing.Size(1099, 205);
-            this.dgvCacSanPhamBanChay.TabIndex = 0;
-            // 
-            // tableLayoutPanel4
-            // 
-            this.tableLayoutPanel4.ColumnCount = 1;
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.Controls.Add(this.guna2Panel4, 0, 0);
-            this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 447);
-            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            this.tableLayoutPanel4.RowCount = 1;
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(1125, 275);
-            this.tableLayoutPanel4.TabIndex = 7;
-            // 
-            // guna2HtmlLabel2
-            // 
-            this.guna2HtmlLabel2.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2HtmlLabel2.Location = new System.Drawing.Point(15, 8);
-            this.guna2HtmlLabel2.Name = "guna2HtmlLabel2";
-            this.guna2HtmlLabel2.Size = new System.Drawing.Size(294, 33);
-            this.guna2HtmlLabel2.TabIndex = 1;
-            this.guna2HtmlLabel2.Text = "Các sản phẩm bán chạy";
-            // 
-            // labelTongDoanhThu
-            // 
-            this.labelTongDoanhThu.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelTongDoanhThu.AutoSize = false;
-            this.labelTongDoanhThu.BackColor = System.Drawing.Color.Transparent;
-            this.labelTongDoanhThu.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTongDoanhThu.ForeColor = System.Drawing.Color.Green;
-            this.labelTongDoanhThu.Location = new System.Drawing.Point(90, 29);
-            this.labelTongDoanhThu.Name = "labelTongDoanhThu";
-            this.labelTongDoanhThu.Size = new System.Drawing.Size(165, 34);
-            this.labelTongDoanhThu.TabIndex = 2;
-            this.labelTongDoanhThu.Text = "0";
-            this.labelTongDoanhThu.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // guna2Panel2
             // 
             this.guna2Panel2.BackColor = System.Drawing.Color.Transparent;
@@ -490,7 +376,7 @@
             this.guna2Panel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2Panel2.Location = new System.Drawing.Point(3, 3);
             this.guna2Panel2.Name = "guna2Panel2";
-            this.guna2Panel2.Size = new System.Drawing.Size(838, 305);
+            this.guna2Panel2.Size = new System.Drawing.Size(837, 305);
             this.guna2Panel2.TabIndex = 6;
             // 
             // chartDoanhThu
@@ -504,7 +390,7 @@
             this.chartDoanhThu.Location = new System.Drawing.Point(10, 10);
             this.chartDoanhThu.Margin = new System.Windows.Forms.Padding(10);
             this.chartDoanhThu.Name = "chartDoanhThu";
-            this.chartDoanhThu.Size = new System.Drawing.Size(820, 285);
+            this.chartDoanhThu.Size = new System.Drawing.Size(819, 285);
             this.chartDoanhThu.TabIndex = 3;
             chartFont2.FontName = "Arial";
             chartFont2.Size = 12;
@@ -542,10 +428,123 @@
             tick3.Font = chartFont8;
             this.chartDoanhThu.ZAxes.Ticks = tick3;
             // 
+            // guna2Panel3
+            // 
+            this.guna2Panel3.BackColor = System.Drawing.Color.Transparent;
+            this.guna2Panel3.BorderRadius = 15;
+            this.guna2Panel3.Controls.Add(this.chartDanhThuDanhMuc);
+            this.guna2Panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.guna2Panel3.FillColor = System.Drawing.Color.White;
+            this.guna2Panel3.Location = new System.Drawing.Point(846, 3);
+            this.guna2Panel3.Name = "guna2Panel3";
+            this.guna2Panel3.Size = new System.Drawing.Size(276, 305);
+            this.guna2Panel3.TabIndex = 5;
+            // 
+            // chartDanhThuDanhMuc
+            // 
+            this.chartDanhThuDanhMuc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.chartDanhThuDanhMuc.BackColor = System.Drawing.Color.Transparent;
+            this.chartDanhThuDanhMuc.Legend.Display = false;
+            chartFont9.FontName = "Arial";
+            this.chartDanhThuDanhMuc.Legend.LabelFont = chartFont9;
+            this.chartDanhThuDanhMuc.Location = new System.Drawing.Point(10, 10);
+            this.chartDanhThuDanhMuc.Margin = new System.Windows.Forms.Padding(10);
+            this.chartDanhThuDanhMuc.Name = "chartDanhThuDanhMuc";
+            this.chartDanhThuDanhMuc.Size = new System.Drawing.Size(258, 285);
+            this.chartDanhThuDanhMuc.TabIndex = 3;
+            chartFont10.FontName = "Arial";
+            chartFont10.Size = 12;
+            chartFont10.Style = Guna.Charts.WinForms.ChartFontStyle.Bold;
+            this.chartDanhThuDanhMuc.Title.Font = chartFont10;
+            this.chartDanhThuDanhMuc.Tooltips.BackgroundColor = System.Drawing.Color.White;
+            chartFont11.FontName = "Arial";
+            this.chartDanhThuDanhMuc.Tooltips.BodyFont = chartFont11;
+            this.chartDanhThuDanhMuc.Tooltips.BodyForeColor = System.Drawing.Color.DimGray;
+            this.chartDanhThuDanhMuc.Tooltips.BorderColor = System.Drawing.Color.LightGray;
+            this.chartDanhThuDanhMuc.Tooltips.BorderWidth = 1;
+            this.chartDanhThuDanhMuc.Tooltips.CornerRadius = 5;
+            chartFont12.FontName = "Arial";
+            chartFont12.Size = 9;
+            chartFont12.Style = Guna.Charts.WinForms.ChartFontStyle.Bold;
+            this.chartDanhThuDanhMuc.Tooltips.TitleFont = chartFont12;
+            this.chartDanhThuDanhMuc.Tooltips.TitleForeColor = System.Drawing.Color.Black;
+            grid4.Display = false;
+            this.chartDanhThuDanhMuc.XAxes.GridLines = grid4;
+            chartFont13.FontName = "Arial";
+            tick4.Font = chartFont13;
+            this.chartDanhThuDanhMuc.XAxes.Ticks = tick4;
+            grid5.Color = System.Drawing.Color.WhiteSmoke;
+            grid5.DrawTicks = false;
+            this.chartDanhThuDanhMuc.YAxes.GridLines = grid5;
+            chartFont14.FontName = "Arial";
+            tick5.Font = chartFont14;
+            this.chartDanhThuDanhMuc.YAxes.Ticks = tick5;
+            this.chartDanhThuDanhMuc.ZAxes.GridLines = grid6;
+            chartFont15.FontName = "Arial";
+            pointLabel2.Font = chartFont15;
+            this.chartDanhThuDanhMuc.ZAxes.PointLabels = pointLabel2;
+            chartFont16.FontName = "Arial";
+            tick6.Font = chartFont16;
+            this.chartDanhThuDanhMuc.ZAxes.Ticks = tick6;
+            // 
+            // tableLayoutPanel4
+            // 
+            this.tableLayoutPanel4.ColumnCount = 1;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel4.Controls.Add(this.guna2Panel4, 0, 0);
+            this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 447);
+            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
+            this.tableLayoutPanel4.RowCount = 1;
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(1125, 275);
+            this.tableLayoutPanel4.TabIndex = 7;
+            // 
+            // guna2Panel4
+            // 
+            this.guna2Panel4.BackColor = System.Drawing.Color.Transparent;
+            this.guna2Panel4.BorderRadius = 20;
+            this.guna2Panel4.Controls.Add(this.guna2HtmlLabel2);
+            this.guna2Panel4.Controls.Add(this.dgvCacSanPhamBanChay);
+            this.guna2Panel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.guna2Panel4.FillColor = System.Drawing.Color.White;
+            this.guna2Panel4.Location = new System.Drawing.Point(3, 3);
+            this.guna2Panel4.Name = "guna2Panel4";
+            this.guna2Panel4.Size = new System.Drawing.Size(1119, 269);
+            this.guna2Panel4.TabIndex = 1;
+            // 
+            // guna2HtmlLabel2
+            // 
+            this.guna2HtmlLabel2.BackColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel2.Location = new System.Drawing.Point(15, 8);
+            this.guna2HtmlLabel2.Name = "guna2HtmlLabel2";
+            this.guna2HtmlLabel2.Size = new System.Drawing.Size(294, 33);
+            this.guna2HtmlLabel2.TabIndex = 1;
+            this.guna2HtmlLabel2.Text = "Các sản phẩm bán chạy";
+            // 
+            // dgvCacSanPhamBanChay
+            // 
+            this.dgvCacSanPhamBanChay.AllowUserToAddRows = false;
+            this.dgvCacSanPhamBanChay.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvCacSanPhamBanChay.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvCacSanPhamBanChay.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvCacSanPhamBanChay.Location = new System.Drawing.Point(10, 54);
+            this.dgvCacSanPhamBanChay.Margin = new System.Windows.Forms.Padding(10);
+            this.dgvCacSanPhamBanChay.Name = "dgvCacSanPhamBanChay";
+            this.dgvCacSanPhamBanChay.ReadOnly = true;
+            this.dgvCacSanPhamBanChay.RowHeadersVisible = false;
+            this.dgvCacSanPhamBanChay.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvCacSanPhamBanChay.Size = new System.Drawing.Size(1099, 205);
+            this.dgvCacSanPhamBanChay.TabIndex = 0;
+            // 
             // GUI_ThongKe
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(1131, 725);
@@ -571,12 +570,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).EndInit();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
+            this.guna2Panel2.ResumeLayout(false);
             this.guna2Panel3.ResumeLayout(false);
+            this.tableLayoutPanel4.ResumeLayout(false);
             this.guna2Panel4.ResumeLayout(false);
             this.guna2Panel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCacSanPhamBanChay)).EndInit();
-            this.tableLayoutPanel4.ResumeLayout(false);
-            this.guna2Panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

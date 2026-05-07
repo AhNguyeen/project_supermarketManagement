@@ -290,8 +290,7 @@
             // 
             // GUI_NhaCungCap
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(1099, 685);
             this.ControlBox = false;
             this.Controls.Add(this.tableLayoutPanel1);

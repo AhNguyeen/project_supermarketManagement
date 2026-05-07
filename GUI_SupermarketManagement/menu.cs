@@ -55,12 +55,8 @@ namespace GUI_SupermarketManagement
             newForm.FormBorderStyle = FormBorderStyle.None;
             newForm.Dock = DockStyle.Fill;
 
-            // Tạm thời tắt vẽ giao diện để load nhanh hơn
-            newForm.SuspendLayout();
-
             // BƯỚC 2: HIỂN THỊ FORM MỚI ĐỂ CHE ĐI FORM CŨ
             newForm.Show();
-            newForm.ResumeLayout();
 
             // BƯỚC 3: SAU KHI FORM MỚI ĐÃ LÊN HÌNH, MỚI ĐÓNG CÁC FORM CŨ ĐI
             foreach (Form childForm in this.MdiChildren)

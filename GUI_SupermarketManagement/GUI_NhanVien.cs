@@ -128,7 +128,7 @@ namespace GUI_SupermarketManagement
                         NgaySinh = dtpNgaySinh.Value,
                         GioiTinh = cboGioiTinh.Text,
                         MaChucVu = Convert.ToInt32(cboChucVu.SelectedValue),
-                        Luong = Convert.ToInt32(txtLuong.Text),
+                        Luong = Convert.ToDouble(txtLuong.Text),
                         SoDT = txtSoDienThoai.Text,
                         EMail = txtEmail.Text,
                         DiaChi = txtDiaChi.Text
@@ -157,6 +157,13 @@ namespace GUI_SupermarketManagement
             }
             else
             {
+                // Hiển thị hộp thoại xác nhận trước khi xóa để tránh xóa nhầm
+                DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn xóa nhân viên này không?", "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.No)
+                {
+                    return; // Dừng lại nếu người dùng chọn không xóa
+                }
+
                 int maNhanVien = Convert.ToInt32(txtMaNV.Text);
                 bool success = bus_NhanVien.XoaNhanVien(maNhanVien);
                 if (success)
