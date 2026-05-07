@@ -30,9 +30,7 @@ namespace GUI_SupermarketManagement
             dgvKhachHang.DataSource = bus_KhachHang.layDanhSach();
         }
 
-        // Xử lý sự kiện khi giá trị của một ô trong DataGridView thay đổi
-        // Xử lý cập nhật thông tin khách hàng khi người dùng chỉnh sửa dữ liệu trong DataGridView
-        private void dgvKhachHang_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        private void dgvKhachHang_SelectionChanged(object sender, EventArgs e)
         {
             // BƯỚC BẢO VỆ: Đảm bảo DataGridView đang thực sự có dòng được chọn
             if (dgvKhachHang.CurrentRow != null && dgvKhachHang.CurrentRow.Index >= 0)
@@ -220,5 +218,6 @@ namespace GUI_SupermarketManagement
                 e.Handled = true; // Ngăn chặn ký tự không hợp lệ được nhập vào
             }
         }
+
     }
 }

@@ -13,6 +13,6 @@ namespace GUI_SupermarketManagement
 
         // Bạn có thể lưu thêm các thông tin khác nếu cần dùng sau này
         public static string TenNhanVien { get; set; }
-        public static string QuyenHan { get; set; } // Ví dụ: "Admin", "NhanVien"
+        public static string PhanQuyen { get; set; } // Ví dụ: "Admin", "NhanVien"
     }
 }

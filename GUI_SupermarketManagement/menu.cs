@@ -25,13 +25,28 @@ namespace GUI_SupermarketManagement
             this.Close();
         }
 
-        /// Bắt sự kiện hệ thống khi Form chuẩn bị đóng.
-        /// Hiển thị hộp thoại cảnh báo để tránh việc người dùng vô tình tắt nhầm phần mềm.
+        // 1. Khai báo một cái "cờ hiệu" (Biến toàn cục trên cùng của class FrmMenu)
+        bool isLogout = false;
+
+        // 2. Chỉnh lại Nút Đăng Xuất
+        private void btnDangXuat_Click(object sender, EventArgs e)
+        {
+            isLogout = true;                         // Bật cờ hiệu Đăng xuất lên
+            this.DialogResult = DialogResult.Yes;    // Bắn tín hiệu "Đăng xuất" về cho GUI_Login
+            this.Close();                            // Đóng form Menu
+        }
+
+        // 3. Chỉnh lại hàm FormClosing của Menu
         private void FrmMenu_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // Nếu người dùng chọn No, hủy lệnh đóng Form (giữ phần mềm tiếp tục chạy)
-            DialogResult r;
-            r = MessageBox.Show("Bạn có chắc chắn thoát khỏi hệ thống không ?", "Thông Báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+            // LỚP BẢO VỆ: Nếu đang là Đăng Xuất thì KHÔNG HIỂN THỊ THÔNG BÁO GÌ CẢ, CHO ĐÓNG LUÔN
+            if (isLogout == true)
+            {
+                return;
+            }
+
+            // Nếu không phải Đăng xuất (ví dụ bấm dấu X góc phải), thì mới hiện thông báo hỏi
+            DialogResult r = MessageBox.Show("Bạn có chắc chắn muốn thoát khỏi phần mềm?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (r == DialogResult.No)
             {
                 e.Cancel = true;
@@ -39,6 +54,21 @@ namespace GUI_SupermarketManagement
         }
         // Biến toàn cục lưu trữ vết của Form con đang được mở hiện tại trên màn hình
         private Form activeForm = null;
+
+        /// <summary>
+        /// Hàm xử lý phân quyền: Admin dùng hết, User bị ẩn các mục nhạy cảm
+        /// </summary>
+        private void PhanQuyenMenu()
+        {
+            if (UserSession.PhanQuyen == "User")
+            {
+                // Khóa hoặc ẩn các chức năng chỉ dành cho Admin
+                btnThongKe.Enabled = false;   // Không cho xem doanh thu tổng
+                btnNhanVien.Visible = false; // Ẩn luôn nút Quản lý nhân viên để bảo mật
+
+                // Bạn có thể khóa thêm các nút khác tùy vào yêu cầu nghiệp vụ
+            }
+        }
 
         /// <summary>
         /// Mở một Form con bên trong không gian của Form cha (MDI Parent).
@@ -78,8 +108,23 @@ namespace GUI_SupermarketManagement
 
         private void FrmMenu_Load(object sender, EventArgs e)
         {
-            OpenChildForm(typeof(GUI_ThongKe));
-            lblGUI.Text = "Thống Kê";
+            // 1. Load thông tin người dùng lên các Label
+            lblEmployee.Text = "Xin chào: " + UserSession.TenNhanVien + " | Quyền: " + UserSession.PhanQuyen;
+
+            // 2. Thực hiện phân quyền các chức năng
+            PhanQuyenMenu();
+
+            // 3. Mở mặc định trang Thống kê (Nếu là Admin) hoặc Thanh toán (Nếu là User)
+            if (UserSession.PhanQuyen == "Admin")
+            {
+                OpenChildForm(typeof(GUI_ThongKe));
+                lblGUI.Text = "Thống Kê";
+            }
+            else
+            {
+                OpenChildForm(typeof(GUI_ThanhToan));
+                lblGUI.Text = "Thanh Toán";
+            }
         }
 
         private void btnDanhMuc_Click(object sender, EventArgs e)
@@ -122,6 +167,12 @@ namespace GUI_SupermarketManagement
         {
             OpenChildForm(typeof(GUI_NhanVien));
             lblGUI.Text = "Quản Lý Nhân Viên";
+        }
+
+        private void btnKhachHang_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(typeof(GUI_KhachHang));
+            lblGUI.Text = "Quản Lý Khách Hàng";
         }
     }
 }

@@ -293,6 +293,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\money_bag.png" />
+    <None Include="Resources\logout.png" />
+    <None Include="Resources\exit.png" />
+    <None Include="Resources\setting.png" />
     <None Include="Resources\employee.png" />
     <None Include="Resources\customer.png" />
     <None Include="Resources\wholesale.png" />

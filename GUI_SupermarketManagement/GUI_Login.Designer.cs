@@ -43,15 +43,14 @@
             // guna2Panel1
             // 
             this.guna2Panel1.BackColor = System.Drawing.Color.Transparent;
-            this.guna2Panel1.BorderRadius = 15;
             this.guna2Panel1.Controls.Add(this.btnThoat);
             this.guna2Panel1.Controls.Add(this.btnDangNhap);
             this.guna2Panel1.Controls.Add(this.txtPassword);
             this.guna2Panel1.Controls.Add(this.txtUsername);
             this.guna2Panel1.Controls.Add(this.guna2HtmlLabel1);
             this.guna2Panel1.Controls.Add(this.guna2PictureBox1);
-            this.guna2Panel1.FillColor = System.Drawing.Color.White;
             resources.ApplyResources(this.guna2Panel1, "guna2Panel1");
+            this.guna2Panel1.FillColor = System.Drawing.Color.White;
             this.guna2Panel1.Name = "guna2Panel1";
             // 
             // btnThoat
