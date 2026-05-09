@@ -113,32 +113,6 @@ namespace GUI_SupermarketManagement
         }
 
         /// <summary>
-        /// Sự kiện click vào 1 dòng trên DataGridView
-        /// </summary>
-        private void dgvNCC_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                // Kiểm tra xem người dùng có click trúng dòng chứa dữ liệu không
-                if (dgvNCC.CurrentRow != null && dgvNCC.CurrentCell.RowIndex >= 0)
-                {
-                    int index = dgvNCC.CurrentCell.RowIndex;
-
-                    // Đẩy dữ liệu từ dòng được chọn lên các TextBox
-                    txtMaNCC.Text = dgvNCC.Rows[index].Cells[0].Value.ToString();
-                    txtTenNCC.Text = dgvNCC.Rows[index].Cells[1].Value.ToString();
-                    txtDiaChi.Text = dgvNCC.Rows[index].Cells[2].Value.ToString();
-                    txtSoDT.Text = dgvNCC.Rows[index].Cells[3].Value.ToString();
-                    txtEmail.Text = dgvNCC.Rows[index].Cells[4].Value.ToString();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi khi tải dữ liệu: " + ex.Message, "Thông báo");
-            }
-        }
-
-        /// <summary>
         /// Xử lý logic Xóa Nhà cung cấp
         /// </summary>
         private void btnXoa_Click(object sender, EventArgs e)
@@ -244,6 +218,29 @@ namespace GUI_SupermarketManagement
             }
 
             return true; // Dữ liệu hợp lệ
+        }
+
+        private void dgvNCC_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                // Kiểm tra xem người dùng có click trúng dòng chứa dữ liệu không
+                if (dgvNCC.CurrentRow != null && dgvNCC.CurrentCell.RowIndex >= 0)
+                {
+                    int index = dgvNCC.CurrentCell.RowIndex;
+
+                    // Đẩy dữ liệu từ dòng được chọn lên các TextBox
+                    txtMaNCC.Text = dgvNCC.Rows[index].Cells[0].Value.ToString();
+                    txtTenNCC.Text = dgvNCC.Rows[index].Cells[1].Value.ToString();
+                    txtDiaChi.Text = dgvNCC.Rows[index].Cells[2].Value.ToString();
+                    txtSoDT.Text = dgvNCC.Rows[index].Cells[3].Value.ToString();
+                    txtEmail.Text = dgvNCC.Rows[index].Cells[4].Value.ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi tải dữ liệu: " + ex.Message, "Thông báo");
+            }
         }
     }
 }

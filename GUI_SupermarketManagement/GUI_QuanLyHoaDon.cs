@@ -68,7 +68,7 @@ namespace GUI_SupermarketManagement
         /// </summary>
         public void ClearTxtCbo()
         {
-            txtMaHD.Clear();
+            txtTongTien.Clear();
             cboMaKH.SelectedIndex = 0;
             cboMaNV.SelectedIndex = 0;
             cboTrangThai.SelectedIndex = 0;
@@ -211,10 +211,10 @@ namespace GUI_SupermarketManagement
             else
             {
                 // 1. Lấy toàn bộ dữ liệu mới trên giao diện
+                int maHD = Convert.ToInt32(txtMaHD.Text);
                 int maKH = Convert.ToInt32(cboMaKH.SelectedValue);
                 int maNV = Convert.ToInt32(cboMaNV.SelectedValue);
                 DateTime ngayLap = Convert.ToDateTime(dtpNgayLap.Value);
-                int maHD = Convert.ToInt32(txtMaHD.Text);
 
                 // Dùng TryParse để an toàn ép kiểu tổng tiền (Tránh lỗi văng app nếu ô chữ trống)
                 int tongTien;
@@ -258,7 +258,7 @@ namespace GUI_SupermarketManagement
 
                 if (r == DialogResult.Yes)
                 {
-                    int maHD = Convert.ToInt32(txtMaHD.Text);
+                    int maHD = Convert.ToInt32(txtTongTien.Text);
                     bus_HoaDon.XoaHoaDon(maHD); // Gọi hàm xóa từ Database
 
                     LoadDanhSach(); // Refresh bảng
