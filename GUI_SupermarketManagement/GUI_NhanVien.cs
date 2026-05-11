@@ -205,6 +205,14 @@ namespace GUI_SupermarketManagement
                 MessageBox.Show("Địa chỉ không được vượt quá 255 ký tự.", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
+            // Giới hạn độ tuổi nhân viên (ví dụ: từ 18 đến 50 tuổi)
+            int age = DateTime.Now.Year - dtpNgaySinh.Value.Year;
+            if (age < 18 || age > 50)
+            {
+                MessageBox.Show("Tuổi nhân viên phải từ 18 đến 50 tuổi.", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
             // Kiểm tra ngày sinh phải là ngày hợp lệ và không được lớn hơn ngày hiện tại
             if (dtpNgaySinh.Value > DateTime.Now)
             {

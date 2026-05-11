@@ -75,8 +75,8 @@ namespace DAL_SupermarketManagement
                 SqlParameter[] sqlParameters = new SqlParameter[]
                 {
                     new SqlParameter("@TenKho", tenKho),
-                    new SqlParameter("@MaNV", maNhanVien),
-                    new SqlParameter("@MaNCC", maNCC),
+                    new SqlParameter("@MaNhanVien", maNhanVien),
+                    new SqlParameter("@MaNCC", maNCC),  
                     new SqlParameter("@NgayNhap", ngayNhap)
                 };
 
@@ -119,7 +119,7 @@ namespace DAL_SupermarketManagement
             }
             catch (Exception)
             {
-                return false;
+                throw new Exception("Lỗi khi cập nhật thông tin Kho. Vui lòng kiểm tra lại dữ liệu và thử lại.");
             }
         }
 

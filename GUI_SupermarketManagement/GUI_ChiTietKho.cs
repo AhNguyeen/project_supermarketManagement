@@ -71,7 +71,8 @@ namespace GUI_SupermarketManagement
         /// <summary>
         /// Xử lý nút Thoát: Đóng Form con và quay lại Form Quản lý kho
         /// </summary>
-        private void btnThoat_Click(object sender, EventArgs e)
+
+        private void btnThoat_Click_1(object sender, EventArgs e)
         {
             this.Close();
         }

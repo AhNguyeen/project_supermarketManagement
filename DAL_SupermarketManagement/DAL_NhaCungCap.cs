@@ -24,13 +24,12 @@ namespace DAL_SupermarketManagement
             try
             {
                 string strSQL = "sp_NhaCungCap_Search";
-                dt = connect.ReadData(strSQL);
+                return dt = connect.ReadData(strSQL);
             }
             catch (Exception)
             {
-                return null;
+                throw new Exception("Lỗi truy vấn dữ liệu nhà cung cấp!");
             }
-            return dt;
         }
 
         /// <summary>

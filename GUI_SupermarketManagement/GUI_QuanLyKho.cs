@@ -131,6 +131,12 @@ namespace GUI_SupermarketManagement
                     return;
                 }
 
+                // Kiểm tra tính hợp lệ của tên kho (Không được để trống, không chứa ký tự đặc biệt, giới hạn độ dài, chống trùng lặp)
+                if (!KiemTraTenKhoHopLe())
+                {
+                    return; // Nếu không hợp lệ thì dừng lại, không chạy code sửa vào Database nữa
+                }
+
                 // Xác nhận lại với người dùng trước khi sửa để tránh bấm nhầm
                 DialogResult r;
                 r = MessageBox.Show("Bạn có chắc muốn sửa " + txtTenKho.Text + " hay không ?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
@@ -145,35 +151,6 @@ namespace GUI_SupermarketManagement
                     LoadDanhSach();
                     MessageBox.Show("Sửa thông tin kho thành công!");
                 }
-            }
-        }
-
-        /// <summary>
-        /// Xử lý sự kiện khi người dùng click vào 1 dòng trên DataGridView.
-        /// Dữ liệu từ dòng đó sẽ được đẩy ngược lên các ô TextBox, ComboBox tương ứng.
-        /// </summary>
-        private void dgvKho_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                // Lấy vị trí (Index) của dòng đang được click
-                int index = dgvKho.CurrentCell.RowIndex;
-
-                // Gán giá trị từ từng cột (Cell) của dòng đó lên giao diện
-                txtMaKho.Text = dgvKho.Rows[index].Cells[0].Value.ToString();
-                txtTenKho.Text = dgvKho.Rows[index].Cells[1].Value.ToString();
-
-                // Gán giá trị cho ComboBox (chọn theo ValueMember là ID)
-                cboMaNhanVien.SelectedValue = dgvKho.Rows[index].Cells[2].Value.ToString();
-                cboNCC.SelectedValue = dgvKho.Rows[index].Cells[4].Value.ToString();
-
-                dtpNgayNhap.Text = dgvKho.Rows[index].Cells[6].Value.ToString();
-                rtxtGhiChu.Text = dgvKho.Rows[index].Cells[7].Value.ToString();
-            }
-            catch (Exception ex)
-            {
-                // Bắt lỗi nếu click vào vùng trống hoặc dòng không có dữ liệu
-                MessageBox.Show("Lỗi: " + ex.Message, "Thông báo");
             }
         }
 
@@ -281,6 +258,36 @@ namespace GUI_SupermarketManagement
             }
 
             return true; // Dữ liệu hoàn toàn hợp lệ
+        }
+
+        private void dgvKho_SelectionChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dgvKho.CurrentRow != null && dgvKho.CurrentRow.Index >= 0)
+                {
+                    DataGridViewRow row = dgvKho.CurrentRow;
+
+                    // Gán dữ liệu Text
+                    txtMaKho.Text = row.Cells["colMaKho"].Value?.ToString();
+                    txtTenKho.Text = row.Cells["colTenKho"].Value?.ToString();
+
+                    // ĐÃ FIX: Gọi đích danh TÊN CỘT, không dùng số Index nữa để chống chéo dữ liệu
+                    cboMaNhanVien.SelectedValue = row.Cells["colMaNhanVien"].Value;
+                    cboNCC.SelectedValue = row.Cells["colMaNCC"].Value;
+
+                    if (row.Cells["colNgayNhap"].Value != null && row.Cells["colNgayNhap"].Value != DBNull.Value)
+                    {
+                        dtpNgayNhap.Value = Convert.ToDateTime(row.Cells["colNgayNhap"].Value);
+                    }
+
+                    rtxtGhiChu.Text = row.Cells["colGhiChu"].Value?.ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi hiển thị dữ liệu: " + ex.Message, "Thông báo");
+            }
         }
     }
 }
