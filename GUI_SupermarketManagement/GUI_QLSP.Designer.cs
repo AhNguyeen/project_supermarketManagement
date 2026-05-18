@@ -319,9 +319,9 @@
             this.pbAnhSanPham.BorderRadius = 8;
             this.pbAnhSanPham.FillColor = System.Drawing.Color.WhiteSmoke;
             this.pbAnhSanPham.ImageRotate = 0F;
-            this.pbAnhSanPham.Location = new System.Drawing.Point(208, 135);
+            this.pbAnhSanPham.Location = new System.Drawing.Point(208, 134);
             this.pbAnhSanPham.Name = "pbAnhSanPham";
-            this.pbAnhSanPham.Size = new System.Drawing.Size(300, 200);
+            this.pbAnhSanPham.Size = new System.Drawing.Size(200, 200);
             this.pbAnhSanPham.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbAnhSanPham.TabIndex = 19;
             this.pbAnhSanPham.TabStop = false;
@@ -445,7 +445,7 @@
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvsanpham.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvsanpham.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvsanpham.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            this.dgvsanpham.GridColor = System.Drawing.Color.White;
             this.dgvsanpham.Location = new System.Drawing.Point(0, 406);
             this.dgvsanpham.Name = "dgvsanpham";
             this.dgvsanpham.ReadOnly = true;
@@ -460,13 +460,13 @@
             this.dgvsanpham.RowHeadersVisible = false;
             this.dgvsanpham.Size = new System.Drawing.Size(1270, 286);
             this.dgvsanpham.TabIndex = 24;
-            this.dgvsanpham.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
+            this.dgvsanpham.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.Silver;
             this.dgvsanpham.ThemeStyle.AlternatingRowsStyle.Font = null;
             this.dgvsanpham.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty;
             this.dgvsanpham.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty;
             this.dgvsanpham.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty;
             this.dgvsanpham.ThemeStyle.BackColor = System.Drawing.Color.White;
-            this.dgvsanpham.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            this.dgvsanpham.ThemeStyle.GridColor = System.Drawing.Color.White;
             this.dgvsanpham.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
             this.dgvsanpham.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this.dgvsanpham.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

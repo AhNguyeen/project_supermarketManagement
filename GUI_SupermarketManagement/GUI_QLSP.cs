@@ -172,15 +172,38 @@ namespace GUI_SupermarketManagement
         /// </summary>
         private void btnXoa_Click(object sender, EventArgs e)
         {
-            // Hiển thị hộp thoại xác nhận để tránh xóa nhầm
-            if (MessageBox.Show("Bạn có chắc muốn xóa?", "Thông báo", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            try
             {
-                int ma = int.Parse(txtMaSanPham.Text);
-                if (bus.Xoa(ma))
+                // CHỐT CHẶN BẢO VỆ: Đảm bảo người dùng đã chọn sản phẩm (TextBox chứa Mã SP không bị rỗng)
+                if (string.IsNullOrEmpty(txtMaSanPham.Text))
                 {
-                    LoadData(); // Refresh bảng
-                    btnLamMoi_Click(null, null); // Xóa thông tin trên các TextBox
+                    MessageBox.Show("Vui lòng chọn sản phẩm cần xóa từ danh sách!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return; // Dừng chạy code ngay lập tức
                 }
+
+                // Hiển thị hộp thoại xác nhận để tránh xóa nhầm
+                if (MessageBox.Show("Bạn có chắc chắn muốn xóa sản phẩm này không?", "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    // Tự tin ép kiểu vì đã qua được chốt chặn IsNullOrEmpty ở trên
+                    int ma = int.Parse(txtMaSanPham.Text);
+
+                    if (bus.Xoa(ma))
+                    {
+                        MessageBox.Show("Xóa sản phẩm thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        LoadData(); // Refresh bảng
+                        btnLamMoi_Click(null, null); // Xóa sạch thông tin trên các TextBox
+                    }
+                    else
+                    {
+                        // Báo lỗi thân thiện nếu sản phẩm đang kẹt khóa ngoại (Đã bán hoặc đã nhập kho)
+                        MessageBox.Show("Xóa thất bại! Sản phẩm này đang tồn tại trong hệ thống (Hóa đơn/Phiếu nhập kho).", "Từ chối thao tác", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Bắt mọi lỗi ngoại lệ bất ngờ khác, giúp ứng dụng không bao giờ bị Crash
+                MessageBox.Show("Lỗi hệ thống khi xóa: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -385,10 +408,17 @@ namespace GUI_SupermarketManagement
 
         private void txtGiaNhap_KeyPress(object sender, KeyPressEventArgs e)
         {
-            // Chỉ cho phép nhập số (IsDigit) và các phím điều khiển như Backspace, Delete (IsControl)
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            // 1. Cho phép nhập số (IsDigit), phím điều khiển như Backspace (IsControl) và dấu chấm/phẩy
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != ','))
             {
-                e.Handled = true; // Hủy bỏ ký tự vừa gõ nếu không phải là số
+                e.Handled = true; // Hủy bỏ ký tự vừa gõ nếu là chữ cái hoặc ký tự đặc biệt khác
+            }
+
+            // 2. Chống nhập đúp dấu thập phân (Chỉ cho phép 1 dấu chấm hoặc phẩy duy nhất)
+            Control txt = sender as Control; // Lấy cái TextBox đang được gõ
+            if ((e.KeyChar == '.' || e.KeyChar == ',') && (txt.Text.Contains(".") || txt.Text.Contains(",")))
+            {
+                e.Handled = true; // Chặn lại nếu trong TextBox đã có dấu chấm/phẩy rồi
             }
         }
 

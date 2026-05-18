@@ -42,31 +42,28 @@ namespace GUI_SupermarketManagement
 
         private void dgvSanPham_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            // 1. Đảm bảo người dùng không click vào tiêu đề cột (Header)
             if (e.RowIndex >= 0)
             {
-                // 2. Lấy dữ liệu từ dòng được chọn bên dgvSanPham
                 DataGridViewRow rowSP = dgvSanPham.Rows[e.RowIndex];
 
-                // Lưu ý: Tên trong ngoặc kép "..." phải là tên cột (Name) hoặc DataPropertyName của dgvSanPham
-                string maSP = rowSP.Cells["colMaSanPham"].Value.ToString();
-                string tenSP = rowSP.Cells["colTenSanPham"].Value.ToString();
-                double giaBan = Convert.ToDouble(rowSP.Cells["colGiaBan"].Value);
+                // ĐÃ FIX: Xử lý an toàn tránh lỗi NullReferenceException hoặc FormatException
+                string maSP = rowSP.Cells["colMaSanPham"].Value?.ToString() ?? "";
+                string tenSP = rowSP.Cells["colTenSanPham"].Value?.ToString() ?? "Sản phẩm không tên";
 
-                // Biến cờ kiểm tra xem sản phẩm đã có trong dgvChiTietHoaDon chưa
+                double giaBan = 0;
+                if (rowSP.Cells["colGiaBan"].Value != null && rowSP.Cells["colGiaBan"].Value != DBNull.Value)
+                {
+                    double.TryParse(rowSP.Cells["colGiaBan"].Value.ToString(), out giaBan);
+                }
+
                 bool isExists = false;
 
-                // 3. Duyệt qua dgvChiTietHoaDon để kiểm tra trùng lặp
                 foreach (DataGridViewRow rowCTHD in dgvChiTietHoaDon.Rows)
                 {
-                    // Tránh dòng trống cuối cùng của DataGridView
                     if (rowCTHD.IsNewRow) continue;
 
-                    // Giả sử cột chứa mã SP bên dgvChiTietHoaDon tên là "colMaSP_CTHD"
-                    if (rowCTHD.Cells["colMaSP_CTHD"].Value != null &&
-                        rowCTHD.Cells["colMaSP_CTHD"].Value.ToString() == maSP)
+                    if (rowCTHD.Cells["colMaSP_CTHD"].Value != null && rowCTHD.Cells["colMaSP_CTHD"].Value.ToString() == maSP)
                     {
-                        // Nếu ĐÃ TỒN TẠI: Tăng số lượng và tính lại tiền
                         int soLuongHienTai = Convert.ToInt32(rowCTHD.Cells["colSoLuong_CTHD"].Value);
                         soLuongHienTai++;
 
@@ -74,22 +71,17 @@ namespace GUI_SupermarketManagement
                         rowCTHD.Cells["colThanhTien"].Value = soLuongHienTai * giaBan;
 
                         isExists = true;
-                        break; // Tìm thấy rồi thì thoát vòng lặp
+                        break;
                     }
                 }
 
-                // 4. Nếu CHƯA TỒN TẠI: Thêm một dòng mới
                 if (!isExists)
                 {
                     int soLuongMoi = 1;
                     double thanhTienMoi = soLuongMoi * giaBan;
-
-                    // Thứ tự các biến truyền vào hàm Add() phải TƯƠNG ỨNG với thứ tự cột trên dgvChiTietHoaDon
-                    // VD: Mã SP, Tên SP, Số Lượng, Đơn Giá, Thành Tiền
                     dgvChiTietHoaDon.Rows.Add(maSP, tenSP, soLuongMoi, giaBan, thanhTienMoi);
                 }
 
-                // 5. (Tùy chọn) Gọi hàm tính Tổng Tiền cho toàn bộ Hóa Đơn ở đây
                 CapNhatTongTienHoaDon();
             }
         }
@@ -166,7 +158,7 @@ namespace GUI_SupermarketManagement
         }
         private void btnTim_Click(object sender, EventArgs e)
         {
-            if (txtTimSP.Text == null)
+            if (string.IsNullOrWhiteSpace(txtTimSP.Text))
             {
                 MessageBox.Show("Vui lòng nhập tên sản phẩm cần tìm!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -197,12 +189,15 @@ namespace GUI_SupermarketManagement
                 double tongTien = 0;
                 double.TryParse(tienChuoi, out tongTien);
 
-                // Xử lý lấy mã khách hàng chuẩn xác
-                int maKH = 1; // Mặc định là 1 (Khách vãng lai)
-                //if (cboKhachHang.SelectedIndex >= 0 && cboKhachHang.SelectedValue != null)
-                //{
-                //    int.TryParse(cboKhachHang.SelectedValue.ToString(), out maKH);
-                //}
+                // Thay thế đoạn xử lý lấy mã khách hàng trong btnThanhToan_Click của bạn bằng đoạn này:
+
+                int maKH = 1; // Mặc định là 1 (Khách vãng lai) nếu không chọn ai
+
+                // ĐÃ FIX: Mở comment và xử lý an toàn để lấy đúng khách VIP
+                if (cboKhachHang.SelectedIndex >= 0 && cboKhachHang.SelectedValue != null)
+                {
+                    int.TryParse(cboKhachHang.SelectedValue.ToString(), out maKH);
+                }
 
                 // 3. Gom dữ liệu Chi Tiết Hóa Đơn vào một List
                 // Tuple<int, int, int> tương ứng với <Mã SP, Số Lượng, Đơn Giá>
