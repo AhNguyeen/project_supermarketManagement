@@ -14,7 +14,7 @@ namespace DAL_SupermarketManagement.Connect
     internal class ConnectData
     {
         //B1: Khai báo chuỗi kết nối
-        // Lấy đường dẫn kết nối có tên "connectServer" được lưu trong file cấu hình App.config
+        // Lấy đường dẫn kết nối có tên "myConnection" được lưu trong file cấu hình App.config
         string strConnect = System.Configuration.ConfigurationManager.ConnectionStrings["myConnection"].ConnectionString;
 
         // Khai báo biến SqlConnection dùng để làm cầu nối giữa C# và SQL Server

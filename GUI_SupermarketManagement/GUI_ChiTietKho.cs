@@ -189,7 +189,7 @@ namespace GUI_SupermarketManagement
                 }
                 // Lấy mã kho và mã sản phẩm từ dòng được chọn để xác định chi tiết kho cần sửa
                 string maChiTietKho = dgvChiTietKho.SelectedRows[0].Cells["colMaChiTietKho"].Value.ToString();
-                string maKho = Convert.ToString(cboMaKho.SelectedValue); // Lấy mã kho từ ComboBox (nếu muốn cho phép sửa sang kho khác)
+                string maKho = Convert.ToString(cboMaKho.SelectedValue); // Lấy mã kho từ ComboBox (nếu muốn cho phép sửa sang kho khác)    
                 string maSanPham = dgvChiTietKho.SelectedRows[0].Cells["colMaSanPham"].Value.ToString();
                 string soLuong = txtSoLuong.Text;
                 string gia = txtGiaNhap.Text;

@@ -56,6 +56,7 @@
             // btnThoat
             // 
             this.btnThoat.BorderRadius = 20;
+            this.btnThoat.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnThoat.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnThoat.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnThoat.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -139,9 +140,11 @@
             // 
             // GUI_Login
             // 
+            this.AcceptButton = this.btnDangNhap;
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightGray;
+            this.CancelButton = this.btnThoat;
             this.ControlBox = false;
             this.Controls.Add(this.guna2Panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;

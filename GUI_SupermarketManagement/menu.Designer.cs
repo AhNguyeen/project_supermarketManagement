@@ -32,49 +32,39 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
-            this.lblEmployee = new System.Windows.Forms.Label();
-            this.lblGUI = new System.Windows.Forms.Label();
             this.btnThoat = new Guna.UI2.WinForms.Guna2Button();
             this.btnDangXuat = new Guna.UI2.WinForms.Guna2Button();
             this.btnThanhToan = new Guna.UI2.WinForms.Guna2Button();
             this.btnSetting = new Guna.UI2.WinForms.Guna2Button();
+            this.label2 = new System.Windows.Forms.Label();
             this.btnQuanLyHoaDon = new Guna.UI2.WinForms.Guna2Button();
             this.btnNhanVien = new Guna.UI2.WinForms.Guna2Button();
             this.QuanLyKho = new Guna.UI2.WinForms.Guna2Button();
             this.btnNhaCungCap = new Guna.UI2.WinForms.Guna2Button();
             this.btnQuanLySanPham = new Guna.UI2.WinForms.Guna2Button();
             this.btnDoanhMuc = new Guna.UI2.WinForms.Guna2Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnKhachHang = new Guna.UI2.WinForms.Guna2Button();
             this.btnThongKe = new Guna.UI2.WinForms.Guna2Button();
+            this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
+            this.lblEmployee = new System.Windows.Forms.Label();
+            this.lblGUI = new System.Windows.Forms.Label();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1.SuspendLayout();
-            this.guna2Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.guna2Panel1.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.flowLayoutPanel1);
             this.panel1.Controls.Add(this.btnThoat);
             this.panel1.Controls.Add(this.btnDangXuat);
-            this.panel1.Controls.Add(this.btnThanhToan);
             this.panel1.Controls.Add(this.btnSetting);
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.btnQuanLyHoaDon);
-            this.panel1.Controls.Add(this.btnNhanVien);
-            this.panel1.Controls.Add(this.QuanLyKho);
-            this.panel1.Controls.Add(this.btnNhaCungCap);
-            this.panel1.Controls.Add(this.btnQuanLySanPham);
-            this.panel1.Controls.Add(this.btnDoanhMuc);
-            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.pictureBox1);
-            this.panel1.Controls.Add(this.btnKhachHang);
-            this.panel1.Controls.Add(this.btnThongKe);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
@@ -85,7 +75,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Bahnschrift", 8F, System.Drawing.FontStyle.Bold);
-            this.label4.Location = new System.Drawing.Point(3, 573);
+            this.label4.Location = new System.Drawing.Point(3, 382);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(98, 13);
             this.label4.TabIndex = 8;
@@ -95,64 +85,11 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Bahnschrift", 8F, System.Drawing.FontStyle.Bold);
-            this.label3.Location = new System.Drawing.Point(12, 347);
+            this.label3.Location = new System.Drawing.Point(3, 173);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(131, 13);
             this.label3.TabIndex = 8;
             this.label3.Text = "Nghiệp vụ Hàng hóa & Kho";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Bahnschrift", 8F, System.Drawing.FontStyle.Bold);
-            this.label2.Location = new System.Drawing.Point(12, 221);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(106, 13);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "Nghiệp vụ Bán hàng";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Bahnschrift", 8F, System.Drawing.FontStyle.Bold);
-            this.label1.Location = new System.Drawing.Point(12, 145);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(56, 13);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "Tổng quan";
-            // 
-            // guna2Panel1
-            // 
-            this.guna2Panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.guna2Panel1.Controls.Add(this.lblEmployee);
-            this.guna2Panel1.Controls.Add(this.lblGUI);
-            this.guna2Panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.guna2Panel1.Font = new System.Drawing.Font("Bahnschrift", 14.25F, System.Drawing.FontStyle.Bold);
-            this.guna2Panel1.Location = new System.Drawing.Point(196, 0);
-            this.guna2Panel1.Name = "guna2Panel1";
-            this.guna2Panel1.Size = new System.Drawing.Size(988, 57);
-            this.guna2Panel1.TabIndex = 4;
-            // 
-            // lblEmployee
-            // 
-            this.lblEmployee.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblEmployee.Font = new System.Drawing.Font("Bahnschrift", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEmployee.Location = new System.Drawing.Point(569, 18);
-            this.lblEmployee.Name = "lblEmployee";
-            this.lblEmployee.Size = new System.Drawing.Size(407, 23);
-            this.lblEmployee.TabIndex = 0;
-            this.lblEmployee.Text = "[ Ten Employee ]";
-            this.lblEmployee.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // lblGUI
-            // 
-            this.lblGUI.AutoSize = true;
-            this.lblGUI.Font = new System.Drawing.Font("Bahnschrift", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblGUI.Location = new System.Drawing.Point(25, 18);
-            this.lblGUI.Name = "lblGUI";
-            this.lblGUI.Size = new System.Drawing.Size(95, 23);
-            this.lblGUI.TabIndex = 0;
-            this.lblGUI.Text = "[ Ten GUI ]";
             // 
             // btnThoat
             // 
@@ -230,10 +167,9 @@
             this.btnThanhToan.Image = global::GUI_SupermarketManagement.Properties.Resources.bill;
             this.btnThanhToan.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnThanhToan.ImageSize = new System.Drawing.Size(30, 30);
-            this.btnThanhToan.Location = new System.Drawing.Point(10, 244);
-            this.btnThanhToan.Margin = new System.Windows.Forms.Padding(10);
+            this.btnThanhToan.Location = new System.Drawing.Point(3, 78);
             this.btnThanhToan.Name = "btnThanhToan";
-            this.btnThanhToan.Size = new System.Drawing.Size(180, 43);
+            this.btnThanhToan.Size = new System.Drawing.Size(170, 43);
             this.btnThanhToan.TabIndex = 5;
             this.btnThanhToan.Text = "Thanh Toán";
             this.btnThanhToan.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -259,7 +195,7 @@
             this.btnSetting.Image = global::GUI_SupermarketManagement.Properties.Resources.setting;
             this.btnSetting.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnSetting.ImageSize = new System.Drawing.Size(30, 30);
-            this.btnSetting.Location = new System.Drawing.Point(10, 679);
+            this.btnSetting.Location = new System.Drawing.Point(10, 685);
             this.btnSetting.Margin = new System.Windows.Forms.Padding(10);
             this.btnSetting.Name = "btnSetting";
             this.btnSetting.Size = new System.Drawing.Size(180, 43);
@@ -267,6 +203,16 @@
             this.btnSetting.Text = "Setting";
             this.btnSetting.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnSetting.TextOffset = new System.Drawing.Point(10, 0);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Bahnschrift", 8F, System.Drawing.FontStyle.Bold);
+            this.label2.Location = new System.Drawing.Point(3, 62);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(106, 13);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "Nghiệp vụ Bán hàng";
             // 
             // btnQuanLyHoaDon
             // 
@@ -286,10 +232,9 @@
             this.btnQuanLyHoaDon.Image = global::GUI_SupermarketManagement.Properties.Resources.invoce_management;
             this.btnQuanLyHoaDon.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnQuanLyHoaDon.ImageSize = new System.Drawing.Size(30, 30);
-            this.btnQuanLyHoaDon.Location = new System.Drawing.Point(10, 294);
-            this.btnQuanLyHoaDon.Margin = new System.Windows.Forms.Padding(10);
+            this.btnQuanLyHoaDon.Location = new System.Drawing.Point(3, 127);
             this.btnQuanLyHoaDon.Name = "btnQuanLyHoaDon";
-            this.btnQuanLyHoaDon.Size = new System.Drawing.Size(180, 43);
+            this.btnQuanLyHoaDon.Size = new System.Drawing.Size(170, 43);
             this.btnQuanLyHoaDon.TabIndex = 5;
             this.btnQuanLyHoaDon.Text = "Quản Lý Hóa Đơn";
             this.btnQuanLyHoaDon.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -314,10 +259,9 @@
             this.btnNhanVien.Image = global::GUI_SupermarketManagement.Properties.Resources.employee;
             this.btnNhanVien.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnNhanVien.ImageSize = new System.Drawing.Size(30, 30);
-            this.btnNhanVien.Location = new System.Drawing.Point(10, 646);
-            this.btnNhanVien.Margin = new System.Windows.Forms.Padding(10);
+            this.btnNhanVien.Location = new System.Drawing.Point(3, 447);
             this.btnNhanVien.Name = "btnNhanVien";
-            this.btnNhanVien.Size = new System.Drawing.Size(180, 43);
+            this.btnNhanVien.Size = new System.Drawing.Size(170, 43);
             this.btnNhanVien.TabIndex = 5;
             this.btnNhanVien.Text = "Nhân Viên";
             this.btnNhanVien.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -342,10 +286,9 @@
             this.QuanLyKho.Image = global::GUI_SupermarketManagement.Properties.Resources.inventory_management;
             this.QuanLyKho.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.QuanLyKho.ImageSize = new System.Drawing.Size(30, 30);
-            this.QuanLyKho.Location = new System.Drawing.Point(10, 470);
-            this.QuanLyKho.Margin = new System.Windows.Forms.Padding(10);
+            this.QuanLyKho.Location = new System.Drawing.Point(3, 336);
             this.QuanLyKho.Name = "QuanLyKho";
-            this.QuanLyKho.Size = new System.Drawing.Size(180, 43);
+            this.QuanLyKho.Size = new System.Drawing.Size(163, 43);
             this.QuanLyKho.TabIndex = 5;
             this.QuanLyKho.Text = "Quản Lý Kho";
             this.QuanLyKho.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -370,10 +313,9 @@
             this.btnNhaCungCap.Image = global::GUI_SupermarketManagement.Properties.Resources.wholesale;
             this.btnNhaCungCap.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnNhaCungCap.ImageSize = new System.Drawing.Size(30, 30);
-            this.btnNhaCungCap.Location = new System.Drawing.Point(10, 520);
-            this.btnNhaCungCap.Margin = new System.Windows.Forms.Padding(10);
+            this.btnNhaCungCap.Location = new System.Drawing.Point(3, 238);
             this.btnNhaCungCap.Name = "btnNhaCungCap";
-            this.btnNhaCungCap.Size = new System.Drawing.Size(180, 43);
+            this.btnNhaCungCap.Size = new System.Drawing.Size(170, 43);
             this.btnNhaCungCap.TabIndex = 5;
             this.btnNhaCungCap.Text = "Nhà Cung Cấp";
             this.btnNhaCungCap.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -398,10 +340,9 @@
             this.btnQuanLySanPham.Image = global::GUI_SupermarketManagement.Properties.Resources.product_management;
             this.btnQuanLySanPham.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnQuanLySanPham.ImageSize = new System.Drawing.Size(30, 30);
-            this.btnQuanLySanPham.Location = new System.Drawing.Point(10, 370);
-            this.btnQuanLySanPham.Margin = new System.Windows.Forms.Padding(10);
+            this.btnQuanLySanPham.Location = new System.Drawing.Point(3, 287);
             this.btnQuanLySanPham.Name = "btnQuanLySanPham";
-            this.btnQuanLySanPham.Size = new System.Drawing.Size(180, 43);
+            this.btnQuanLySanPham.Size = new System.Drawing.Size(170, 43);
             this.btnQuanLySanPham.TabIndex = 5;
             this.btnQuanLySanPham.Text = "Quản Lý Sản Phẩm";
             this.btnQuanLySanPham.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -426,15 +367,24 @@
             this.btnDoanhMuc.Image = global::GUI_SupermarketManagement.Properties.Resources.category;
             this.btnDoanhMuc.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnDoanhMuc.ImageSize = new System.Drawing.Size(30, 30);
-            this.btnDoanhMuc.Location = new System.Drawing.Point(10, 420);
-            this.btnDoanhMuc.Margin = new System.Windows.Forms.Padding(10);
+            this.btnDoanhMuc.Location = new System.Drawing.Point(3, 189);
             this.btnDoanhMuc.Name = "btnDoanhMuc";
-            this.btnDoanhMuc.Size = new System.Drawing.Size(180, 43);
+            this.btnDoanhMuc.Size = new System.Drawing.Size(170, 43);
             this.btnDoanhMuc.TabIndex = 5;
             this.btnDoanhMuc.Text = "Doanh Mục";
             this.btnDoanhMuc.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnDoanhMuc.TextOffset = new System.Drawing.Point(10, 0);
             this.btnDoanhMuc.Click += new System.EventHandler(this.btnDanhMuc_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Bahnschrift", 8F, System.Drawing.FontStyle.Bold);
+            this.label1.Location = new System.Drawing.Point(3, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(56, 13);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Tổng quan";
             // 
             // pictureBox1
             // 
@@ -465,10 +415,9 @@
             this.btnKhachHang.Image = global::GUI_SupermarketManagement.Properties.Resources.customer;
             this.btnKhachHang.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnKhachHang.ImageSize = new System.Drawing.Size(30, 30);
-            this.btnKhachHang.Location = new System.Drawing.Point(10, 596);
-            this.btnKhachHang.Margin = new System.Windows.Forms.Padding(10);
+            this.btnKhachHang.Location = new System.Drawing.Point(3, 398);
             this.btnKhachHang.Name = "btnKhachHang";
-            this.btnKhachHang.Size = new System.Drawing.Size(180, 43);
+            this.btnKhachHang.Size = new System.Drawing.Size(170, 43);
             this.btnKhachHang.TabIndex = 5;
             this.btnKhachHang.Text = "Khách Hàng";
             this.btnKhachHang.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -493,15 +442,69 @@
             this.btnThongKe.Image = global::GUI_SupermarketManagement.Properties.Resources.dashboard;
             this.btnThongKe.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnThongKe.ImageSize = new System.Drawing.Size(30, 30);
-            this.btnThongKe.Location = new System.Drawing.Point(10, 168);
-            this.btnThongKe.Margin = new System.Windows.Forms.Padding(10);
+            this.btnThongKe.Location = new System.Drawing.Point(3, 16);
             this.btnThongKe.Name = "btnThongKe";
-            this.btnThongKe.Size = new System.Drawing.Size(180, 43);
+            this.btnThongKe.Size = new System.Drawing.Size(170, 43);
             this.btnThongKe.TabIndex = 5;
             this.btnThongKe.Text = "Thống Kê";
             this.btnThongKe.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnThongKe.TextOffset = new System.Drawing.Point(10, 0);
             this.btnThongKe.Click += new System.EventHandler(this.btnThongKe_Click);
+            // 
+            // guna2Panel1
+            // 
+            this.guna2Panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.guna2Panel1.Controls.Add(this.lblEmployee);
+            this.guna2Panel1.Controls.Add(this.lblGUI);
+            this.guna2Panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.guna2Panel1.Font = new System.Drawing.Font("Bahnschrift", 14.25F, System.Drawing.FontStyle.Bold);
+            this.guna2Panel1.Location = new System.Drawing.Point(196, 0);
+            this.guna2Panel1.Name = "guna2Panel1";
+            this.guna2Panel1.Size = new System.Drawing.Size(988, 57);
+            this.guna2Panel1.TabIndex = 4;
+            // 
+            // lblEmployee
+            // 
+            this.lblEmployee.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblEmployee.Font = new System.Drawing.Font("Bahnschrift", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEmployee.Location = new System.Drawing.Point(569, 18);
+            this.lblEmployee.Name = "lblEmployee";
+            this.lblEmployee.Size = new System.Drawing.Size(407, 23);
+            this.lblEmployee.TabIndex = 0;
+            this.lblEmployee.Text = "[ Ten Employee ]";
+            this.lblEmployee.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lblGUI
+            // 
+            this.lblGUI.AutoSize = true;
+            this.lblGUI.Font = new System.Drawing.Font("Bahnschrift", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblGUI.Location = new System.Drawing.Point(25, 18);
+            this.lblGUI.Name = "lblGUI";
+            this.lblGUI.Size = new System.Drawing.Size(95, 23);
+            this.lblGUI.TabIndex = 0;
+            this.lblGUI.Text = "[ Ten GUI ]";
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.flowLayoutPanel1.AutoScroll = true;
+            this.flowLayoutPanel1.Controls.Add(this.label1);
+            this.flowLayoutPanel1.Controls.Add(this.btnThongKe);
+            this.flowLayoutPanel1.Controls.Add(this.label2);
+            this.flowLayoutPanel1.Controls.Add(this.btnThanhToan);
+            this.flowLayoutPanel1.Controls.Add(this.btnQuanLyHoaDon);
+            this.flowLayoutPanel1.Controls.Add(this.label3);
+            this.flowLayoutPanel1.Controls.Add(this.btnDoanhMuc);
+            this.flowLayoutPanel1.Controls.Add(this.btnNhaCungCap);
+            this.flowLayoutPanel1.Controls.Add(this.btnQuanLySanPham);
+            this.flowLayoutPanel1.Controls.Add(this.QuanLyKho);
+            this.flowLayoutPanel1.Controls.Add(this.label4);
+            this.flowLayoutPanel1.Controls.Add(this.btnKhachHang);
+            this.flowLayoutPanel1.Controls.Add(this.btnNhanVien);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 135);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(196, 537);
+            this.flowLayoutPanel1.TabIndex = 8;
             // 
             // FrmMenu
             // 
@@ -520,10 +523,11 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmMenu_FormClosing);
             this.Load += new System.EventHandler(this.FrmMenu_Load);
             this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.guna2Panel1.ResumeLayout(false);
             this.guna2Panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.flowLayoutPanel1.ResumeLayout(false);
+            this.flowLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -550,6 +554,7 @@
         private System.Windows.Forms.Label lblEmployee;
         private Guna.UI2.WinForms.Guna2Button btnDangXuat;
         private Guna.UI2.WinForms.Guna2Button btnSetting;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
     }
 }
 
