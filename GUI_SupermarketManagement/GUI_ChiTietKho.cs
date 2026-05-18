@@ -76,5 +76,185 @@ namespace GUI_SupermarketManagement
         {
             this.Close();
         }
+
+        /// <summary>
+        /// Xử lý nút Thêm: Lấy thông tin từ các ComboBox và TextBox, gọi hàm thêm chi tiết kho mới vào database, sau đó refresh lại DataGridView để hiển thị cập nhật mới nhất.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnThem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(cboMaKho.SelectedValue?.ToString()) || string.IsNullOrEmpty(cboMaSanPham.SelectedValue?.ToString()) || string.IsNullOrEmpty(txtSoLuong.Text) || string.IsNullOrEmpty(txtGiaNhap.Text))
+                {
+                    MessageBox.Show("Vui lòng điền đầy đủ thông tin.", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                string maKho = cboMaKho.SelectedValue.ToString();
+                string maSanPham = cboMaSanPham.SelectedValue.ToString();
+                int soLuong = int.Parse(txtSoLuong.Text);
+                decimal gia = decimal.Parse(txtGiaNhap.Text);
+
+                // Kiểm tra trùng thông tin chi tiết kho trước khi thêm
+                if (bus_ChiTietKho.KiemTraTrungThongTinChiTietKho(maKho, maSanPham))
+                {
+                    MessageBox.Show("Chi tiết kho này đã tồn tại. Vui lòng kiểm tra lại thông tin và thử lại.", "Lỗi trùng thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                bool success = bus_ChiTietKho.ThemChiTietKho(maKho, maSanPham, soLuong, gia);
+
+                if (success)
+                {
+                    MessageBox.Show("Thêm chi tiết kho thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    // Refresh lại DataGridView để hiển thị cập nhật mới nhất
+                    dgvChiTietKho.DataSource = bus_ChiTietKho.LayDanhSachChiTietKho(maKho);
+                }
+                else
+                {
+                    MessageBox.Show("Thêm chi tiết kho thất bại. Vui lòng kiểm tra lại dữ liệu và thử lại.", "Thất bại", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Vui lòng nhập đúng định dạng số cho Số lượng và Giá nhập.\n" + ex.Message, "Lỗi định dạng", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+        }
+
+        /// <summary>
+        /// Xử lý nút Xóa: Lấy thông tin từ các ComboBox và TextBox, gọi hàm xóa chi tiết kho khỏi database, sau đó refresh lại DataGridView để hiển thị cập nhật mới nhất.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnXoa_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Kiểm tra xem người dùng đã chọn một chi tiết kho nào đó trong DataGridView chưa
+                if (dgvChiTietKho.SelectedRows.Count == 0)
+                {
+                    MessageBox.Show("Vui lòng chọn một chi tiết kho để xóa.", "Chưa chọn chi tiết", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                // Lấy mã kho và mã sản phẩm từ dòng được chọn để xác định chi tiết kho cần xóa
+                string maKho = dgvChiTietKho.SelectedRows[0].Cells["colMaKho"].Value.ToString();
+                string maSanPham = dgvChiTietKho.SelectedRows[0].Cells["colMaSanPham"].Value.ToString();
+
+                // Đổi kiểu dữ liệu nếu cần thiết (ví dụ: nếu MaKho và MaSanPham là int trong database thì phải convert sang int trước khi gọi hàm xóa)
+                int maKhoInt = int.Parse(maKho);
+                int maSanPhamInt = int.Parse(maSanPham);
+
+                // Xác nhận với người dùng trước khi xóa
+                DialogResult r = MessageBox.Show("Bạn có chắc chắn muốn xóa chi tiết kho này?", "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (r == DialogResult.No)
+                {
+                    return; // Nếu người dùng chọn No, hủy bỏ thao tác xóa
+                }
+
+                bool success = bus_ChiTietKho.XoaChiTietKhoTheoMaKho(maKhoInt, maSanPhamInt);
+                if (success)
+                {
+                    MessageBox.Show("Xóa chi tiết kho thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    // Refresh lại DataGridView để hiển thị cập nhật mới nhất
+                    dgvChiTietKho.DataSource = bus_ChiTietKho.LayDanhSachChiTietKho(maKho);
+                }
+                else
+                {
+                    MessageBox.Show("Xóa chi tiết kho thất bại. Vui lòng thử lại.", "Thất bại", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Xóa chi tiết kho thất bại.\n" + ex.Message, "Lỗi dữ liệu", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Xử lý nút Sửa: Lấy thông tin từ các ComboBox và TextBox, gọi hàm sửa chi tiết kho trong database, sau đó refresh lại DataGridView để hiển thị cập nhật mới nhất.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnSua_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Kiểm tra xem người dùng đã chọn một chi tiết kho nào đó trong DataGridView chưa
+                if (dgvChiTietKho.SelectedRows.Count == 0)
+                {
+                    MessageBox.Show("Vui lòng chọn một chi tiết kho để sửa.", "Chưa chọn chi tiết", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                // Lấy mã kho và mã sản phẩm từ dòng được chọn để xác định chi tiết kho cần sửa
+                string maChiTietKho = dgvChiTietKho.SelectedRows[0].Cells["colMaChiTietKho"].Value.ToString();
+                string maKho = Convert.ToString(cboMaKho.SelectedValue); // Lấy mã kho từ ComboBox (nếu muốn cho phép sửa sang kho khác)
+                string maSanPham = dgvChiTietKho.SelectedRows[0].Cells["colMaSanPham"].Value.ToString();
+                string soLuong = txtSoLuong.Text;
+                string gia = txtGiaNhap.Text;
+
+                // Đổi kiểu dữ liệu nếu cần thiết (ví dụ: nếu MaKho và MaSanPham là int trong database thì phải convert sang int trước khi gọi hàm sửa)
+                int maChiTietKhoInt = int.Parse(maChiTietKho);
+                int maKhoInt = int.Parse(maKho);
+                int maSanPhamInt = int.Parse(maSanPham);
+                int soLuongInt = int.Parse(soLuong);
+                decimal giaDecimal = decimal.Parse(gia);
+
+                bool success = bus_ChiTietKho.SuaChiTietKho(maKho, maSanPham, soLuongInt, giaDecimal);
+                if (success)
+                {
+                    MessageBox.Show("Sửa chi tiết kho thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    // Refresh lại DataGridView để hiển thị cập nhật mới nhất
+                    dgvChiTietKho.DataSource = bus_ChiTietKho.LayDanhSachChiTietKho(maKho);
+                }
+                else
+                {
+                    MessageBox.Show("Sửa chi tiết kho thất bại. Vui lòng kiểm tra lại dữ liệu và thử lại.", "Thất bại", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Sửa chi tiết kho thất bại.\n" + ex.Message, "Lỗi dữ liệu", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Xử lý nút Làm mới: Xóa trắng các TextBox và ComboBox để người dùng có thể nhập thông tin mới dễ dàng hơn.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnLamMoi_Click(object sender, EventArgs e)
+        {
+            // Xóa trắng các TextBox
+            txtSoLuong.Clear();
+            txtGiaNhap.Clear();
+            txtMaChiTiet.Clear();
+            txtThanhTien.Clear();
+        }
+
+        /// <summary>
+        /// Xử lý sự kiện khi người dùng click vào một ô trong DataGridView để tự động điền thông tin của chi tiết kho đó vào các TextBox và ComboBox tương ứng, giúp cho việc sửa hoặc xóa dễ dàng hơn.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dgvChiTietKho_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                int row = dgvChiTietKho.CurrentCell.RowIndex;
+                txtMaChiTiet.Text = dgvChiTietKho.Rows[row].Cells["colMaChiTietKho"].Value.ToString();
+                //cboMaKho.SelectedValue = dgvChiTietKho.Rows[row].Cells["colMaKho"].Value.ToString();
+                cboMaSanPham.SelectedValue = dgvChiTietKho.Rows[row].Cells["colMaSanPham"].Value.ToString();
+                txtSoLuong.Text = dgvChiTietKho.Rows[row].Cells["colSoLuongNhap"].Value.ToString();
+                txtGiaNhap.Text = dgvChiTietKho.Rows[row].Cells["colGiaNhap"].Value.ToString();
+                txtThanhTien.Text = dgvChiTietKho.Rows[row].Cells["colThanhTien"].Value.ToString();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi chọn chi tiết kho.\n" + ex.Message, "Lỗi dữ liệu", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

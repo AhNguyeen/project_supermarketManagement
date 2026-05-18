@@ -171,3 +171,17 @@ BEGIN
     END
 END;
 GO
+
+CREATE TRIGGER trg_TruTonKhoKhiXoaChiTietKho
+ON ChiTietKho
+AFTER DELETE
+AS
+BEGIN
+    -- Khi người dùng xóa 1 dòng sản phẩm khỏi phiếu nhập, 
+    -- hệ thống sẽ tự động trừ đi số lượng đã nhập trước đó trong bảng SanPham
+    UPDATE SanPham
+    SET SoLuongTon = SoLuongTon - deleted.SoLuongNhap
+    FROM SanPham
+    JOIN deleted ON SanPham.MaSanPham = deleted.MaSanPham
+END;
+GO

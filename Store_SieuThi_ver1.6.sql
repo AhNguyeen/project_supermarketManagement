@@ -479,18 +479,77 @@ AS BEGIN
 END
 GO
 
+CREATE PROC sp_KiemTraTrungKho @TenKho NVARCHAR(50), @MaNhanVien INT, @MaNCC INT, @NgayNhap DATETIME
+AS BEGIN
+    SELECT COUNT(*) FROM Kho WHERE TenKho = @TenKho AND MaNhanVien = @MaNhanVien AND MaNCC = @MaNCC AND NgayNhap = @NgayNhap
+END
+GO
+
 /* ================================================================
    [TÌM KIẾM: CHI TIẾT KHO] - QUẢN LÝ CHI TIẾT PHIẾU NHẬP
 ================================================================ */
 CREATE PROC sp_ChiTietKho_Search @MaKho INT = NULL
 AS BEGIN
     SELECT 
-        CTK.MaSanPham, SP.TenSanPham, 
-        CTK.SoLuongNhap AS [Số Lượng Nhập Lần Này], 
-        SP.SoLuongTon AS [Tồn Kho Hiện Tại], CTK.GiaNhap
+        CTK.MaChiTietKho, CTK.MaSanPham, SP.TenSanPham,
+        CTK.SoLuongNhap, 
+        SP.SoLuongTon, CTK.GiaNhap, CTK.ThanhTien
     FROM ChiTietKho CTK
     JOIN SanPham SP ON CTK.MaSanPham = SP.MaSanPham
     WHERE (@MaKho IS NULL OR CTK.MaKho = @MaKho)
+END
+GO
+
+    CREATE PROCEDURE sp_ChiTietKho_Insert
+    @MaKho INT, 
+    @MaSanPham INT, 
+    @SoLuongNhap INT, 
+    @GiaNhap DECIMAL(18,2)
+AS 
+BEGIN
+    INSERT INTO ChiTietKho (MaKho, MaSanPham, SoLuongNhap, GiaNhap)
+    VALUES (@MaKho, @MaSanPham, @SoLuongNhap, @GiaNhap)
+END
+GO
+
+CREATE PROCEDURE sp_ChiTietKho_Update
+    @MaChiTietKho INT, 
+    @MaKho INT, 
+    @MaSanPham INT, 
+    @SoLuongNhap INT, 
+    @GiaNhap DECIMAL(18,2)
+AS 
+BEGIN
+    UPDATE ChiTietKho 
+    SET 
+        MaKho = @MaKho, 
+        MaSanPham = @MaSanPham, 
+        SoLuongNhap = @SoLuongNhap, 
+        GiaNhap = @GiaNhap
+    WHERE MaChiTietKho = @MaChiTietKho
+END
+GO
+
+CREATE PROCEDURE sp_ChiTietKho_UpdateSoLuong
+    @MaKho INT,
+    @MaSanPham INT,
+    @SoLuongThem INT
+AS 
+BEGIN
+    -- Nếu sản phẩm đã tồn tại trong phiếu, chỉ cần cộng thêm số lượng nhập vào
+    UPDATE ChiTietKho
+    SET SoLuongNhap = SoLuongNhap + @SoLuongThem
+    WHERE MaKho = @MaKho AND MaSanPham = @MaSanPham
+END
+GO
+
+CREATE PROCEDURE sp_ChiTietKho_DeleteSanPham
+    @MaKho INT,
+    @MaSanPham INT
+AS 
+BEGIN
+    DELETE FROM ChiTietKho 
+    WHERE MaKho = @MaKho AND MaSanPham = @MaSanPham
 END
 GO
 
@@ -502,9 +561,18 @@ AS BEGIN
 END
 GO
 
-CREATE PROC sp_KiemTraTrungKho @TenKho NVARCHAR(50), @MaNhanVien INT, @MaNCC INT, @NgayNhap DATETIME
-AS BEGIN
-    SELECT COUNT(*) FROM Kho WHERE TenKho = @TenKho AND MaNhanVien = @MaNhanVien AND MaNCC = @MaNCC AND NgayNhap = @NgayNhap
+CREATE PROCEDURE sp_ChiTietKho_CheckDuplicate
+    @MaKho INT,
+    @MaSanPham INT
+AS
+BEGIN
+    -- SET NOCOUNT ON giúp tăng hiệu suất bằng cách chặn thông báo số dòng bị ảnh hưởng
+    SET NOCOUNT ON;
+
+    -- Trả về số lượng dòng tìm thấy (Nếu > 0 nghĩa là đã bị trùng)
+    SELECT COUNT(*) AS SoLuongTonTai
+    FROM ChiTietKho 
+    WHERE MaKho = @MaKho AND MaSanPham = @MaSanPham;
 END
 GO
 
