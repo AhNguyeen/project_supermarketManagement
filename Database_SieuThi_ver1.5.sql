@@ -162,8 +162,8 @@ BEGIN
     FROM SanPham
     JOIN inserted ON SanPham.MaSanPham = inserted.MaSanPham;
 
-    -- 2. Kiểm tra nếu có sản phẩm nào bị âm số lượng sau khi bán
-    IF EXISTS (SELECT 1 FROM SanPham WHERE SoLuongTon < 0)
+    -- 2. Kiểm tra nếu có sản phẩm nào VỪA MỚI BÁN bị âm số lượng
+    IF EXISTS (SELECT 1 FROM SanPham JOIN inserted ON SanPham.MaSanPham = inserted.MaSanPham WHERE SanPham.SoLuongTon < 0)
     BEGIN
         -- Hủy bỏ thao tác bán hàng và báo lỗi
         ROLLBACK TRANSACTION;

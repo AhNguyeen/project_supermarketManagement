@@ -1,4 +1,4 @@
-﻿using BUS_SupermarketManagement;
+using BUS_SupermarketManagement;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -56,6 +56,12 @@ namespace GUI_SupermarketManagement
                     double.TryParse(rowSP.Cells["colGiaBan"].Value.ToString(), out giaBan);
                 }
 
+                int soLuongTon = 0;
+                if (rowSP.Cells["colSoLuong"].Value != null && rowSP.Cells["colSoLuong"].Value != DBNull.Value)
+                {
+                    int.TryParse(rowSP.Cells["colSoLuong"].Value.ToString(), out soLuongTon);
+                }
+
                 bool isExists = false;
 
                 foreach (DataGridViewRow rowCTHD in dgvChiTietHoaDon.Rows)
@@ -65,6 +71,12 @@ namespace GUI_SupermarketManagement
                     if (rowCTHD.Cells["colMaSP_CTHD"].Value != null && rowCTHD.Cells["colMaSP_CTHD"].Value.ToString() == maSP)
                     {
                         int soLuongHienTai = Convert.ToInt32(rowCTHD.Cells["colSoLuong_CTHD"].Value);
+                        if (soLuongHienTai + 1 > soLuongTon)
+                        {
+                            MessageBox.Show("Số lượng mua (" + (soLuongHienTai + 1) + ") vượt quá số lượng tồn kho hiện có (" + soLuongTon + ")!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                        
                         soLuongHienTai++;
 
                         rowCTHD.Cells["colSoLuong_CTHD"].Value = soLuongHienTai;
@@ -77,6 +89,12 @@ namespace GUI_SupermarketManagement
 
                 if (!isExists)
                 {
+                    if (1 > soLuongTon)
+                    {
+                        MessageBox.Show("Sản phẩm này đã hết hàng trong kho!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                    
                     int soLuongMoi = 1;
                     double thanhTienMoi = soLuongMoi * giaBan;
                     dgvChiTietHoaDon.Rows.Add(maSP, tenSP, soLuongMoi, giaBan, thanhTienMoi);
@@ -121,7 +139,6 @@ namespace GUI_SupermarketManagement
             if (e.RowIndex >= 0)
             {
                 // 2. Kiểm tra xem cột vừa bị thay đổi có đúng là cột "Số lượng" không?
-                // Thay "colSoLuong" bằng tên thực tế của cột số lượng trong dgv của bạn
                 if (dgvChiTietHoaDon.Columns[e.ColumnIndex].Name == "colSoLuong_CTHD")
                 {
                     DataGridViewRow row = dgvChiTietHoaDon.Rows[e.RowIndex];
@@ -129,6 +146,21 @@ namespace GUI_SupermarketManagement
                     // 3. Khai báo biến để tính toán an toàn
                     int soLuong = 0;
                     decimal donGia = 0;
+                    string maSP = row.Cells["colMaSP_CTHD"].Value?.ToString() ?? "";
+
+                    // Lấy số lượng tồn kho từ bảng dgvSanPham
+                    int soLuongTon = 0;
+                    foreach (DataGridViewRow rowSP in dgvSanPham.Rows)
+                    {
+                        if (rowSP.Cells["colMaSanPham"].Value != null && rowSP.Cells["colMaSanPham"].Value.ToString() == maSP)
+                        {
+                            if (rowSP.Cells["colSoLuong"].Value != null)
+                            {
+                                int.TryParse(rowSP.Cells["colSoLuong"].Value.ToString(), out soLuongTon);
+                            }
+                            break;
+                        }
+                    }
 
                     // Lấy Số lượng mới (Dùng TryParse để đề phòng người dùng nhập chữ thay vì số)
                     if (row.Cells["colSoLuong_CTHD"].Value != null)
@@ -137,6 +169,18 @@ namespace GUI_SupermarketManagement
                         {
                             MessageBox.Show("Vui lòng nhập số lượng hợp lệ!", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             row.Cells["colSoLuong_CTHD"].Value = 1; // Gán lại bằng 1 nếu nhập sai
+                            soLuong = 1;
+                        }
+                        else if (soLuong > soLuongTon)
+                        {
+                            MessageBox.Show("Số lượng mua (" + soLuong + ") vượt quá số lượng tồn kho hiện có (" + soLuongTon + ")!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            row.Cells["colSoLuong_CTHD"].Value = soLuongTon; // Ép về mức tối đa
+                            soLuong = soLuongTon;
+                        }
+                        else if (soLuong <= 0)
+                        {
+                            MessageBox.Show("Số lượng mua phải lớn hơn 0!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            row.Cells["colSoLuong_CTHD"].Value = 1;
                             soLuong = 1;
                         }
                     }
@@ -148,7 +192,6 @@ namespace GUI_SupermarketManagement
                     }
 
                     // 4. Tính lại Thành tiền và gán vào cột Thành tiền
-                    // Thay "colThanhTien" bằng tên thực tế của cột Thành tiền
                     row.Cells["colThanhTien"].Value = soLuong * donGia;
 
                     // 5. (Rất quan trọng) Gọi lại hàm tính Tổng tiền của cả Hóa đơn
