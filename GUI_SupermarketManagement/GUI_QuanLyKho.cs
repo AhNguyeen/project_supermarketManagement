@@ -84,7 +84,7 @@ namespace GUI_SupermarketManagement
         private void btnThem_Click(object sender, EventArgs e)
         {
             // Nếu kiểm tra thất bại thì dừng lại luôn, không chạy code thêm vào Database nữa
-            if (!KiemTraTenKhoHopLe())
+            if (!ValidateInput())
             {
                 return;
             }
@@ -132,7 +132,7 @@ namespace GUI_SupermarketManagement
                 }
 
                 // Kiểm tra tính hợp lệ của tên kho (Không được để trống, không chứa ký tự đặc biệt, giới hạn độ dài, chống trùng lặp)
-                if (!KiemTraTenKhoHopLe())
+                if (!ValidateInput())
                 {
                     return; // Nếu không hợp lệ thì dừng lại, không chạy code sửa vào Database nữa
                 }
@@ -205,7 +205,7 @@ namespace GUI_SupermarketManagement
             }
         }
 
-        private bool KiemTraTenKhoHopLe()
+        private bool ValidateInput()
         {
             // Cắt bỏ khoảng trắng ở 2 đầu (nếu người dùng lỡ bấm phím cách)
             string tenKho = txtTenKho.Text.Trim();
