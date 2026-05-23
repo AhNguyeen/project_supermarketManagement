@@ -68,7 +68,7 @@ namespace GUI_SupermarketManagement
             try
             {
                 // BƯỚC 1: Gọi hàm bắt lỗi
-                if (KiemTraHopLe() == false)
+                if (ValidateInput() == false)
                 {
                     return; // Dừng lại ngay lập tức nếu có lỗi nhập liệu
                 }
@@ -422,7 +422,7 @@ namespace GUI_SupermarketManagement
             }
         }
 
-        private bool KiemTraHopLe()
+        private bool ValidateInput()
         {
             // 1. Kiểm tra không được để trống Tên Sản Phẩm
             if (string.IsNullOrWhiteSpace(txtTenSanPham.Text))
