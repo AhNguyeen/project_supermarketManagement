@@ -1,4 +1,4 @@
-﻿using BUS_SupermarketManagement;
+using BUS_SupermarketManagement;
 using ET_SupermarketManagement;
 using System;
 using System.Collections.Generic;
@@ -28,10 +28,14 @@ namespace GUI_SupermarketManagement
         private void LoadData()
         {
             dgvKhachHang.DataSource = bus_KhachHang.layDanhSach();
+            dgvKhachHang.ClearSelection();
         }
 
-        private void dgvKhachHang_SelectionChanged(object sender, EventArgs e)
+        private void dgvKhachHang_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            // Nếu click vào tiêu đề cột (RowIndex < 0), bỏ qua
+            if (e.RowIndex < 0) return;
+            
             // BƯỚC BẢO VỆ: Đảm bảo DataGridView đang thực sự có dòng được chọn
             if (dgvKhachHang.CurrentRow != null && dgvKhachHang.CurrentRow.Index >= 0)
             {
