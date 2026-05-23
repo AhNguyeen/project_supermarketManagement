@@ -159,7 +159,7 @@ namespace GUI_SupermarketManagement
             }
 
             // Kiểm tra tính hợp lệ của dữ liệu trước khi thực hiện
-            if (KiemTraTextBox() == false)
+            if (ValidateInput() == false)
             {
                 return;
             }
