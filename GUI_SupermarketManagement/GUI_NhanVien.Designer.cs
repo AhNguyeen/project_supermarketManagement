@@ -1,4 +1,4 @@
-﻿namespace GUI_SupermarketManagement
+namespace GUI_SupermarketManagement
 {
     partial class GUI_NhanVien
     {
@@ -149,7 +149,7 @@
             this.dgvNhanVien.ThemeStyle.RowsStyle.Height = 22;
             this.dgvNhanVien.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.dgvNhanVien.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            this.dgvNhanVien.SelectionChanged += new System.EventHandler(this.dgvNhanVien_SelectionChanged);
+            this.dgvNhanVien.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvNhanVien_CellClick);
             // 
             // colMaNhanVien
             // 

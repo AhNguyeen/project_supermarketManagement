@@ -1,4 +1,4 @@
-﻿using BUS_SupermarketManagement;
+using BUS_SupermarketManagement;
 using ET_SupermarketManagement;
 using System;
 using System.Collections.Generic;
@@ -48,12 +48,11 @@ namespace GUI_SupermarketManagement
             txtDiaChi.Text = "";
         }
 
-        private void dgvNhanVien_SelectionChanged(object sender, EventArgs e)
+        private void dgvNhanVien_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            // BƯỚC BẢO VỆ: Đảm bảo DataGridView đang thực sự có dòng được chọn
-            if (dgvNhanVien.CurrentRow != null && dgvNhanVien.CurrentRow.Index >= 0)
+            if (e.RowIndex >= 0 && dgvNhanVien.Rows[e.RowIndex].Cells["colMaNhanVien"].Value != null)
             {
-                DataGridViewRow row = dgvNhanVien.CurrentRow;
+                DataGridViewRow row = dgvNhanVien.Rows[e.RowIndex];
 
                 txtMaNV.Text = row.Cells["colMaNhanVien"].Value.ToString();
                 txtTenNV.Text = row.Cells["colHoTen"].Value.ToString();
@@ -64,12 +63,6 @@ namespace GUI_SupermarketManagement
                 txtSoDienThoai.Text = row.Cells["colSoDienThoai"].Value.ToString();
                 txtEmail.Text = row.Cells["colEmail"].Value.ToString();
                 txtDiaChi.Text = row.Cells["colDiaChi"].Value.ToString();
-            }
-            else
-            {
-                // Nếu không có dòng nào được chọn, xóa sạch các trường nhập liệu để tránh nhầm lẫn
-                ClearInputFields();
-                MessageBox.Show("Không có nhân viên nào được chọn. Vui lòng chọn một nhân viên để xem chi tiết.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -96,6 +89,7 @@ namespace GUI_SupermarketManagement
                 if (success)
                 {
                     MessageBox.Show("Thêm nhân viên thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    ClearInputFields();
                     LoadNhanVienVaChucVu(); // Tải lại danh sách nhân viên để hiển thị nhân viên mới thêm
                 }
                 else
@@ -137,6 +131,7 @@ namespace GUI_SupermarketManagement
                     if (success)
                     {
                         MessageBox.Show("Sửa thông tin nhân viên thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        ClearInputFields();
                         LoadNhanVienVaChucVu(); // Tải lại danh sách nhân viên để hiển thị thông tin đã sửa
                     }
                     else
@@ -199,10 +194,11 @@ namespace GUI_SupermarketManagement
                 MessageBox.Show("Tên nhân viên không được vượt quá 255 ký tự.", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            // Giới hạn độ dài địa chỉ (ví dụ: không quá 255 ký tự)
-            if (txtDiaChi.Text.Length > 255)
+
+            // Kiểm tra ngày sinh phải là ngày hợp lệ và không được lớn hơn ngày hiện tại
+            if (dtpNgaySinh.Value > DateTime.Now)
             {
-                MessageBox.Show("Địa chỉ không được vượt quá 255 ký tự.", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Ngày sinh không được lớn hơn ngày hiện tại.", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
             // Giới hạn độ tuổi nhân viên (ví dụ: từ 18 đến 50 tuổi)
@@ -213,12 +209,6 @@ namespace GUI_SupermarketManagement
                 return false;
             }
 
-            // Kiểm tra ngày sinh phải là ngày hợp lệ và không được lớn hơn ngày hiện tại
-            if (dtpNgaySinh.Value > DateTime.Now)
-            {
-                MessageBox.Show("Ngày sinh không được lớn hơn ngày hiện tại.", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
             // Kiểm tra giới tính phải được chọn
             if (cboGioiTinh.SelectedIndex < 0)
             {
@@ -247,6 +237,12 @@ namespace GUI_SupermarketManagement
             if (!System.Text.RegularExpressions.Regex.IsMatch(txtEmail.Text, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
             {
                 MessageBox.Show("Email không hợp lệ.", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            // Giới hạn độ dài địa chỉ (ví dụ: không quá 255 ký tự)
+            if (txtDiaChi.Text.Length > 255)
+            {
+                MessageBox.Show("Địa chỉ không được vượt quá 255 ký tự.", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
             return true;
