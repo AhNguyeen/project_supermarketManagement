@@ -1,4 +1,4 @@
-﻿using BUS_SupermarketManagement;
+using BUS_SupermarketManagement;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -27,6 +27,8 @@ namespace GUI_SupermarketManagement
         }
         BUS_ThongKe thongKe_BUS = new BUS_ThongKe();
 
+        private Timer refreshTimer;
+
         private void GUI_ThongKe_Load(object sender, EventArgs e)
         {
             labelTongDoanhThu.Text = thongKe_BUS.TongDoanhThu().ToString("#,##0") + "đ";
@@ -35,6 +37,18 @@ namespace GUI_SupermarketManagement
             labelSanPhamTonKho.Text = thongKe_BUS.SanPhamTonKho().ToString("#,##0");
             LoadSanPham();
             VeBieuDoDoanhThu();
+
+            // Khởi tạo Timer để cập nhật liên tục mỗi 5 giây
+            refreshTimer = new Timer();
+            refreshTimer.Interval = 5000; // 5000 milliseconds = 5 seconds
+            refreshTimer.Tick += RefreshTimer_Tick;
+            refreshTimer.Start();
+        }
+
+        private void RefreshTimer_Tick(object sender, EventArgs e)
+        {
+            // Cập nhật lại danh sách sản phẩm bán chạy mà không cần load lại toàn bộ Form
+            dgvCacSanPhamBanChay.DataSource = thongKe_BUS.LaySanPhamBanChay();
         }
 
         private void VeBieuDoDoanhThu()
