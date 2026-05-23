@@ -60,7 +60,7 @@ namespace GUI_SupermarketManagement
         private void btnThem_Click(object sender, EventArgs e)
         {
             // Bước 1: Kiểm tra tính hợp lệ của dữ liệu nhập vào
-            if (KiemTraTinhHopLe() == false)
+            if (ValidateInput() == false)
             {
                 return; // Nếu dữ liệu không hợp lệ, dừng lại và không thực hiện thêm
             }
@@ -96,7 +96,7 @@ namespace GUI_SupermarketManagement
                 return;
             }
 
-            if(KiemTraTinhHopLe() == false)
+            if(ValidateInput() == false)
             {
                 return; // Nếu dữ liệu không hợp lệ, dừng lại và không thực hiện sửa
             }
@@ -170,7 +170,7 @@ namespace GUI_SupermarketManagement
             }
         }
 
-        private bool KiemTraTinhHopLe()
+        private bool ValidateInput()
         {
             // 1. Kiểm tra tính hợp lệ của dữ liệu trước khi Thêm/Sửa (không rỗng)
             if (string.IsNullOrWhiteSpace(txtTenNCC.Text) ||
