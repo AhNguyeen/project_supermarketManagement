@@ -1,4 +1,4 @@
-﻿namespace GUI_SupermarketManagement
+namespace GUI_SupermarketManagement
 {
     partial class GUI_Login
     {
@@ -100,6 +100,7 @@
             this.txtPassword.ForeColor = System.Drawing.Color.Black;
             this.txtPassword.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtPassword.Name = "txtPassword";
+            this.txtPassword.PasswordChar = '*';
             this.txtPassword.PlaceholderForeColor = System.Drawing.Color.Gray;
             this.txtPassword.PlaceholderText = "Password";
             this.txtPassword.SelectedText = "";
