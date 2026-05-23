@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -38,6 +38,7 @@ namespace GUI_SupermarketManagement
         private void LoadDanhSach()
         {
             dgvDanhMuc.DataSource = bus_DanhMuc.LayDanhSach();
+            dgvDanhMuc.ClearSelection();
         }
 
         /// <summary>
@@ -60,13 +61,6 @@ namespace GUI_SupermarketManagement
             if (ValidateInput() == false)
             {
                 // Nếu có TextBox nào bị bỏ trống hoặc chứa ký tự đặc biệt thì sẽ không thực hiện thêm
-                return;
-            }
-
-            // Bắt lỗi: Không cho phép thêm nếu bỏ trống Tên Danh Mục
-            if (string.IsNullOrWhiteSpace(txtTenDanhMuc.Text))
-            {
-                MessageBox.Show("Vui lòng nhập Tên danh mục!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -164,10 +158,9 @@ namespace GUI_SupermarketManagement
                 return;
             }
 
-            // Kiểm tra không để trống tên
-            if (string.IsNullOrWhiteSpace(txtTenDanhMuc.Text))
+            // Kiểm tra tính hợp lệ của dữ liệu trước khi thực hiện
+            if (KiemTraTextBox() == false)
             {
-                MessageBox.Show("Tên danh mục không được để trống!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -202,28 +195,28 @@ namespace GUI_SupermarketManagement
 
         private bool ValidateInput()
         {
-            // Kiểm tra xem có TextBox nào đang bị bỏ trống hay không
+            // 1. Kiểm tra xem có TextBox nào đang bị bỏ trống hay không
             if (string.IsNullOrWhiteSpace(txtTenDanhMuc.Text))
             {
                 MessageBox.Show("Vui lòng điền đầy đủ thông tin trước khi thực hiện thao tác!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false; // Có TextBox bị bỏ trống
             }
 
-            // Kiểm tra kí tự đặc biệt (Chỉ cho phép chữ, số và khoảng trắng)
-            if (System.Text.RegularExpressions.Regex.IsMatch(txtTenDanhMuc.Text, @"[^a-zA-Z0-9\s]"))
-            {
-                MessageBox.Show("Tên danh mục không được chứa ký tự đặc biệt!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false; // Có TextBox chứa ký tự đặc biệt
-            }
-
-            // Bắt giới hạn độ dài kí tự từ 3 đến 255 ký tự
+            // 2. Bắt giới hạn độ dài kí tự từ 3 đến 255 ký tự
             if (txtTenDanhMuc.Text.Length < 3 || txtTenDanhMuc.Text.Length > 255)
             {
                 MessageBox.Show("Tên danh mục phải có độ dài từ 3 đến 255 ký tự!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false; // Độ dài không hợp lệ
             }
 
-            return true; // Tất cả TextBox đều đã được điền
+            // 3. Kiểm tra kí tự đặc biệt (cho phép chữ tiếng Việt, số, khoảng trắng và các dấu như .,&-)
+            if (!System.Text.RegularExpressions.Regex.IsMatch(txtTenDanhMuc.Text, @"^[\p{L}0-9\s.,&\-]+$"))
+            {
+                MessageBox.Show("Tên danh mục không được chứa ký tự đặc biệt không hợp lệ!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false; // Có TextBox chứa ký tự đặc biệt
+            }
+
+            return true; // Tất cả đều hợp lệ
         }
     }
 }
