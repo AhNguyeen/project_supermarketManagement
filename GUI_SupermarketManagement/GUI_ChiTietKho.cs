@@ -142,11 +142,11 @@ namespace GUI_SupermarketManagement
                     return;
                 }
                 // Lấy mã kho và mã sản phẩm từ dòng được chọn để xác định chi tiết kho cần xóa
-                string maKho = dgvChiTietKho.CurrentRow.Cells["colMaKho"].Value.ToString();
+                string maChiTietKho = dgvChiTietKho.CurrentRow.Cells["colMaChiTietKho"].Value.ToString();
                 string maSanPham = dgvChiTietKho.CurrentRow.Cells["colMaSanPham"].Value.ToString();
 
                 // Đổi kiểu dữ liệu nếu cần thiết (ví dụ: nếu MaKho và MaSanPham là int trong database thì phải convert sang int trước khi gọi hàm xóa)
-                int maKhoInt = int.Parse(maKho);
+                int maChiTietKhoInt = int.Parse(maChiTietKho);
                 int maSanPhamInt = int.Parse(maSanPham);
 
                 // Xác nhận với người dùng trước khi xóa
@@ -156,12 +156,12 @@ namespace GUI_SupermarketManagement
                     return; // Nếu người dùng chọn No, hủy bỏ thao tác xóa
                 }
 
-                bool success = bus_ChiTietKho.XoaChiTietKhoTheoMaKho(maKhoInt, maSanPhamInt);
+                bool success = bus_ChiTietKho.XoaChiTietKhoTheoMaKho(maChiTietKhoInt, maSanPhamInt);
                 if (success)
                 {
                     MessageBox.Show("Xóa chi tiết kho thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     // Refresh lại DataGridView để hiển thị cập nhật mới nhất
-                    dgvChiTietKho.DataSource = bus_ChiTietKho.LayDanhSachChiTietKho(maKho);
+                    dgvChiTietKho.DataSource = bus_ChiTietKho.LayDanhSachChiTietKho(maChiTietKho);
                 }
                 else
                 {
