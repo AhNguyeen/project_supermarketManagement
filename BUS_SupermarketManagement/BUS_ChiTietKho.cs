@@ -1,4 +1,4 @@
-﻿using DAL_SupermarketManagement;
+using DAL_SupermarketManagement;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -37,9 +37,9 @@ namespace BUS_SupermarketManagement
         }
 
         // Sửa thông tin chi tiết kho (Ví dụ: Cập nhật số lượng hoặc giá của một sản phẩm trong kho)
-        public bool SuaChiTietKho(string maKho, string maSanPham, int soLuong, decimal gia)
+        public bool SuaChiTietKho(int maChiTietKho, string maKho, string maSanPham, int soLuong, decimal gia)
         {
-            return chiTietKho.SuaChiTietKho(maKho, maSanPham, soLuong, gia);
+            return chiTietKho.SuaChiTietKho(maChiTietKho, maKho, maSanPham, soLuong, gia);
         }
     }
 }

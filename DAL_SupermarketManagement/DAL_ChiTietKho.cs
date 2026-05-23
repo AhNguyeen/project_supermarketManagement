@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -59,8 +59,8 @@ namespace DAL_SupermarketManagement
                 {
                     new SqlParameter("@MaKho", maKho),
                     new SqlParameter("@MaSanPham", maSanPham),
-                    new SqlParameter("@SoLuong", soLuong),
-                    new SqlParameter("@Gia", gia)
+                    new SqlParameter("@SoLuongNhap", soLuong),
+                    new SqlParameter("@GiaNhap", gia)
                 };
                 return db.ChangeData(strSQL, sqlParameters);
             }
@@ -103,17 +103,18 @@ namespace DAL_SupermarketManagement
         /// <param name="soLuong">Số lượng sản phẩm mới</param>
         /// <param name="gia">Giá sản phẩm mới</param>
         /// <returns>True nếu sửa thành công, False nếu thất bại</returns>
-        public bool SuaChiTietKho(string maKho, string maSanPham, int soLuong, decimal gia)
+        public bool SuaChiTietKho(int maChiTietKho, string maKho, string maSanPham, int soLuong, decimal gia)
         {
             try
             {
                 string strSQL = "sp_ChiTietKho_Update";
                 SqlParameter[] sqlParameters = new SqlParameter[]
                 {
+                    new SqlParameter("@MaChiTietKho", maChiTietKho),
                     new SqlParameter("@MaKho", maKho),
                     new SqlParameter("@MaSanPham", maSanPham),
-                    new SqlParameter("@SoLuong", soLuong),
-                    new SqlParameter("@Gia", gia)
+                    new SqlParameter("@SoLuongNhap", soLuong),
+                    new SqlParameter("@GiaNhap", gia)
                 };
                 return db.ChangeData(strSQL, sqlParameters);
             }

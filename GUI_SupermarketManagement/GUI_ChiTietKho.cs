@@ -203,7 +203,7 @@ namespace GUI_SupermarketManagement
                 int soLuongInt = int.Parse(soLuong);
                 decimal giaDecimal = decimal.Parse(gia);
 
-                bool success = bus_ChiTietKho.SuaChiTietKho(maKho, maSanPham, soLuongInt, giaDecimal);
+                bool success = bus_ChiTietKho.SuaChiTietKho(maChiTietKhoInt, maKho, maSanPham, soLuongInt, giaDecimal);
                 if (success)
                 {
                     MessageBox.Show("Sửa chi tiết kho thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
