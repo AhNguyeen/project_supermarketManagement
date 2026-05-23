@@ -193,16 +193,16 @@ namespace GUI_SupermarketManagement
                 MessageBox.Show("Số điện thoại phải chứa từ 10 đến 11 chữ số.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            // Kiểm tra xem email có phải là một chuỗi hợp lệ hay không (có thể sử dụng regex để kiểm tra định dạng email)
-            if (!string.IsNullOrWhiteSpace(txtEmail.Text) && !System.Text.RegularExpressions.Regex.IsMatch(txtEmail.Text, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
-            {
-                MessageBox.Show("Định dạng email không hợp lệ.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
             // Kiểm tra độ dài của Email (ví dụ: tối đa 255 ký tự)
             if (!string.IsNullOrWhiteSpace(txtEmail.Text) && txtEmail.Text.Length > 255)
             {
                 MessageBox.Show("Giới hạn độ dài email không hợp lệ.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            // Kiểm tra xem email có phải là một chuỗi hợp lệ hay không (có thể sử dụng regex để kiểm tra định dạng email)
+            if (!string.IsNullOrWhiteSpace(txtEmail.Text) && !System.Text.RegularExpressions.Regex.IsMatch(txtEmail.Text, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+            {
+                MessageBox.Show("Định dạng email không hợp lệ.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
             // Kiểm tra xem địa chỉ có phải là một chuỗi hợp lệ hay không
