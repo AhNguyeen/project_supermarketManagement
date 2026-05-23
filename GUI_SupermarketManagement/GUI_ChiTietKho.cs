@@ -141,12 +141,12 @@ namespace GUI_SupermarketManagement
                     MessageBox.Show("Vui lòng chọn một chi tiết kho để xóa.", "Chưa chọn chi tiết", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
-                // Lấy mã kho và mã sản phẩm từ dòng được chọn để xác định chi tiết kho cần xóa
-                string maChiTietKho = dgvChiTietKho.CurrentRow.Cells["colMaChiTietKho"].Value.ToString();
+                // Lấy mã kho từ combobox và mã sản phẩm để xác định chi tiết kho cần xóa
+                string maKho = cboMaKho.SelectedValue.ToString();
                 string maSanPham = dgvChiTietKho.CurrentRow.Cells["colMaSanPham"].Value.ToString();
 
                 // Đổi kiểu dữ liệu nếu cần thiết (ví dụ: nếu MaKho và MaSanPham là int trong database thì phải convert sang int trước khi gọi hàm xóa)
-                int maChiTietKhoInt = int.Parse(maChiTietKho);
+                int maKhoInt = int.Parse(maKho);
                 int maSanPhamInt = int.Parse(maSanPham);
 
                 // Xác nhận với người dùng trước khi xóa
@@ -156,7 +156,7 @@ namespace GUI_SupermarketManagement
                     return; // Nếu người dùng chọn No, hủy bỏ thao tác xóa
                 }
 
-                bool success = bus_ChiTietKho.XoaChiTietKhoTheoMaKho(maChiTietKhoInt, maSanPhamInt);
+                bool success = bus_ChiTietKho.XoaChiTietKhoTheoMaKho(maKhoInt, maSanPhamInt);
                 if (success)
                 {
                     MessageBox.Show("Xóa chi tiết kho thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
