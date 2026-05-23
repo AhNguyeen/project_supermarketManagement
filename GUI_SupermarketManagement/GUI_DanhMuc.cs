@@ -57,7 +57,7 @@ namespace GUI_SupermarketManagement
         private void btnThem_Click(object sender, EventArgs e)
         {
             // Kiểm tra trước khi thêm 
-            if (KiemTraTextBox() == false)
+            if (ValidateInput() == false)
             {
                 // Nếu có TextBox nào bị bỏ trống hoặc chứa ký tự đặc biệt thì sẽ không thực hiện thêm
                 return;
@@ -200,7 +200,7 @@ namespace GUI_SupermarketManagement
         //    return bus_DanhMuc.KiemTraTrungTenDanhMuc(tenDanhMuc);
         //}
 
-        private bool KiemTraTextBox()
+        private bool ValidateInput()
         {
             // Kiểm tra xem có TextBox nào đang bị bỏ trống hay không
             if (string.IsNullOrWhiteSpace(txtTenDanhMuc.Text))
