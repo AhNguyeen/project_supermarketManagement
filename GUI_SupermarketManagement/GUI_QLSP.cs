@@ -1,4 +1,4 @@
-﻿using BUS_SupermarketManagement;
+using BUS_SupermarketManagement;
 using ET_SupermarketManagement;
 using System;
 using System.Collections.Generic;
@@ -58,6 +58,7 @@ namespace GUI_SupermarketManagement
         {
             LoadComboBox();
             dgvsanpham.DataSource = bus.LayDS();
+            dgvsanpham.ClearSelection();
         }
 
         /// <summary>
@@ -71,13 +72,6 @@ namespace GUI_SupermarketManagement
                 if (ValidateInput() == false)
                 {
                     return; // Dừng lại ngay lập tức nếu có lỗi nhập liệu
-                }
-
-                // 1. Kiểm tra tính hợp lệ: Bắt buộc phải chọn Danh mục và Nhà cung cấp
-                if (cbDanhMuc.SelectedValue == null || cbNhaCungCap.SelectedValue == null)
-                {
-                    MessageBox.Show("Vui lòng chọn Danh mục và Nhà cung cấp!");
-                    return;
                 }
 
                 // BƯỚC 2: Nếu qua được ải trên, thì tiến hành gom dữ liệu và gọi xuống BUS / DAL
@@ -137,7 +131,13 @@ namespace GUI_SupermarketManagement
                 // Kiểm tra xem đã chọn sản phẩm để sửa chưa (dựa vào ô Mã Sản Phẩm)
                 if (string.IsNullOrEmpty(txtMaSanPham.Text))
                 {
-                    MessageBox.Show("Vui lòng chọn sản phẩm cần sửa!");
+                    MessageBox.Show("Vui lòng chọn sản phẩm cần sửa!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Kiểm tra nội dung sửa trước khi sửa
+                if (KiemTraHopLe() == false)
+                {
                     return;
                 }
 
@@ -156,12 +156,13 @@ namespace GUI_SupermarketManagement
                 // 2. Gửi lệnh Sửa
                 if (bus.Sua(sp))
                 {
-                    MessageBox.Show("Cập nhật thành công!");
+                    MessageBox.Show("Cập nhật thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LoadData(); // Load lại GridView để thấy thông tin mới
+                    btnLamMoi_Click(null, null); // Làm mới form
                 }
                 else
                 {
-                    MessageBox.Show("Cập nhật thất bại. Hãy kiểm tra lại Procedure SQL.");
+                    MessageBox.Show("Cập nhật thất bại. Hãy kiểm tra lại Procedure SQL.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex) { MessageBox.Show("Lỗi: " + ex.Message); }
@@ -432,9 +433,16 @@ namespace GUI_SupermarketManagement
                 return false;
             }
 
-            // 2. Kiểm tra Tên Sản Phẩm không có ký tự đặc biệt (!@#$%^&...)
-            // Giải thích Regex: \p{L} là chữ cái (gồm cả tiếng Việt có dấu), \d là số, \s là khoảng trắng.
-            Regex regexTen = new Regex(@"^[\p{L}\d\s]+$");
+            // 2. Tên sản phẩm phải có độ dài từ 3 đến 255 ký tự
+            if (txtTenSanPham.Text.Length < 3 || txtTenSanPham.Text.Length > 255)
+            {
+                MessageBox.Show("Tên sản phẩm phải có độ dài từ 3 đến 255 ký tự!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtTenSanPham.Focus();
+                return false;
+            }
+
+            // 3. Kiểm tra Tên Sản Phẩm không có ký tự đặc biệt (!@#$%^&...)
+            Regex regexTen = new Regex(@"^[\p{L}\d\s\-\.\,\(\)]+$"); // Bổ sung dấu trừ, chấm, phẩy, ngoặc thường dùng trong sản phẩm
             if (!regexTen.IsMatch(txtTenSanPham.Text))
             {
                 MessageBox.Show("Tên sản phẩm không được chứa ký tự đặc biệt!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -442,33 +450,32 @@ namespace GUI_SupermarketManagement
                 return false;
             }
 
-            // 3. Kiểm tra không được để trống Giá
+            // 4. Kiểm tra Danh mục và Nhà cung cấp phải được chọn
+            if (cbDanhMuc.SelectedIndex < 0 || cbNhaCungCap.SelectedIndex < 0)
+            {
+                MessageBox.Show("Vui lòng chọn Danh mục và Nhà cung cấp!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            // 5. Kiểm tra không được để trống Giá
             if (string.IsNullOrWhiteSpace(txtGiaNhap.Text) || string.IsNullOrWhiteSpace(txtGiaBan.Text))
             {
                 MessageBox.Show("Vui lòng nhập đầy đủ giá nhập và giá bán!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
 
-            // 4. Kiểm tra trường hợp copy-paste chữ vào ô Giá (Phòng hờ)
+            // 6. Kiểm tra giá trị nhập vào phải là số hợp lệ và lớn hơn hoặc bằng 0
             double giaNhap, giaBan;
-            if (!double.TryParse(txtGiaNhap.Text, out giaNhap) || !double.TryParse(txtGiaBan.Text, out giaBan))
+            if (!double.TryParse(txtGiaNhap.Text, out giaNhap) || giaNhap < 0 || !double.TryParse(txtGiaBan.Text, out giaBan) || giaBan < 0)
             {
-                MessageBox.Show("Giá tiền nhập vào không hợp lệ!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Giá tiền nhập vào không hợp lệ hoặc nhỏ hơn 0!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 
-            // 5. Ràng buộc logic kinh doanh (Tùy chọn thêm)
+            // 7. Ràng buộc logic kinh doanh (Tùy chọn thêm)
             if (giaBan <= giaNhap)
             {
                 MessageBox.Show("Cảnh báo: Giá bán đang nhỏ hơn hoặc bằng giá nhập!", "Lưu ý", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
-            }
-
-            // 6. Tên sản phẩm phải có độ dài từ 3 đến 255 ký tự
-            if (txtTenSanPham.Text.Length < 3 || txtTenSanPham.Text.Length > 255)
-            {
-                MessageBox.Show("Tên sản phẩm phải có độ dài từ 3 đến 255 ký tự!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtTenSanPham.Focus();
                 return false;
             }
 
