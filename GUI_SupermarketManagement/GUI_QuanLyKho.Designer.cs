@@ -65,9 +65,10 @@
             // 
             this.dgvKho.AllowUserToAddRows = false;
             this.dgvKho.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvKho.BackgroundColor = System.Drawing.Color.White;
+            this.dgvKho.BackgroundColor = System.Drawing.Color.IndianRed;
             this.dgvKho.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvKho.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.dgvKho.GridColor = System.Drawing.Color.DimGray;
             this.dgvKho.Location = new System.Drawing.Point(0, 365);
             this.dgvKho.Margin = new System.Windows.Forms.Padding(2);
             this.dgvKho.MultiSelect = false;
