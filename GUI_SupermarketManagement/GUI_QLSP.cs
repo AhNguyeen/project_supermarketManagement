@@ -136,7 +136,7 @@ namespace GUI_SupermarketManagement
                 }
 
                 // Kiểm tra nội dung sửa trước khi sửa
-                if (KiemTraHopLe() == false)
+                if (ValidateInput() == false)
                 {
                     return;
                 }
