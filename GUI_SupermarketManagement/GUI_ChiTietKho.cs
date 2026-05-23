@@ -161,7 +161,7 @@ namespace GUI_SupermarketManagement
                 {
                     MessageBox.Show("Xóa chi tiết kho thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     // Refresh lại DataGridView để hiển thị cập nhật mới nhất
-                    dgvChiTietKho.DataSource = bus_ChiTietKho.LayDanhSachChiTietKho(maChiTietKho);
+                    dgvChiTietKho.DataSource = bus_ChiTietKho.LayDanhSachChiTietKho(maKho);
                 }
                 else
                 {
