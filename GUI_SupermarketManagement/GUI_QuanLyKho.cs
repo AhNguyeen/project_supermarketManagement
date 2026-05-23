@@ -1,4 +1,4 @@
-﻿using BUS_SupermarketManagement;
+using BUS_SupermarketManagement;
 using ET_SupermarketManagement;
 using System;
 using System.Collections.Generic;
@@ -46,6 +46,7 @@ namespace GUI_SupermarketManagement
         {
             // 1. Đổ dữ liệu toàn bộ danh sách kho lên bảng DataGridView
             dgvKho.DataSource = bus_Kho.InDanhSachKho();
+            dgvKho.ClearSelection();
 
             // 2. Đổ dữ liệu vào ComboBox Nhân viên
             cboMaNhanVien.DataSource = nhanVien.InTenNhanVienKho();
@@ -89,26 +90,16 @@ namespace GUI_SupermarketManagement
                 return;
             }
 
-            // Bước 1: Kiểm tra tính hợp lệ của dữ liệu đầu vào (Validation)
-            if (string.IsNullOrWhiteSpace(txtTenKho.Text) ||
-                cboMaNhanVien.SelectedIndex == -1 ||
-                cboNCC.SelectedIndex == -1)
-            {
-                MessageBox.Show("Vui lòng không để trống tên kho, chọn nhân viên và chọn nhà cung cấp!!");
-                return; // Dừng lại, không chạy code phía dưới nữa
-            }
-            else
-            {
-                // Bước 4: Đóng gói dữ liệu vào thực thể (Entity)
-                ET_Kho kho = new ET_Kho(txtTenKho.Text, Convert.ToInt32(cboMaNhanVien.SelectedValue), Convert.ToInt32(cboNCC.SelectedValue), dtpNgayNhap.Value, rtxtGhiChu.Text);
+            // Đóng gói dữ liệu vào thực thể (Entity)
+            ET_Kho kho = new ET_Kho(txtTenKho.Text.Trim(), Convert.ToInt32(cboMaNhanVien.SelectedValue), Convert.ToInt32(cboNCC.SelectedValue), dtpNgayNhap.Value, rtxtGhiChu.Text);
 
-                // Bước 5: Gọi lớp BUS để thực hiện lệnh INSERT xuống SQL
-                bus_Kho.ThemKho(kho);
-                
-                // Bước 6: Làm mới lại bảng để hiển thị kho vừa thêm
-                LoadDanhSach();
-
-            }
+            // Gọi lớp BUS để thực hiện lệnh INSERT xuống SQL
+            bus_Kho.ThemKho(kho);
+            
+            MessageBox.Show("Thêm kho thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            // Làm mới lại bảng và xóa form
+            btnLamMoi_Click(null, null);
+            LoadDanhSach();
         }
 
         /// <summary>
@@ -144,12 +135,13 @@ namespace GUI_SupermarketManagement
                 if (r == DialogResult.Yes)
                 {
                     // Đóng gói và gửi lệnh UPDATE
-                    ET_Kho kho = new ET_Kho(Convert.ToInt32(txtMaKho.Text), txtTenKho.Text, Convert.ToInt32(cboMaNhanVien.SelectedValue), Convert.ToInt32(cboNCC.SelectedValue), dtpNgayNhap.Value, rtxtGhiChu.Text);
+                    ET_Kho kho = new ET_Kho(Convert.ToInt32(txtMaKho.Text), txtTenKho.Text.Trim(), Convert.ToInt32(cboMaNhanVien.SelectedValue), Convert.ToInt32(cboNCC.SelectedValue), dtpNgayNhap.Value, rtxtGhiChu.Text);
 
                     bus_Kho.SuaKho(kho);
 
+                    MessageBox.Show("Sửa thông tin kho thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    btnLamMoi_Click(null, null);
                     LoadDanhSach();
-                    MessageBox.Show("Sửa thông tin kho thành công!");
                 }
             }
         }
@@ -207,29 +199,39 @@ namespace GUI_SupermarketManagement
 
         private bool ValidateInput()
         {
-            // Cắt bỏ khoảng trắng ở 2 đầu (nếu người dùng lỡ bấm phím cách)
+            // Cắt bỏ khoảng trắng ở 2 đầu
             string tenKho = txtTenKho.Text.Trim();
 
-            // 1. Kiểm tra không được để trống
+            // 1. Kiểm tra các trường bắt buộc không được để trống
             if (string.IsNullOrWhiteSpace(tenKho))
             {
                 MessageBox.Show("Vui lòng nhập tên kho!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtTenKho.Focus();
                 return false;
             }
+            if (cboMaNhanVien.SelectedIndex == -1 || cboNCC.SelectedIndex == -1)
+            {
+                MessageBox.Show("Vui lòng chọn nhân viên và chọn nhà cung cấp!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
 
-            // 2. Kiểm tra giới hạn ký tự (Từ 3 đến 255)
+            // 2. Kiểm tra giới hạn ký tự (Từ 3 đến 255) cho tên kho
             if (tenKho.Length < 3 || tenKho.Length > 255)
             {
                 MessageBox.Show("Tên kho phải có độ dài từ 3 đến 255 ký tự!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtTenKho.Focus();
                 return false;
             }
+            
+            // Kiểm tra giới hạn độ dài ghi chú
+            if (rtxtGhiChu.Text.Length > 500)
+            {
+                MessageBox.Show("Ghi chú không được vượt quá 500 ký tự!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                rtxtGhiChu.Focus();
+                return false;
+            }
 
-            // 3. Kiểm tra không có ký tự đặc biệt
-            // \p{L}: Chữ cái (bao gồm tiếng Việt có dấu)
-            // \d: Chữ số
-            // \s: Khoảng trắng
+            // 3. Kiểm tra không có ký tự đặc biệt trong Tên kho
             Regex regex = new Regex(@"^[\p{L}\d\s]+$");
             if (!regex.IsMatch(tenKho))
             {
@@ -238,8 +240,16 @@ namespace GUI_SupermarketManagement
                 return false;
             }
 
-            // 4. Kiểm tra xem tên kho này đã tồn tại trong ngày hôm nay chưa (Chống trùng lặp)
+            // 4. Kiểm tra ngày nhập không được lớn 2100-01-01 hoặc nhỏ hơn 2000-01-01
             DateTime ngayNhap = dtpNgayNhap.Value;
+            if (ngayNhap > new DateTime(2100, 1, 1) || ngayNhap < new DateTime(2000, 1, 1))
+            {
+                MessageBox.Show("Ngày nhập phải nằm trong khoảng từ 01/01/2000 đến 01/01/2100!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                dtpNgayNhap.Focus();
+                return false;
+            }
+
+            // 5. Kiểm tra trùng lặp
             int maNV = Convert.ToInt32(cboMaNhanVien.SelectedValue);
             int maNCC = Convert.ToInt32(cboNCC.SelectedValue);
             if (bus_Kho.KiemTraTrung(tenKho, maNV, maNCC, ngayNhap) == true)
@@ -249,21 +259,14 @@ namespace GUI_SupermarketManagement
                 return false;
             }
 
-            // 5. Kiểm tra ngày nhập không được lớn 2100-01-01 hoặc nhỏ hơn 2000-01-01 (Giới hạn khoảng thời gian hợp lý)
-            if (ngayNhap > new DateTime(2100, 1, 1) || ngayNhap < new DateTime(2000, 1, 1))
-            {
-                MessageBox.Show("Ngày nhập phải nằm trong khoảng từ 01/01/2000 đến 01/01/2100!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                dtpNgayNhap.Focus();
-                return false;
-            }
-
             return true; // Dữ liệu hoàn toàn hợp lệ
         }
 
-        private void dgvKho_SelectionChanged(object sender, EventArgs e)
+        private void dgvKho_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             try
             {
+                if (e.RowIndex < 0) return;
                 if (dgvKho.CurrentRow != null && dgvKho.CurrentRow.Index >= 0)
                 {
                     DataGridViewRow row = dgvKho.CurrentRow;

@@ -30,6 +30,7 @@ namespace GUI_SupermarketManagement
         private void LoadNhanVienVaChucVu()
         {
             dgvNhanVien.DataSource = bus_NhanVien.LayDanhSachNhanVien(); 
+            dgvNhanVien.ClearSelection();
             cboChucVu.DataSource = bus_ChucVu.LayThongTinChucVu();
             cboChucVu.DisplayMember = "TenChucVu"; // Hiển thị tên chức vụ
             cboChucVu.ValueMember = "MaChucVu"; // Giá trị thực là mã chức vụ
@@ -50,7 +51,8 @@ namespace GUI_SupermarketManagement
 
         private void dgvNhanVien_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0 && dgvNhanVien.Rows[e.RowIndex].Cells["colMaNhanVien"].Value != null)
+            if (e.RowIndex < 0) return;
+            if (dgvNhanVien.Rows[e.RowIndex].Cells["colMaNhanVien"].Value != null)
             {
                 DataGridViewRow row = dgvNhanVien.Rows[e.RowIndex];
 
@@ -231,6 +233,12 @@ namespace GUI_SupermarketManagement
             if (!System.Text.RegularExpressions.Regex.IsMatch(txtSoDienThoai.Text, @"^\d{10}$"))
             {
                 MessageBox.Show("Số điện thoại phải có 10 chữ số.", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            // Kiểm tra email độ dài
+            if (txtEmail.Text.Length > 255)
+            {
+                MessageBox.Show("Email không được vượt quá 255 ký tự.", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
             // Kiểm tra email phải có định dạng hợp lệ
