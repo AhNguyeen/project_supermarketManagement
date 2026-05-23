@@ -1,4 +1,4 @@
-﻿using BUS_SupermarketManagement;
+using BUS_SupermarketManagement;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -58,6 +58,7 @@ namespace GUI_SupermarketManagement
             // 4. Load danh sách chi tiết các sản phẩm nằm trong kho đó lên DataGridView
             // (Bạn có thể thêm dgvChiTietKho.AutoGenerateColumns = false; ở đây nếu muốn tự thiết kế cột)
             dgvChiTietKho.DataSource = bus_ChiTietKho.LayDanhSachChiTietKho(maKho);
+            dgvChiTietKho.ClearSelection();
         }
 
         /// <summary>
@@ -86,7 +87,7 @@ namespace GUI_SupermarketManagement
         {
             try
             {
-                if (string.IsNullOrEmpty(cboMaKho.SelectedValue?.ToString()) || string.IsNullOrEmpty(cboMaSanPham.SelectedValue?.ToString()) || string.IsNullOrEmpty(txtSoLuong.Text) || string.IsNullOrEmpty(txtGiaNhap.Text))
+                if (string.IsNullOrEmpty(cboMaKho.SelectedValue?.ToString()) || string.IsNullOrEmpty(cboMaSanPham.SelectedValue?.ToString()) || string.IsNullOrEmpty(txtGiaNhap.Text))
                 {
                     MessageBox.Show("Vui lòng điền đầy đủ thông tin.", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
@@ -94,7 +95,7 @@ namespace GUI_SupermarketManagement
 
                 string maKho = cboMaKho.SelectedValue.ToString();
                 string maSanPham = cboMaSanPham.SelectedValue.ToString();
-                int soLuong = int.Parse(txtSoLuong.Text);
+                int soLuong = 100; // Số lượng nhập cố định là 100 theo yêu cầu
                 decimal gia = decimal.Parse(txtGiaNhap.Text);
 
                 // Kiểm tra trùng thông tin chi tiết kho trước khi thêm
@@ -110,6 +111,7 @@ namespace GUI_SupermarketManagement
                 {
                     MessageBox.Show("Thêm chi tiết kho thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     // Refresh lại DataGridView để hiển thị cập nhật mới nhất
+                    btnLamMoi_Click(null, null);
                     dgvChiTietKho.DataSource = bus_ChiTietKho.LayDanhSachChiTietKho(maKho);
                 }
                 else
@@ -134,14 +136,14 @@ namespace GUI_SupermarketManagement
             try
             {
                 // Kiểm tra xem người dùng đã chọn một chi tiết kho nào đó trong DataGridView chưa
-                if (dgvChiTietKho.SelectedRows.Count == 0)
+                if (dgvChiTietKho.CurrentRow == null || dgvChiTietKho.CurrentCell.RowIndex < 0)
                 {
                     MessageBox.Show("Vui lòng chọn một chi tiết kho để xóa.", "Chưa chọn chi tiết", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
                 // Lấy mã kho và mã sản phẩm từ dòng được chọn để xác định chi tiết kho cần xóa
-                string maKho = dgvChiTietKho.SelectedRows[0].Cells["colMaKho"].Value.ToString();
-                string maSanPham = dgvChiTietKho.SelectedRows[0].Cells["colMaSanPham"].Value.ToString();
+                string maKho = dgvChiTietKho.CurrentRow.Cells["colMaKho"].Value.ToString();
+                string maSanPham = dgvChiTietKho.CurrentRow.Cells["colMaSanPham"].Value.ToString();
 
                 // Đổi kiểu dữ liệu nếu cần thiết (ví dụ: nếu MaKho và MaSanPham là int trong database thì phải convert sang int trước khi gọi hàm xóa)
                 int maKhoInt = int.Parse(maKho);
@@ -182,15 +184,15 @@ namespace GUI_SupermarketManagement
             try
             {
                 // Kiểm tra xem người dùng đã chọn một chi tiết kho nào đó trong DataGridView chưa
-                if (dgvChiTietKho.SelectedRows.Count == 0)
+                if (dgvChiTietKho.CurrentRow == null || dgvChiTietKho.CurrentCell.RowIndex < 0)
                 {
                     MessageBox.Show("Vui lòng chọn một chi tiết kho để sửa.", "Chưa chọn chi tiết", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
                 // Lấy mã kho và mã sản phẩm từ dòng được chọn để xác định chi tiết kho cần sửa
-                string maChiTietKho = dgvChiTietKho.SelectedRows[0].Cells["colMaChiTietKho"].Value.ToString();
+                string maChiTietKho = dgvChiTietKho.CurrentRow.Cells["colMaChiTietKho"].Value.ToString();
                 string maKho = Convert.ToString(cboMaKho.SelectedValue); // Lấy mã kho từ ComboBox (nếu muốn cho phép sửa sang kho khác)    
-                string maSanPham = dgvChiTietKho.SelectedRows[0].Cells["colMaSanPham"].Value.ToString();
+                string maSanPham = dgvChiTietKho.CurrentRow.Cells["colMaSanPham"].Value.ToString();
                 string soLuong = txtSoLuong.Text;
                 string gia = txtGiaNhap.Text;
 
@@ -206,6 +208,7 @@ namespace GUI_SupermarketManagement
                 {
                     MessageBox.Show("Sửa chi tiết kho thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     // Refresh lại DataGridView để hiển thị cập nhật mới nhất
+                    btnLamMoi_Click(null, null);
                     dgvChiTietKho.DataSource = bus_ChiTietKho.LayDanhSachChiTietKho(maKho);
                 }
                 else
@@ -239,11 +242,12 @@ namespace GUI_SupermarketManagement
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void dgvChiTietKho_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvChiTietKho_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             try
             {
-                int row = dgvChiTietKho.CurrentCell.RowIndex;
+                if (e.RowIndex < 0) return;
+                int row = e.RowIndex;
                 txtMaChiTiet.Text = dgvChiTietKho.Rows[row].Cells["colMaChiTietKho"].Value.ToString();
                 //cboMaKho.SelectedValue = dgvChiTietKho.Rows[row].Cells["colMaKho"].Value.ToString();
                 cboMaSanPham.SelectedValue = dgvChiTietKho.Rows[row].Cells["colMaSanPham"].Value.ToString();

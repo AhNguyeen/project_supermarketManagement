@@ -1,4 +1,4 @@
-﻿namespace GUI_SupermarketManagement
+namespace GUI_SupermarketManagement
 {
     partial class GUI_ChiTietKho
     {
@@ -166,7 +166,7 @@
             this.dgvChiTietKho.ThemeStyle.RowsStyle.Height = 22;
             this.dgvChiTietKho.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.dgvChiTietKho.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            this.dgvChiTietKho.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvChiTietKho_CellContentClick);
+            this.dgvChiTietKho.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvChiTietKho_CellClick);
             // 
             // guna2Panel3
             // 
