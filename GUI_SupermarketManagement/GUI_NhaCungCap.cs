@@ -1,4 +1,4 @@
-﻿using BUS_SupermarketManagement;
+using BUS_SupermarketManagement;
 using ET_SupermarketManagement;
 using System;
 using System.Collections.Generic;
@@ -37,6 +37,7 @@ namespace GUI_SupermarketManagement
         private void LoadDanhSach()
         {
             dgvNCC.DataSource = bus_NhaCungCap.LayDanhSach();
+            dgvNCC.ClearSelection();
         }
 
         /// <summary>
@@ -89,6 +90,12 @@ namespace GUI_SupermarketManagement
         /// </summary>
         private void btnSua_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(txtMaNCC.Text))
+            {
+                MessageBox.Show("Vui lòng chọn nhà cung cấp cần sửa từ danh sách!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             if(KiemTraTinhHopLe() == false)
             {
                 return; // Nếu dữ liệu không hợp lệ, dừng lại và không thực hiện sửa
@@ -165,7 +172,7 @@ namespace GUI_SupermarketManagement
 
         private bool KiemTraTinhHopLe()
         {
-            // Kiểm tra tính hợp lệ của dữ liệu trước khi Thêm/Sửa
+            // 1. Kiểm tra tính hợp lệ của dữ liệu trước khi Thêm/Sửa (không rỗng)
             if (string.IsNullOrWhiteSpace(txtTenNCC.Text) ||
                 string.IsNullOrWhiteSpace(txtDiaChi.Text) ||
                 string.IsNullOrWhiteSpace(txtSoDT.Text) ||
@@ -174,18 +181,8 @@ namespace GUI_SupermarketManagement
                 MessageBox.Show("Vui lòng nhập đầy đủ các thông tin!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
-            // Kiểm tra định dạng email đơn giản (có chứa '@' và '.')
-            if (!txtEmail.Text.Contains("@") || !txtEmail.Text.Contains("."))
-            {
-                MessageBox.Show("Vui lòng nhập địa chỉ email hợp lệ!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
-            }
-            //Kiểm tra số điện thoại chỉ chứa hơn 9 kí tự và ít hơn 11 kí tự
-            if (txtSoDT.Text.Length < 9 || txtSoDT.Text.Length > 11)
-            {
-                MessageBox.Show("Số điện thoại phải có độ dài 10 chữ số!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
-            }
+            
+            // 2. Kiểm tra giới hạn độ dài
             // Kiểm tra giới hạn kí tự cho tên nhà cung cấp (từ 3 đến 255 ký tự)
             if (txtTenNCC.Text.Length < 3 || txtTenNCC.Text.Length > 255)
             {
@@ -198,22 +195,37 @@ namespace GUI_SupermarketManagement
                 MessageBox.Show("Địa chỉ phải có độ dài từ 5 đến 255 ký tự!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
-            // Kiểm tra giới hạn kí tự cho email (từ 5 đến 255 ký tự)
+            //Kiểm tra số điện thoại phải có 10 kí tự (hoặc 9-11 tùy chuẩn)
+            if (txtSoDT.Text.Length < 9 || txtSoDT.Text.Length > 11)
+            {
+                MessageBox.Show("Số điện thoại phải có độ dài từ 9 đến 11 chữ số!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+            // Kiểm tra giới hạn kí tự cho email (từ 5 đến 50 ký tự)
             if (txtEmail.Text.Length < 5 || txtEmail.Text.Length > 50)
             {
                 MessageBox.Show("Email phải có độ dài từ 5 đến 50 ký tự!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
-            // Kiểm tra kí tự đặc biệt trong tên nhà cung cấp (chỉ cho phép chữ, số và khoảng trắng)
-            if (System.Text.RegularExpressions.Regex.IsMatch(txtTenNCC.Text, @"[^a-zA-Z0-9\s]"))
+
+            // 3. Kiểm tra định dạng (Regex) và logic nghiệp vụ
+            // Kiểm tra định dạng email đơn giản (có chứa '@' và '.')
+            if (!txtEmail.Text.Contains("@") || !txtEmail.Text.Contains("."))
             {
-                MessageBox.Show("Tên nhà cung cấp không được chứa ký tự đặc biệt!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Vui lòng nhập địa chỉ email hợp lệ!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
-            // Kiểm tra kí tự đặc biệt trong địa chỉ (chỉ cho phép chữ, số, dấu chấm, dấu phẩy và khoảng trắng)
-            if (System.Text.RegularExpressions.Regex.IsMatch(txtDiaChi.Text, @"[^a-zA-Z0-9\s.,]"))
+            
+            // Kiểm tra kí tự đặc biệt trong tên nhà cung cấp (cho phép chữ tiếng Việt, số, khoảng trắng và các dấu cơ bản như .,&-)
+            if (!System.Text.RegularExpressions.Regex.IsMatch(txtTenNCC.Text, @"^[\p{L}0-9\s.,&\-]+$"))
             {
-                MessageBox.Show("Địa chỉ không được chứa ký tự đặc biệt!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Tên nhà cung cấp không được chứa ký tự đặc biệt không hợp lệ!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+            // Kiểm tra kí tự đặc biệt trong địa chỉ (cho phép chữ tiếng Việt, số, khoảng trắng và các dấu như .,/-)
+            if (!System.Text.RegularExpressions.Regex.IsMatch(txtDiaChi.Text, @"^[\p{L}0-9\s.,/\-]+$"))
+            {
+                MessageBox.Show("Địa chỉ không được chứa ký tự đặc biệt không hợp lệ!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
 
