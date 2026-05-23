@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -31,9 +31,13 @@ namespace GUI_SupermarketManagement
         // 2. Chỉnh lại Nút Đăng Xuất
         private void btnDangXuat_Click(object sender, EventArgs e)
         {
-            isLogout = true;                         // Bật cờ hiệu Đăng xuất lên
-            this.DialogResult = DialogResult.Yes;    // Bắn tín hiệu "Đăng xuất" về cho GUI_Login
-            this.Close();                            // Đóng form Menu
+            DialogResult r = MessageBox.Show("Bạn có chắc chắn muốn đăng xuất tài khoản?", "Xác nhận đăng xuất", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (r == DialogResult.Yes)
+            {
+                isLogout = true;                         // Bật cờ hiệu Đăng xuất lên
+                this.DialogResult = DialogResult.Yes;    // Bắn tín hiệu "Đăng xuất" về cho GUI_Login
+                this.Close();                            // Đóng form Menu
+            }
         }
 
         // 3. Chỉnh lại hàm FormClosing của Menu

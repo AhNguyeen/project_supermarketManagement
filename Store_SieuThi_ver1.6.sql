@@ -393,7 +393,7 @@ GO
 CREATE PROC sp_TopSanPhamBanChay @Top INT = 10 
 AS BEGIN
     SELECT TOP (@Top)
-        ROW_NUMBER() OVER(ORDER BY SUM(CT.ThanhTien) DESC) AS [Xếp Hạng],
+        ROW_NUMBER() OVER(ORDER BY SUM(CT.SoLuong) DESC) AS [Xếp Hạng],
         SP.TenSanPham AS [Tên Sản Phẩm],
         SUM(CT.SoLuong) AS [Số Lượng],
         SUM(CT.ThanhTien) AS [Doanh Thu]
@@ -402,7 +402,7 @@ AS BEGIN
     JOIN SanPham SP ON CT.MaSanPham = SP.MaSanPham
     WHERE HD.TrangThai = N'Hoàn thành'
     GROUP BY SP.MaSanPham, SP.TenSanPham
-    ORDER BY [Doanh Thu] DESC
+    ORDER BY [Số Lượng] DESC
 END
 GO
 
