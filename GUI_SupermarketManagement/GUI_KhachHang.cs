@@ -84,6 +84,7 @@ namespace GUI_SupermarketManagement
                 if (bus_KhachHang.themKhachHang(kh))
                 {
                     MessageBox.Show("Thêm khách hàng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    ClearInputFields();
                     LoadData(); // Tải lại dữ liệu để hiển thị khách hàng mới
                 }
                 else
@@ -118,6 +119,7 @@ namespace GUI_SupermarketManagement
                 if (bus_KhachHang.capNhatKhachHang(kh))
                 {
                     MessageBox.Show("Cập nhật khách hàng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    ClearInputFields();
                     LoadData(); // Tải lại dữ liệu để hiển thị thông tin khách hàng đã được cập nhật
                 }
                 else
