@@ -1,4 +1,4 @@
-﻿using BUS_SupermarketManagement;
+using BUS_SupermarketManagement;
 using ET_SupermarketManagement;
 using System;
 using System.Collections.Generic;
@@ -258,7 +258,7 @@ namespace GUI_SupermarketManagement
 
                 if (r == DialogResult.Yes)
                 {
-                    int maHD = Convert.ToInt32(txtTongTien.Text);
+                    int maHD = Convert.ToInt32(txtMaHD.Text);
                     bus_HoaDon.XoaHoaDon(maHD); // Gọi hàm xóa từ Database
 
                     LoadDanhSach(); // Refresh bảng
